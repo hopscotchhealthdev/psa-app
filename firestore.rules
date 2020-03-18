@@ -1,0 +1,11 @@
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{user} {
+      function is_myself() {
+        return (request.auth.uid == user);
+      }
+      allow create, read, update, delete: if is_myself();
+    }
+}
+
+}
