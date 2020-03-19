@@ -51,8 +51,12 @@ export class RegisterComponent implements OnInit {
           .firestore().collection("users").doc(data.user.uid).set({
             userName: values.userName,
             email: values.email,
-            createdDate: new Date(),
-          }).then(() => {}).catch(function (error) {
+            createdDate: new Date(),           
+          }).then(() => {
+            return firebase
+            .auth().currentUser.sendEmailVerification()
+            .then(() => console.log("verification sent"))
+          }).catch(function (error) {
             me.error = error.message;
           });
       }).catch(function (error) {

@@ -13,7 +13,16 @@ export class AppComponent {
     var me = this;
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        me.router.navigate(['home']);
+        
+        const userData = user.uid;
+        console.log(user);
+        if (user.emailVerified) {
+          me.router.navigate(['home']);
+        }  
+        else{
+          this.router.navigate(['/verify-email']);
+        }
+       // me.router.navigate(['home']);
       } else {
         me.router.navigate(["/login"]);
       }

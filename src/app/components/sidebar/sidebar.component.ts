@@ -12,6 +12,12 @@ export const ROUTES: RouteInfo[] = [
     title: "HomePage",
     icon: "icon-chart-pie-36",
     class: ""
+  },
+  {
+    path: "/Record-Now",
+    title: "VideoRecoder",
+    icon: "icon-pin",
+    class: ""
   }
   
 ];

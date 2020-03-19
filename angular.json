@@ -94,9 +94,15 @@
             "karmaConfig": "src/karma.conf.js",
             "styles": [
               "src/styles.scss",
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/videojs-record/dist/css/videojs.record.min.css"
+      
             ],
-            "scripts": [],
+            "scripts": [
+        "./node_modules/videojs-record/dist/videojs.record.min.js",
+        "./node_modules/video.js/dist/video.min.js"
+
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"
