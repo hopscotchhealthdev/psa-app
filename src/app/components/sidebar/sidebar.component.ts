@@ -14,11 +14,17 @@ export const ROUTES: RouteInfo[] = [
     class: ""
   },
   {
-    path: "/Record-Now",
+    path: "/video-recorder",
     title: "VideoRecoder",
     icon: "icon-pin",
     class: ""
-  }
+  },
+  {
+    path: "/profile",
+    title: "Profile",
+    icon: "icon-single-02",
+    class: ""
+  },
   
 ];
 

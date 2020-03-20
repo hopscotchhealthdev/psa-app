@@ -5,7 +5,6 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import { VideoRecoderModule } from './pages/video-recoder/video-recoder.module';
 
 const routes: Routes = [
   
@@ -24,7 +23,6 @@ const routes: Routes = [
   { path: 'forgot-password', loadChildren: () => import('./pages/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule) },
   { path: 'register', loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterModule) },
   { path: 'verify-email', loadChildren: () => import('./pages/verify-email/verify-email.module').then(m => m.VerifyEmailModule) },
-  { path: 'Record-Now', loadChildren: () => import('./pages/video-recoder/video-recoder.module').then(m => m.VideoRecoderModule) },
      {
     path: '',
     component: AuthLayoutComponent,

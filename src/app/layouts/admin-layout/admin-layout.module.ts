@@ -1,3 +1,4 @@
+import { VideoRecoderComponent } from './../../pages/video-recoder/video-recoder.component';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
@@ -5,7 +6,7 @@ import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { AdminLayoutRoutes } from "./admin-layout.routing";
 import { DashboardComponent } from "../../pages/dashboard/dashboard.component";
-
+import { ProfileComponent } from './../../pages/profile/profile.component';
 // import { RtlComponent } from "../../pages/rtl/rtl.component";
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
@@ -30,6 +31,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
   ],
   declarations: [
     DashboardComponent,
+    ProfileComponent,
+    VideoRecoderComponent
   
     // RtlComponent
   ],

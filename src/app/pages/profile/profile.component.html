@@ -1,0 +1,53 @@
+
+
+ 
+  <div class="content">
+      <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+    <div class="container">
+
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+
+          </div>
+          <div class="card-body">
+            <div class=" col-md-12">
+              <div class=" card">
+                <div class=" card-header">
+                  <h5 class="title">Edit Profile</h5>
+                </div>
+                <div ><div class="fileinput text-center"><input accept="image/*" (change)="fileInput($event)"  id="file"style="display:none" type="file"><div  class="thumbnail img-circle"><img   src="{{user.image}}"></div><div ><button class="btn-round btn btn-danger ng-star-inserted"(click)="addPhoto()"> Add Photo </button></div></div></div>
+                <div class=" card-body">
+
+                  <label> Email </label>
+                  <div class=" form-group"><input disabled [ngModel]="user.email" class="form-control" type="text"></div>
+
+                  <label> User Name </label>
+                  <div class=" form-group"><input (ngModelChange)="user.userName = $event" [ngModel]="user.userName" class="form-control" type="text"></div>
+
+                  <label> Age </label>
+                  <div class=" form-group"><input (ngModelChange)="user.age = $event" [ngModel]="user.age" class="form-control" type="number"></div>
+
+                  <div class=" row"><label class=" col-sm-2 col-form-label"> Gender </label>
+                    <div  radio-group  class=" col-sm-10 checkbox-radios">
+                      <div class=" form-check form-check-radio"><label class=" form-check-label"><input class=" form-check-input"
+                            type="radio" (ngModelChange)="user.gender = $event" [ngModel]="user.gender"  name="gender" value="male"><span class=" form-check-sign"></span>
+                          Male </label></div>
+                      <div class="form-check form-check-radio"><label class=" form-check-label"><input class=" form-check-input"
+                            type="radio"  (ngModelChange)="user.gender = $event" [ngModel]="user.gender" name="gender" value="female"><span class=" form-check-sign"></span>
+                          Female</label></div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class=" card-footer"><button (click)="update()" class=" btn btn-fill btn-primary" type="submit">
+                    Update </button></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
