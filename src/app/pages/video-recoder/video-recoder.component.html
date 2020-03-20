@@ -1,14 +1,23 @@
+<div class="content">
 <div class="row">
-    <div  class="col-xs-12 div-center">
+  <div class="col-xs-12 div-center">
     <video [hidden]="isPlaying" #video class="video"></video>
     <video [hidden]="!isPlaying" muted controls #videoPlay controls class="video"></video>
   </div>
-  <div  class="timer" *ngIf="timecount !=0">{{timecount}}</div>
+  <div class="timer" *ngIf="timecount !=0">{{timecount}}</div>
 </div>
 <div class="row">
-  <div class="col-xs-12 div-center" >
-    <img  *ngIf="!recording" src="assets/img/recording-play.png" (click)="startRecording()" />
-    <img  *ngIf="recording" src="assets/img/recording-pause.png" (click)="stopRecording()" />
+  <div class="col-xs-12 div-center">
+    <div *ngIf="!recording">
+      <p>Click Here to start your recording </p>
+      <img src="assets/img/recording-play.png" (click)="startRecording()" />
+    </div>
+    <div *ngIf="recording">
+        <p>Click Here to stop your recording </p>
+        <img  src="assets/img/recording-pause.png" (click)="stopRecording()" />
+      </div>
+  
 
   </div>
+</div>
 </div>
