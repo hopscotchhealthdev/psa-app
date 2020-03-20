@@ -4,6 +4,7 @@ import * as firebase from "firebase";
 import { Observable } from 'rxjs';
 import { ConfirmationDailogService } from '../confirmation-dailog/confirmation-dailog.service';
 import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 @Component({
   selector: 'app-video-recoder',
   templateUrl: './video-recoder.component.html',
@@ -23,7 +24,15 @@ export class VideoRecoderComponent implements OnInit {
   @ViewChild('videoPlay') videoPlay;
   img: any;
   videoData: any;
-  constructor(private confirmationDialogService: ConfirmationDailogService, private toastr: ToastrService) { }
+  videoContentpage=false;
+  constructor(private confirmationDialogService: ConfirmationDailogService, private router: Router, private activatedRoute:ActivatedRoute ,private toastr: ToastrService) { 
+    this.activatedRoute.queryParams.subscribe((params: Params) => {
+      if(params){
+        this.videoContentpage=params.videoContentpage;
+        console.log(params);}
+      
+    });
+  }
   ngOnInit() {
   }
   ngAfterViewInit() {
@@ -126,12 +135,17 @@ export class VideoRecoderComponent implements OnInit {
     return time;
   }
   public uploadvideo() {
-    this.openConfirmationDialog();
+    var title='please confirm...';
+    var message='Are you sure you want to upload this video?';
+    var btnOkText='Yes';
+    var btnCancelText='No';
+    this.openConfirmationDialog(title,message,btnOkText,btnCancelText);
 
   }
   saveVideo(url) {
     var me = this;
     return new Promise(function (resolve, reject) {
+      if(!me.videoContentpage){
       var userId = firebase.auth().currentUser.uid;
       firebase.firestore().collection("users").doc(userId).collection('videos').add({
         url: url,
@@ -149,27 +163,56 @@ export class VideoRecoderComponent implements OnInit {
         .catch(function (error) {
           reject(error);
         });
+      }
+      else{
+        firebase.firestore().collection("anonymous").doc(localStorage.getItem("guid")).collection('videos').add({
+          url: url,
+          createdDate: new Date().getTime(),
+          userId: localStorage.getItem("guid")
+        })
+          .then(function () {
+            me.toastr.success('file uploaded successfully', '', {
+              timeOut: 2000,
+              positionClass: 'toast-top-center',
+            });
+            me.resetScreen();
+            resolve(true);
+          })
+          .catch(function (error) {
+            reject(error);
+          });
+      }
     });
   }
   resetScreen(){
+
     this.uploadProgress=0;
     this.recording = false;
     this.progress = false;
     this.isPlaying = false;
     this.upload = false;
+    var title='please confirm...';
+    var message='Please Login the app, if you want to share the video?';
+    var btnOkText='login';
+    var btnCancelText='cancel';
+    this.loginConfirmationDialog(title,message,btnOkText,btnCancelText);
   }
   uploadVideoAsPromise(): any {
     var me = this;
     var recordedBlob = this.recordRTC.getBlob();
-me.progress=true;
+    me.progress=true;
     return new Promise(function (resolve, reject) {
       var uploadTask = firebase.storage().ref().child('videos').child(me.Guid()).put(recordedBlob);
+    
       uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, function (snapshot) {
         me.uploadProgress = snapshot.bytesTransferred / snapshot.totalBytes * 100;
+   
         if(me.uploadProgress ==100){
-          snapshot.ref.getDownloadURL().then(function (downloadURL) {
-            resolve(downloadURL);
-          });
+          setTimeout(function(){
+            uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+              resolve(downloadURL);
+            })
+          },3000);
         }
       }), function (error) {
         console.log(error)
@@ -188,8 +231,8 @@ me.progress=true;
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
       s4() + '-' + s4() + s4() + s4();
   }
-  public openConfirmationDialog() {
-    this.confirmationDialogService.confirm('Please confirm..', 'Are you sure you want to upload this video?')
+  public openConfirmationDialog(title,message,btnOkText,btnCancelText) {
+    this.confirmationDialogService.confirm(title, message,btnOkText ,btnCancelText)
       .then((confirmed) => {
         if (confirmed) {
           var me = this;
@@ -209,6 +252,15 @@ me.progress=true;
               positionClass: 'toast-top-center',
             });
           });
+        }
+      })
+      .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
+  }
+  public loginConfirmationDialog(title,message,btnOkText,btnCancelText) {
+    this.confirmationDialogService.confirm(title, message,btnOkText ,btnCancelText)
+      .then((confirmed) => {
+        if (confirmed) {
+          this.router.navigate(['/login']);
         }
       })
       .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));

@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import * as firebase from 'firebase';
 
 @Component({
   selector: "app-admin-layout",
@@ -7,10 +8,14 @@ import { Component, OnInit } from "@angular/core";
 })
 export class AdminLayoutComponent implements OnInit {
   public sidebarColor: string = "gray";
+  user: boolean= false;
 
 
   constructor() {
-    
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.user=true
+      }})
   }
   changeSidebarColor(color){
     var sidebar = document.getElementsByClassName('sidebar')[0];

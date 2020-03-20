@@ -14,7 +14,7 @@ import { ComponentsModule } from "./components/components.module";
 import * as firebase from "firebase";
 import { firebase_config } from 'src/config/config';
 import { NgxLoadingModule } from 'ngx-loading';
-
+import {APP_BASE_HREF} from '@angular/common';
 firebase.initializeApp(firebase_config);
 @NgModule({
   imports: [
@@ -31,7 +31,7 @@ firebase.initializeApp(firebase_config);
     NgxLoadingModule.forRoot({})
  ],
   declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent],
-  providers: [],
+  providers: [{provide: APP_BASE_HREF, useValue : '/' }],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
