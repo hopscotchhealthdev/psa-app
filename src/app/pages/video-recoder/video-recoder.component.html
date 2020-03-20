@@ -11,13 +11,18 @@
     <div *ngIf="!recording">
       <p>Click Here to start your recording </p>
       <img src="assets/img/recording-play.png" (click)="startRecording()" />
+      <img style="padding-left: 37px;" *ngIf="upload" src="assets/img/upload.png" (click)="uploadvideo()" />
     </div>
     <div *ngIf="recording">
         <p>Click Here to stop your recording </p>
-        <img  src="assets/img/recording-pause.png" (click)="stopRecording()" />
+        <img  src="assets/img/recording-pause.png" (click)="stopRecording()" /> 
+            
       </div>
-  
-
+      <div *ngIf="progress" >
+        <progress-bar [progress]="uploadProgress" [color]="'#70E083'">
+      </progress-bar>
+    <h4>Video Uploading...</h4></div>
   </div>
 </div>
+ 
 </div>

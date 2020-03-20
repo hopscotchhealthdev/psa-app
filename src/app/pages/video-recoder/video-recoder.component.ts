@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import * as RecordRTC from "recordrtc/recordrtc.min.js";
-
+import * as firebase from "firebase";
+import { Observable } from 'rxjs';
+import { ConfirmationDailogService } from '../confirmation-dailog/confirmation-dailog.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-video-recoder',
   templateUrl: './video-recoder.component.html',
@@ -9,14 +12,19 @@ import * as RecordRTC from "recordrtc/recordrtc.min.js";
 export class VideoRecoderComponent implements OnInit {
   private stream: MediaStream;
   private recordRTC: any;
-   recording: boolean=false;
-   isPlaying=false;
-   counter:any;
-   timecount;
+  uploadProgress;
+  recording: boolean = false;
+  progress = false;
+  isPlaying = false;
+  counter: any;
+  timecount;
+  upload = false;
   @ViewChild('video') video;
   @ViewChild('videoPlay') videoPlay;
-  constructor() {}
-  ngOnInit(){
+  img: any;
+  videoData: any;
+  constructor(private confirmationDialogService: ConfirmationDailogService, private toastr: ToastrService) { }
+  ngOnInit() {
   }
   ngAfterViewInit() {
 
@@ -24,10 +32,7 @@ export class VideoRecoderComponent implements OnInit {
 
   successCallback(stream: MediaStream) {
     var options = {
-      mimeType: 'video/webm', // or video/webm\;codecs=h264 or video/webm\;codecs=vp9
-  //    audioBitsPerSecond: 128000,
-   //   videoBitsPerSecond: 128000,
-   //   bitsPerSecond: 128000 // if this line is provided, skip above two
+      mimeType: 'video/webm',
     };
     this.stream = stream;
     this.recordRTC = RecordRTC(stream, options);
@@ -37,8 +42,8 @@ export class VideoRecoderComponent implements OnInit {
     video.muted = true;
     video.controls = false;
     video.autoplay = true;
-    this.recording=true;
-    this.isPlaying=false;
+    this.recording = true;
+    this.isPlaying = false;
     this.startTimer();
   }
 
@@ -50,15 +55,16 @@ export class VideoRecoderComponent implements OnInit {
   processVideo(audioVideoWebMURL) {
     let video: HTMLVideoElement = this.videoPlay.nativeElement;
     let recordRTC = this.recordRTC;
-     video.src = audioVideoWebMURL;
+    video.src = audioVideoWebMURL;
     var recordedBlob = recordRTC.getBlob();
     recordRTC.getDataURL(function (dataURL) {
       console.log(dataURL)
-     });
+    });
   }
 
   startRecording() {
-    let mediaConstraints:any = {
+    this.upload = false;
+    let mediaConstraints: any = {
       video: {
       }, audio: true
     };
@@ -73,8 +79,9 @@ export class VideoRecoderComponent implements OnInit {
     let stream = this.stream;
     stream.getAudioTracks().forEach(track => track.stop());
     stream.getVideoTracks().forEach(track => track.stop());
-    this.recording=false;
-    this.isPlaying=true;
+    this.recording = false;
+    this.isPlaying = true;
+    this.upload = true
     this.pauseTimer();
   }
 
@@ -83,39 +90,127 @@ export class VideoRecoderComponent implements OnInit {
   }
   pauseTimer() {
     clearInterval(this.counter);
-    this.timecount=0;
+    this.timecount = 0;
   }
-  startTimer(){ 
-    this.timecount=0; 
-    var count = '1'; // it's 00:01:02  
+  startTimer() {
+    this.timecount = 0;
+    var count = '1'; // it's 00:01:02
     this.counter = setInterval(timer, 1000);
     var me = this;
     function timer() {
-        if (parseInt(count) <= 0) {
-            clearInterval(me.counter);
-            return;
+      if (parseInt(count) <= 0) {
+        clearInterval(me.counter);
+        return;
+      }
+      me.timecount = me.getHHMMSS(count);
+      count = (parseInt(count) + 1).toString();
+    }
+
+  }
+  getHHMMSS(count) {
+    var sec_num = parseInt(count, 10); // don't forget the second parm
+    var hours = Math.floor(sec_num / 3600);
+    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+    if (hours < 10) {
+      hours = 0 + hours;
+    }
+    if (minutes < 10) {
+      minutes = 0 + minutes;
+    }
+    if (seconds < 10) {
+      seconds = 0 + seconds;
+    }
+    var time = hours + ':' + minutes + ':' + seconds;
+    return time;
+  }
+  public uploadvideo() {
+    this.openConfirmationDialog();
+
+  }
+  saveVideo(url) {
+    var me = this;
+    return new Promise(function (resolve, reject) {
+      var userId = firebase.auth().currentUser.uid;
+      firebase.firestore().collection("users").doc(userId).collection('videos').add({
+        url: url,
+        createdDate: new Date().getTime(),
+        userId: userId
+      })
+        .then(function () {
+          me.toastr.success('file uploaded successfully', '', {
+            timeOut: 2000,
+            positionClass: 'toast-top-center',
+          });
+          me.resetScreen();
+          resolve(true);
+        })
+        .catch(function (error) {
+          reject(error);
+        });
+    });
+  }
+  resetScreen(){
+    this.uploadProgress=0;
+    this.recording = false;
+    this.progress = false;
+    this.isPlaying = false;
+    this.upload = false;
+  }
+  uploadVideoAsPromise(): any {
+    var me = this;
+    var recordedBlob = this.recordRTC.getBlob();
+me.progress=true;
+    return new Promise(function (resolve, reject) {
+      var uploadTask = firebase.storage().ref().child('videos').child(me.Guid()).put(recordedBlob);
+      uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, function (snapshot) {
+        me.uploadProgress = snapshot.bytesTransferred / snapshot.totalBytes * 100;
+        if(me.uploadProgress ==100){
+          snapshot.ref.getDownloadURL().then(function (downloadURL) {
+            resolve(downloadURL);
+          });
         }
-        me.timecount = me.getHHMMSS(count);
-        count = (parseInt(count) + 1).toString();
-    }
-  
-    }
-    getHHMMSS(count){
-      var sec_num = parseInt(count, 10); // don't forget the second parm
-      var hours = Math.floor(sec_num / 3600);
-      var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
-      var seconds = sec_num - (hours *3600) - (minutes * 60);
-  
-      if (hours < 10) {
-          hours = 0 + hours;
+      }), function (error) {
+        console.log(error)
+        reject(error);
+      
       }
-      if (minutes < 10) {
-          minutes = 0 + minutes;
-      }
-      if (seconds < 10) {
-          seconds = 0 + seconds;
-      }
-      var time = hours + ':' + minutes + ':' + seconds;
-      return time;
+    });
+
+  }
+  Guid() {
+    function s4() {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
     }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+      s4() + '-' + s4() + s4() + s4();
+  }
+  public openConfirmationDialog() {
+    this.confirmationDialogService.confirm('Please confirm..', 'Are you sure you want to upload this video?')
+      .then((confirmed) => {
+        if (confirmed) {
+          var me = this;
+      
+          me.uploadVideoAsPromise().then((videoUrl) => {
+            me.saveVideo(videoUrl).then(function (res) {
+              if (res) {
+                console.log(res)
+
+              }
+            
+            });
+          }).catch((err) => {
+            me.progress = false;
+            me.toastr.error('file upload error', '', {
+              timeOut: 2000,
+              positionClass: 'toast-top-center',
+            });
+          });
+        }
+      })
+      .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
+  }
 }

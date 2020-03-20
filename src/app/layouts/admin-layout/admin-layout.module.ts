@@ -11,7 +11,7 @@ import { ProfileComponent } from './../../pages/profile/profile.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { NgxLoadingModule } from 'ngx-loading';
-
+import {ProgressBarModule} from "angular-progress-bar"
 import { NgxAudioPlayerModule } from 'ngx-audio-player';
 import { MaterialModule } from 'src/app/material.module';
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -21,7 +21,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     HttpClientModule,
-    NgbModule,
+    NgbModule,ProgressBarModule,
     NgxPaginationModule,
     NgxAudioPlayerModule,
     MaterialModule,
