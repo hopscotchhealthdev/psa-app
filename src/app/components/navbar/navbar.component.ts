@@ -65,9 +65,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
         firebase
           .firestore().collection("users").doc(user.uid).onSnapshot((userRef) => {
             me.user.userName = userRef.data().userName;
-            me.user.image = userRef.data().image ? userRef.data().image : "assets/img/placeholder.jpg"
-            me.user.gender = userRef.data().image ? userRef.data().gender : "assets/img/placeholder.jpg"
-          });
+            me.user.image = userRef.data().image ? userRef.data().image : "assets/img/anime3.png"
+            });
 
       } else {
         me.router.navigate(["/login"]);
