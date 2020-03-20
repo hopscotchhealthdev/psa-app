@@ -144,7 +144,7 @@ export class VideoRecoderComponent implements OnInit {
   }
   saveVideo(url) {
     var me = this;
-      if(!firebase.auth().currentUser){
+      if(firebase.auth().currentUser){
       var userId = firebase.auth().currentUser.uid;
       firebase.firestore().collection("users").doc(userId).collection('videos').add({
         url: url,

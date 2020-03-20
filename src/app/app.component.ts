@@ -35,8 +35,6 @@ export class AppComponent {
               console.log(err);
             })
         }
-        const userData = user.uid;
-        console.log(user);
         if (user.emailVerified) {
           me.router.navigate(['home']);
         }

@@ -6,8 +6,13 @@ service cloud.firestore {
       }
       allow create, read, update, delete: if is_myself();
        match /videos/{videoId} {
-				 allow create, read, update, delete:   if resource.data.userId == user;
+				 allow create, read, update, delete:  if request.resource.data.userId == user ;
       }
+    }
+      match /anonymous/{user} {
+     
+      allow create, read, update, delete: if true;
+       
     }
 }
 
