@@ -36,8 +36,7 @@ export class VideoRecoderComponent implements OnInit {
   ngOnInit() {
   }
   ngAfterViewInit() {
-
-  }
+}
 
   successCallback(stream: MediaStream) {
     var options = {
@@ -114,8 +113,8 @@ export class VideoRecoderComponent implements OnInit {
       me.timecount = me.getHHMMSS(count);
       count = (parseInt(count) + 1).toString();
     }
-
   }
+
   getHHMMSS(count) {
     var sec_num = parseInt(count, 10); // don't forget the second parm
     var hours = Math.floor(sec_num / 3600);
@@ -134,14 +133,15 @@ export class VideoRecoderComponent implements OnInit {
     var time = hours + ':' + minutes + ':' + seconds;
     return time;
   }
+
   public uploadvideo() {
     var title='please confirm...';
     var message='Are you sure you want to upload this video?';
     var btnOkText='Yes';
     var btnCancelText='No';
     this.openConfirmationDialog(title,message,btnOkText,btnCancelText);
-
   }
+
   saveVideo(url) {
     var me = this;
       if(firebase.auth().currentUser){
@@ -185,11 +185,14 @@ export class VideoRecoderComponent implements OnInit {
     this.progress = false;
     this.isPlaying = false;
     this.upload = false;
-    var title='please confirm...';
-    var message='Please Login the app, if you want to share the video?';
-    var btnOkText='login';
-    var btnCancelText='cancel';
-    this.loginConfirmationDialog(title,message,btnOkText,btnCancelText);
+    if(!firebase.auth().currentUser){
+      var title='please confirm...';
+      var message='Please Login the app, if you want to share the video?';
+      var btnOkText='login';
+      var btnCancelText='cancel';
+      this.loginConfirmationDialog(title,message,btnOkText,btnCancelText);
+    }
+ 
   }
 
   uploadVideoAsPromise(): any {
@@ -213,8 +216,8 @@ export class VideoRecoderComponent implements OnInit {
       
       }
     });
-
   }
+
   Guid() {
     function s4() {
       return Math.floor((1 + Math.random()) * 0x10000)
@@ -224,6 +227,7 @@ export class VideoRecoderComponent implements OnInit {
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
       s4() + '-' + s4() + s4() + s4();
   }
+
   public openConfirmationDialog(title,message,btnOkText,btnCancelText) {
     this.confirmationDialogService.confirm(title, message,btnOkText ,btnCancelText)
       .then((confirmed) => {
