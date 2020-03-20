@@ -186,8 +186,8 @@ export class VideoRecoderComponent implements OnInit {
     this.isPlaying = false;
     this.upload = false;
     if(!firebase.auth().currentUser){
-      var title='please confirm...';
-      var message='Please Login the app, if you want to share the video?';
+      var title='Attention';
+      var message='Please Login the app, if you want to share the video';
       var btnOkText='login';
       var btnCancelText='cancel';
       this.loginConfirmationDialog(title,message,btnOkText,btnCancelText);
