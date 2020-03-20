@@ -144,8 +144,7 @@ export class VideoRecoderComponent implements OnInit {
   }
   saveVideo(url) {
     var me = this;
-    return new Promise(function (resolve, reject) {
-      if(!me.videoContentpage){
+      if(!firebase.auth().currentUser){
       var userId = firebase.auth().currentUser.uid;
       firebase.firestore().collection("users").doc(userId).collection('videos').add({
         url: url,
@@ -158,14 +157,12 @@ export class VideoRecoderComponent implements OnInit {
             positionClass: 'toast-top-center',
           });
           me.resetScreen();
-          resolve(true);
         })
         .catch(function (error) {
-          reject(error);
         });
       }
       else{
-        firebase.firestore().collection("anonymous").doc(localStorage.getItem("guid")).collection('videos').add({
+        firebase.firestore().collection("anonymous").add({
           url: url,
           createdDate: new Date().getTime(),
           userId: localStorage.getItem("guid")
@@ -176,16 +173,13 @@ export class VideoRecoderComponent implements OnInit {
               positionClass: 'toast-top-center',
             });
             me.resetScreen();
-            resolve(true);
           })
           .catch(function (error) {
-            reject(error);
           });
       }
-    });
   }
-  resetScreen(){
 
+  resetScreen(){
     this.uploadProgress=0;
     this.recording = false;
     this.progress = false;
@@ -197,16 +191,15 @@ export class VideoRecoderComponent implements OnInit {
     var btnCancelText='cancel';
     this.loginConfirmationDialog(title,message,btnOkText,btnCancelText);
   }
+
   uploadVideoAsPromise(): any {
     var me = this;
     var recordedBlob = this.recordRTC.getBlob();
     me.progress=true;
     return new Promise(function (resolve, reject) {
       var uploadTask = firebase.storage().ref().child('videos').child(me.Guid()).put(recordedBlob);
-    
       uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, function (snapshot) {
         me.uploadProgress = snapshot.bytesTransferred / snapshot.totalBytes * 100;
-   
         if(me.uploadProgress ==100){
           setTimeout(function(){
             uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
@@ -236,15 +229,8 @@ export class VideoRecoderComponent implements OnInit {
       .then((confirmed) => {
         if (confirmed) {
           var me = this;
-      
           me.uploadVideoAsPromise().then((videoUrl) => {
-            me.saveVideo(videoUrl).then(function (res) {
-              if (res) {
-                console.log(res)
-
-              }
-            
-            });
+            me.saveVideo(videoUrl);
           }).catch((err) => {
             me.progress = false;
             me.toastr.error('file upload error', '', {
@@ -256,6 +242,7 @@ export class VideoRecoderComponent implements OnInit {
       })
       .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
   }
+
   public loginConfirmationDialog(title,message,btnOkText,btnCancelText) {
     this.confirmationDialogService.confirm(title, message,btnOkText ,btnCancelText)
       .then((confirmed) => {
