@@ -76,6 +76,7 @@
     "firebase": "^7.9.3",
     "jquery-circle-progress": "^1.2.2",
     "ng-circle-progress": "^1.5.1",
+    "ng-marquee": "^9.5.0",
     "ng2-validation": "^4.2.0",
     "ngx-audio-player": "^9.0.6",
     "ngx-loading": "^8.0.0",

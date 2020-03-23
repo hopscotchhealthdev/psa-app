@@ -15,6 +15,7 @@ import {ProgressBarModule} from "angular-progress-bar"
 import { NgxAudioPlayerModule } from 'ngx-audio-player';
 import { MaterialModule } from 'src/app/material.module';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { NgMarqueeModule } from 'ng-marquee';
 @NgModule({
   imports: [
     CommonModule,
@@ -24,6 +25,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     NgbModule,ProgressBarModule,
     NgxPaginationModule,
     NgxAudioPlayerModule,
+    NgMarqueeModule,
     MaterialModule,
     NgxLoadingModule.forRoot({}),
     NgCircleProgressModule.forRoot({

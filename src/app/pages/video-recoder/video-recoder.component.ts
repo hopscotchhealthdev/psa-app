@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { ConfirmationDailogService } from '../confirmation-dailog/confirmation-dailog.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import * as marque from "marquee";
+
 @Component({
   selector: 'app-video-recoder',
   templateUrl: './video-recoder.component.html',
@@ -30,10 +32,15 @@ export class VideoRecoderComponent implements OnInit {
       if(params){
         this.videoContentpage=params.videoContentpage;
         console.log(params);}
+        
       
     });
   }
   ngOnInit() {
+
+    marque('h1', {
+      checkOverflow: true
+  });
   }
   ngAfterViewInit() {
 }
