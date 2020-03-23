@@ -15,7 +15,7 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: "/video-recorder",
-    title: "VideoRecoder",
+    title: "Video Recoder",
     icon: "icon-pin",
     class: ""
   },

@@ -36,15 +36,19 @@ export class AppComponent {
             })
         }
         if (user.emailVerified) {
-          me.router.navigate(['home']);
+          if (window.location.href.indexOf("video-recorder") > -1) {
+            me.router.navigate(["/video-recorder"]);
+          } else {
+            me.router.navigate(['home']);
+
+          }
         }
         else {
           this.router.navigate(['/verify-email']);
         }
         // me.router.navigate(['home']);
       } else {
-        console.log(window.location.href.indexOf("video-recording"))
-        if (window.location.href.indexOf("video-recording") > -1) {
+        if (window.location.href.indexOf("video-recorder") > -1) {
           if ((!localStorage.getItem("guid"))) {
             localStorage.setItem('guid', this.Guid())
           }

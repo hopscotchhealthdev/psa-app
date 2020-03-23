@@ -26,22 +26,23 @@ export class VideoRecoderComponent implements OnInit {
   @ViewChild('videoPlay') videoPlay;
   img: any;
   videoData: any;
-  videoContentpage=false;
-  markText:string="";
-  constructor(private confirmationDialogService: ConfirmationDailogService, private router: Router, private activatedRoute:ActivatedRoute ,private toastr: ToastrService) { 
+  videoContentpage = false;
+  markText: string = "";
+  constructor(private confirmationDialogService: ConfirmationDailogService, private router: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService) {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
-      if(params){
-        this.videoContentpage=params.videoContentpage;
-        console.log(params);}
-        
-      
+      if (params) {
+        this.videoContentpage = params.videoContentpage;
+        console.log(params);
+      }
+
+
     });
   }
   ngOnInit() {
-  
+
   }
   ngAfterViewInit() {
-}
+  }
 
   successCallback(stream: MediaStream) {
     var options = {
@@ -58,7 +59,37 @@ export class VideoRecoderComponent implements OnInit {
     this.recording = true;
     this.isPlaying = false;
     this.startTimer();
-    this.markText= "With the recent COVID 19 pandemic across the world,it is important for us to stay safe, stay clean and isolate ourselves from large groups.Ideally you should be working from home, However, if you can’t, here are some things you do in your office. First, make sure that all surfaces are clean, before being touched by anyone. Second, everyone in the office must wash their hands frequently. Make alcohol-based sanitizers available at every entrance door. If the office has visitors, these visitors could be carrying germs for unknown places.";
+    // this.markText= "With the recent COVID 19 pandemic across the world,it is important for us to stay safe, stay clean and isolate ourselves from large groups.Ideally you should be working from home, However, if you can’t, here are some things you do in your office. First, make sure that all surfaces are clean, before being touched by anyone. Second, everyone in the office must wash their hands frequently. Make alcohol-based sanitizers available at every entrance door. If the office has visitors, these visitors could be carrying germs for unknown places.";
+    this.markText = "With the recent COVID 19 pandemic across the world,";
+    let me = this
+    setTimeout(() => {
+      me.markText = "it is important for us to stay safe, stay clean and";
+    }, 4000);
+    setTimeout(() => {
+      me.markText = "isolate ourselves from large groups.";
+    }, 8000);
+    setTimeout(() => {
+      me.markText = " Ideally you should be working from home,";
+    }, 11000);
+    setTimeout(() => {
+      me.markText = "However, if you can’t, here are some things you do in your office. ";
+    }, 13000);
+    setTimeout(() => {
+      me.markText = "First, make sure that all surfaces are clean, before being touched by anyone.";
+    }, 17000);
+    setTimeout(() => {
+      me.markText = "Second, everyone in the office must ";
+    }, 19000);
+    setTimeout(() => {
+      me.markText = "wash their hands frequently.";
+    }, 21000);
+    setTimeout(() => {
+      me.markText = "Make alcohol-based sanitizers available at every entrance door.";
+    }, 22000);
+    setTimeout(() => {
+      me.markText = "If the office has visitors, these visitors could be carrying germs for unknown places.";
+    }, 23000);
+  
   }
 
   errorCallback() {
@@ -141,16 +172,16 @@ export class VideoRecoderComponent implements OnInit {
   }
 
   public uploadvideo() {
-    var title='please confirm...';
-    var message='Are you sure you want to upload this video?';
-    var btnOkText='Yes';
-    var btnCancelText='No';
-    this.openConfirmationDialog(title,message,btnOkText,btnCancelText);
+    var title = 'please confirm...';
+    var message = 'Are you sure you want to upload this video?';
+    var btnOkText = 'Yes';
+    var btnCancelText = 'No';
+    this.openConfirmationDialog(title, message, btnOkText, btnCancelText);
   }
 
   saveVideo(url) {
     var me = this;
-      if(firebase.auth().currentUser){
+    if (firebase.auth().currentUser) {
       var userId = firebase.auth().currentUser.uid;
       firebase.firestore().collection("users").doc(userId).collection('videos').add({
         url: url,
@@ -166,60 +197,60 @@ export class VideoRecoderComponent implements OnInit {
         })
         .catch(function (error) {
         });
-      }
-      else{
-        firebase.firestore().collection("anonymous").add({
-          url: url,
-          createdDate: new Date().getTime(),
-          userId: localStorage.getItem("guid")
-        })
-          .then(function () {
-            me.toastr.success('file uploaded successfully', '', {
-              timeOut: 2000,
-              positionClass: 'toast-top-center',
-            });
-            me.resetScreen();
-          })
-          .catch(function (error) {
+    }
+    else {
+      firebase.firestore().collection("anonymous").add({
+        url: url,
+        createdDate: new Date().getTime(),
+        userId: localStorage.getItem("guid")
+      })
+        .then(function () {
+          me.toastr.success('file uploaded successfully', '', {
+            timeOut: 2000,
+            positionClass: 'toast-top-center',
           });
-      }
+          me.resetScreen();
+        })
+        .catch(function (error) {
+        });
+    }
   }
 
-  resetScreen(){
-    this.uploadProgress=0;
+  resetScreen() {
+    this.uploadProgress = 0;
     this.recording = false;
     this.progress = false;
     this.isPlaying = false;
     this.upload = false;
-    if(!firebase.auth().currentUser){
-      var title='Attention';
-      var message='Please Login the app, if you want to share the video';
-      var btnOkText='login';
-      var btnCancelText='cancel';
-      this.loginConfirmationDialog(title,message,btnOkText,btnCancelText);
+    if (!firebase.auth().currentUser) {
+      var title = 'Attention';
+      var message = 'Please Login the app, if you want to share the video';
+      var btnOkText = 'login';
+      var btnCancelText = 'cancel';
+      this.loginConfirmationDialog(title, message, btnOkText, btnCancelText);
     }
- 
+
   }
 
   uploadVideoAsPromise(): any {
     var me = this;
     var recordedBlob = this.recordRTC.getBlob();
-    me.progress=true;
+    me.progress = true;
     return new Promise(function (resolve, reject) {
       var uploadTask = firebase.storage().ref().child('videos').child(me.Guid()).put(recordedBlob);
       uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, function (snapshot) {
         me.uploadProgress = snapshot.bytesTransferred / snapshot.totalBytes * 100;
-        if(me.uploadProgress ==100){
-          setTimeout(function(){
+        if (me.uploadProgress == 100) {
+          setTimeout(function () {
             uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
               resolve(downloadURL);
             })
-          },3000);
+          }, 3000);
         }
       }), function (error) {
         console.log(error)
         reject(error);
-      
+
       }
     });
   }
@@ -234,8 +265,8 @@ export class VideoRecoderComponent implements OnInit {
       s4() + '-' + s4() + s4() + s4();
   }
 
-  public openConfirmationDialog(title,message,btnOkText,btnCancelText) {
-    this.confirmationDialogService.confirm(title, message,btnOkText ,btnCancelText)
+  public openConfirmationDialog(title, message, btnOkText, btnCancelText) {
+    this.confirmationDialogService.confirm(title, message, btnOkText, btnCancelText)
       .then((confirmed) => {
         if (confirmed) {
           var me = this;
@@ -253,8 +284,8 @@ export class VideoRecoderComponent implements OnInit {
       .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
   }
 
-  public loginConfirmationDialog(title,message,btnOkText,btnCancelText) {
-    this.confirmationDialogService.confirm(title, message,btnOkText ,btnCancelText)
+  public loginConfirmationDialog(title, message, btnOkText, btnCancelText) {
+    this.confirmationDialogService.confirm(title, message, btnOkText, btnCancelText)
       .then((confirmed) => {
         if (confirmed) {
           this.router.navigate(['/login']);
