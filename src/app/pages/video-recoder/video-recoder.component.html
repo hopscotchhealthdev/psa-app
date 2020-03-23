@@ -4,10 +4,15 @@
       <!-- <ng-marquee *ngIf="recording" duration="50s">
         <ng-container *ngTemplateOutlet="marqueeContent"></ng-container>
       </ng-marquee> -->
+      <div style="position: relative;">
+
+      
+        <div class="markerText">{{markText}}<div> 
       <video [hidden]="isPlaying" #video class="video"></video>
       <video [hidden]="!isPlaying" muted controls #videoPlay controls class="video"></video>
+     
     </div>
-
+  </div>
   </div>
   <div class="row">
     <div class="col-xs-12 div-center">
