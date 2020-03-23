@@ -1,4 +1,4 @@
-<div class="content" *ngIf="!videoContentpage">
+<div class="content" >
   <div class="row">
     <div class="col-xs-12 div-center">
       <!-- <ng-marquee *ngIf="recording" duration="50s">
@@ -12,14 +12,13 @@
   <div class="row">
     <div class="col-xs-12 div-center">
       <div *ngIf="!recording">
-        <p>Click Here to start your recording </p>
+
         <img src="assets/img/recording-play.png" (click)="startRecording()" />
         <img style="padding-left: 37px;" *ngIf="upload" src="assets/img/upload.png" (click)="uploadvideo()" />
       </div>
       <div *ngIf="recording">
         <div class="timer" *ngIf="timecount !=0">{{timecount}}</div>
-        <p>Click Here to stop your recording </p>
-        <div>{{markText}}</div>
+        <div>{{markText}}</div>  
         <img src="assets/img/recording-pause.png" (click)="stopRecording()" />
 
       </div>
@@ -31,34 +30,8 @@
     </div>
   </div>
 </div>
-<div *ngIf="videoContentpage">
-  <div class="row">
-    <div class="col-xs-12 div-center">
-      <video [hidden]="isPlaying" #video class="video"></video>
-      <video [hidden]="!isPlaying" muted controls #videoPlay controls class="video"></video>
-    </div>
-    <div class="timer" *ngIf="timecount !=0">{{timecount}}</div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 div-center">
-      <div *ngIf="!recording && !progress">
-        <p>Click Here to start your recording </p>
-        <img src="assets/img/recording-play.png" (click)="startRecording()" />
-        <img style="padding-left: 37px;" *ngIf="upload" src="assets/img/upload.png" (click)="uploadvideo()" />
-      </div>
-      <div *ngIf="recording">
-        <p>Click Here to stop your recording </p>
-        <img src="assets/img/recording-pause.png" (click)="stopRecording()" />
 
-      </div>
-      <div *ngIf="progress" style="    padding-left: 10%; padding-right: 10%;">
-        <progress-bar [progress]="uploadProgress" [color]="'#70E083'">
-        </progress-bar>
-        <h4>Video Uploading...</h4>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 <ng-template #marqueeContent>
  {{markText}}

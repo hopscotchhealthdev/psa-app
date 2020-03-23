@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { ConfirmationDailogService } from '../confirmation-dailog/confirmation-dailog.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { min } from 'moment';
 
 
 @Component({
@@ -26,13 +27,11 @@ export class VideoRecoderComponent implements OnInit {
   @ViewChild('videoPlay') videoPlay;
   img: any;
   videoData: any;
-  videoContentpage = false;
   markText: string = "";
   constructor(private confirmationDialogService: ConfirmationDailogService, private router: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService) {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       if (params) {
-        this.videoContentpage = params.videoContentpage;
-        console.log(params);
+      
       }
 
 
@@ -62,33 +61,7 @@ export class VideoRecoderComponent implements OnInit {
     // this.markText= "With the recent COVID 19 pandemic across the world,it is important for us to stay safe, stay clean and isolate ourselves from large groups.Ideally you should be working from home, However, if you can’t, here are some things you do in your office. First, make sure that all surfaces are clean, before being touched by anyone. Second, everyone in the office must wash their hands frequently. Make alcohol-based sanitizers available at every entrance door. If the office has visitors, these visitors could be carrying germs for unknown places.";
     this.markText = "With the recent COVID 19 pandemic across the world,";
     let me = this
-    setTimeout(() => {
-      me.markText = "it is important for us to stay safe, stay clean and";
-    }, 4000);
-    setTimeout(() => {
-      me.markText = "isolate ourselves from large groups.";
-    }, 8000);
-    setTimeout(() => {
-      me.markText = " Ideally you should be working from home,";
-    }, 11000);
-    setTimeout(() => {
-      me.markText = "However, if you can’t, here are some things you do in your office. ";
-    }, 13000);
-    setTimeout(() => {
-      me.markText = "First, make sure that all surfaces are clean, before being touched by anyone.";
-    }, 17000);
-    setTimeout(() => {
-      me.markText = "Second, everyone in the office must ";
-    }, 19000);
-    setTimeout(() => {
-      me.markText = "wash their hands frequently.";
-    }, 21000);
-    setTimeout(() => {
-      me.markText = "Make alcohol-based sanitizers available at every entrance door.";
-    }, 22000);
-    setTimeout(() => {
-      me.markText = "If the office has visitors, these visitors could be carrying germs for unknown places.";
-    }, 23000);
+
   
   }
 
@@ -148,6 +121,7 @@ export class VideoRecoderComponent implements OnInit {
         return;
       }
       me.timecount = me.getHHMMSS(count);
+
       count = (parseInt(count) + 1).toString();
     }
   }
@@ -168,6 +142,40 @@ export class VideoRecoderComponent implements OnInit {
       seconds = 0 + seconds;
     }
     var time = this.pad(hours) + ':' + this.pad(minutes) + ':' + this.pad(seconds);
+
+if(hours==0 && minutes==0){
+  if(seconds==5){
+    this.markText = "it is important for us to stay safe, stay clean and"; 
+  }
+  if(seconds==9){
+    this.markText = "isolate ourselves from large groups"; 
+  }
+  if(seconds==12){
+    this.markText = "Ideally you should be working from home"; 
+  }
+  if(seconds==14){
+    this.markText = "However, if you can’t, here are some things you do in your office."; 
+  }
+  if(seconds==18){
+    this.markText = "First, make sure that all surfaces are clean, before being touched by anyone."; 
+  }
+  if(seconds==20){
+    this.markText = "Second, everyone in the office must"; 
+  }
+  if(seconds==21){
+    this.markText = "wash their hands frequently."; 
+  }
+  if(seconds==22){
+    this.markText = " Make alcohol-based sanitizers available at every entrance door."; 
+  }
+  if(seconds==23){
+    this.markText = "If the office has visitors, these visitors could be carrying germs for unknown places"; 
+  }
+  if(seconds > 25){
+   this.markText=""; 
+  }
+}
+
     return time;
   }
    pad(n) {
