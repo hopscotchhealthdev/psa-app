@@ -8,26 +8,11 @@ import * as firebase from 'firebase';
   templateUrl: "dashboard.component.html"
 })
 export class DashboardComponent implements OnInit  {
-  testingSessions=[{video:"video-url", createDate: new Date().toDateString()},
-  {video:"video-url 1", createDate: new Date().toDateString()},
-  {video:"video-url 2", createDate: new Date().toDateString()},
-  {video:"video-url 3", createDate: new Date().toDateString()},
-  {video:"video-url 4", createDate: new Date().toDateString()},
-  {video:"video-url 5", createDate: new Date().toDateString()}, 
-  {video:"video-url 6", createDate: new Date().toDateString()},
-  {video:"video-url 7", createDate: new Date().toDateString()},
-  {video:"video-url 8", createDate: new Date().toDateString()},
-  {video:"video-url 9", createDate: new Date().toDateString()},
-  {video:"video-url 10", createDate: new Date().toDateString()},
-  {video:"video-url 11", createDate: new Date().toDateString()},
-  {video:"video-url 12", createDate: new Date().toDateString()},
-  {video:"video-url 13", createDate: new Date().toDateString()},
-  {video:"video-url 14", createDate: new Date().toDateString()},
-  {video:"video-url 15", createDate: new Date().toDateString()} ]
+
   recordRTC: any;
   collection = [];
   p: number = 1;
-  videos: any;
+  videos: any=[];
   constructor(private router: Router) {  
     
 }
@@ -47,7 +32,7 @@ ngOnInit(){
       if (user) {
         firebase
         .firestore()
-        .collection("users").doc(user.uid).collection("videos").onSnapshot(sessionSnap => {
+        .collection("users").doc(user.uid).collection("videos").where("userId","==",user.uid).onSnapshot(sessionSnap => {
           console.log(sessionSnap)
           sessionSnap.docChanges().forEach(change => {
             if (change.type === "added") {
