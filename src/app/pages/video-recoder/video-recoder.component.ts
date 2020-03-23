@@ -167,10 +167,12 @@ export class VideoRecoderComponent implements OnInit {
     if (seconds < 10) {
       seconds = 0 + seconds;
     }
-    var time = hours + ':' + minutes + ':' + seconds;
+    var time = this.pad(hours) + ':' + this.pad(minutes) + ':' + this.pad(seconds);
     return time;
   }
-
+   pad(n) {
+    return (n < 10) ? ("0" + n) : n;
+}
   public uploadvideo() {
     var title = 'please confirm...';
     var message = 'Are you sure you want to upload this video?';
