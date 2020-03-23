@@ -38,11 +38,11 @@ ngOnInit(){
            
             if (change.type === "added") {
               var data = change.doc.data();
-            /*  me.videos.push({
+              me.videos.push({
                 date: new Date(data.createDate),
                 url: data.url,
                 videoId: change.doc.id
-              })*/
+              })
             
             }
             if (change.type === "modified") {

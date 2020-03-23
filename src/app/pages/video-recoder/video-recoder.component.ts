@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { ConfirmationDailogService } from '../confirmation-dailog/confirmation-dailog.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import * as marque from "marquee";
+
 
 @Component({
   selector: 'app-video-recoder',
@@ -27,6 +27,7 @@ export class VideoRecoderComponent implements OnInit {
   img: any;
   videoData: any;
   videoContentpage=false;
+  markText:string="";
   constructor(private confirmationDialogService: ConfirmationDailogService, private router: Router, private activatedRoute:ActivatedRoute ,private toastr: ToastrService) { 
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       if(params){
@@ -37,10 +38,7 @@ export class VideoRecoderComponent implements OnInit {
     });
   }
   ngOnInit() {
-
-    marque('h1', {
-      checkOverflow: true
-  });
+  
   }
   ngAfterViewInit() {
 }
@@ -60,6 +58,7 @@ export class VideoRecoderComponent implements OnInit {
     this.recording = true;
     this.isPlaying = false;
     this.startTimer();
+    this.markText= "With the recent COVID 19 pandemic across the world,it is important for us to stay safe, stay clean and isolate ourselves from large groups.Ideally you should be working from home, However, if you can’t, here are some things you do in your office. First, make sure that all surfaces are clean, before being touched by anyone. Second, everyone in the office must wash their hands frequently. Make alcohol-based sanitizers available at every entrance door. If the office has visitors, these visitors could be carrying germs for unknown places.";
   }
 
   errorCallback() {

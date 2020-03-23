@@ -1,7 +1,7 @@
 <div class="content" *ngIf="!videoContentpage">
 <div class="row">
   <div class="col-xs-12 div-center">
-      <h1>This is a test</h1>
+    
     <video [hidden]="isPlaying" #video class="video"></video>
     <video [hidden]="!isPlaying" muted controls #videoPlay controls class="video"></video>
   </div>
@@ -15,7 +15,9 @@
       <img style="padding-left: 37px;" *ngIf="upload" src="assets/img/upload.png" (click)="uploadvideo()" />
     </div>
     <div *ngIf="recording">
-       
+      <ng-marquee speed="slow">
+        <ng-container *ngTemplateOutlet="marqueeContent"></ng-container>
+      </ng-marquee>
         <p>Click Here to stop your recording </p>
         <img  src="assets/img/recording-pause.png" (click)="stopRecording()" /> 
             
@@ -54,3 +56,8 @@
     </div>
   </div>
 </div>
+
+<ng-template #marqueeContent>
+  <mark>{{markText}}</mark>
+  <mark>it is important for us to stay safe, stay clean and </mark>
+</ng-template>
