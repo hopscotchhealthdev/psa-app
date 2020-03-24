@@ -31,7 +31,7 @@ firebase.initializeApp(firebase_config);
     NgxLoadingModule.forRoot({})
  ],
   declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent],
-  providers: [{provide: APP_BASE_HREF, useValue : '/' }],
+  providers: [{provide: APP_BASE_HREF, useValue : '/recorder' }],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

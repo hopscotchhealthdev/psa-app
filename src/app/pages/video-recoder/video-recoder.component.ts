@@ -5,8 +5,6 @@ import { Observable } from 'rxjs';
 import { ConfirmationDailogService } from '../confirmation-dailog/confirmation-dailog.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { min } from 'moment';
-
 
 @Component({
   selector: 'app-video-recoder',
@@ -28,14 +26,17 @@ export class VideoRecoderComponent implements OnInit {
   img: any;
   videoData: any;
   markText: string = "";
+  loginUser = false;
   constructor(private confirmationDialogService: ConfirmationDailogService, private router: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService) {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
-      if (params) {
-      
-      }
-
-
+      if (params) { }
     });
+    if (firebase.auth().currentUser && firebase.auth().currentUser.providerData.length != 0) {
+      this.loginUser = true;
+    } else {
+      this.loginUser = false;
+
+    }
   }
   ngOnInit() {
 
@@ -59,10 +60,9 @@ export class VideoRecoderComponent implements OnInit {
     this.isPlaying = false;
     this.startTimer();
     // this.markText= "With the recent COVID 19 pandemic across the world,it is important for us to stay safe, stay clean and isolate ourselves from large groups.Ideally you should be working from home, However, if you can’t, here are some things you do in your office. First, make sure that all surfaces are clean, before being touched by anyone. Second, everyone in the office must wash their hands frequently. Make alcohol-based sanitizers available at every entrance door. If the office has visitors, these visitors could be carrying germs for unknown places.";
-    this.markText = "With the recent COVID 19 pandemic across the world,";
     let me = this
 
-  
+
   }
 
   errorCallback() {
@@ -143,44 +143,47 @@ export class VideoRecoderComponent implements OnInit {
     }
     var time = this.pad(hours) + ':' + this.pad(minutes) + ':' + this.pad(seconds);
 
-if(hours==0 && minutes==0){
-  if(seconds==5){
-    this.markText = "it is important for us to stay safe, stay clean and"; 
-  }
-  if(seconds==9){
-    this.markText = "isolate ourselves from large groups"; 
-  }
-  if(seconds==12){
-    this.markText = "Ideally you should be working from home"; 
-  }
-  if(seconds==14){
-    this.markText = "However, if you can’t, here are some things you do in your office."; 
-  }
-  if(seconds==18){
-    this.markText = "First, make sure that all surfaces are clean, before being touched by anyone."; 
-  }
-  if(seconds==20){
-    this.markText = "Second, everyone in the office must"; 
-  }
-  if(seconds==21){
-    this.markText = "wash their hands frequently."; 
-  }
-  if(seconds==22){
-    this.markText = " Make alcohol-based sanitizers available at every entrance door."; 
-  }
-  if(seconds==23){
-    this.markText = "If the office has visitors, these visitors could be carrying germs for unknown places"; 
-  }
-  if(seconds > 25){
-   this.markText=""; 
-  }
-}
+    if (hours == 0 && minutes == 0) {
+      if (seconds == 1) {
+        this.markText = "With the recent COVID 19 pandemic across the world,";
+      }
+      if (seconds == 5) {
+        this.markText = "it is important for us to stay safe, stay clean and";
+      }
+      if (seconds == 9) {
+        this.markText = "isolate ourselves from large groups";
+      }
+      if (seconds == 12) {
+        this.markText = "Ideally you should be working from home";
+      }
+      if (seconds == 14) {
+        this.markText = "However, if you can’t, here are some things you do in your office.";
+      }
+      if (seconds == 18) {
+        this.markText = "First, make sure that all surfaces are clean, before being touched by anyone.";
+      }
+      if (seconds == 20) {
+        this.markText = "Second, everyone in the office must";
+      }
+      if (seconds == 21) {
+        this.markText = "wash their hands frequently.";
+      }
+      if (seconds == 22) {
+        this.markText = " Make alcohol-based sanitizers available at every entrance door.";
+      }
+      if (seconds == 23) {
+        this.markText = "If the office has visitors, these visitors could be carrying germs for unknown places";
+      }
+      if (seconds > 25) {
+        this.markText = "";
+      }
+    }
 
     return time;
   }
-   pad(n) {
+  pad(n) {
     return (n < 10) ? ("0" + n) : n;
-}
+  }
   public uploadvideo() {
     var title = 'please confirm...';
     var message = 'Are you sure you want to upload this video?';
@@ -209,20 +212,29 @@ if(hours==0 && minutes==0){
         });
     }
     else {
-      firebase.firestore().collection("anonymous").add({
-        url: url,
-        createdDate: new Date().getTime(),
-        userId: localStorage.getItem("guid")
-      })
-        .then(function () {
-          me.toastr.success('file uploaded successfully', '', {
-            timeOut: 2000,
-            positionClass: 'toast-top-center',
-          });
-          me.resetScreen();
+      // create Anonymously user
+      firebase.auth().signInAnonymously().catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+      }).then(function (res) {
+        var userId = firebase.auth().currentUser.uid;
+        firebase.firestore().collection("users").doc(userId).collection('videos').add({
+          url: url,
+          createdDate: new Date().getTime(),
+          userId: userId
         })
-        .catch(function (error) {
-        });
+          .then(function () {
+            me.toastr.success('file uploaded successfully', '', {
+              timeOut: 2000,
+              positionClass: 'toast-top-center',
+            });
+            me.resetScreen();
+          })
+          .catch(function (error) { });
+      });
+
     }
   }
 
@@ -232,14 +244,14 @@ if(hours==0 && minutes==0){
     this.progress = false;
     this.isPlaying = false;
     this.upload = false;
-    if (!firebase.auth().currentUser) {
+    this.markText = '';
+    if (firebase.auth().currentUser.providerData.length == 0) {
       var title = 'Attention';
       var message = 'Please Login the app, if you want to share the video';
       var btnOkText = 'login';
       var btnCancelText = 'cancel';
       this.loginConfirmationDialog(title, message, btnOkText, btnCancelText);
     }
-
   }
 
   uploadVideoAsPromise(): any {
@@ -298,9 +310,13 @@ if(hours==0 && minutes==0){
     this.confirmationDialogService.confirm(title, message, btnOkText, btnCancelText)
       .then((confirmed) => {
         if (confirmed) {
-          this.router.navigate(['/login']);
+          this.goToLogin();
         }
       })
       .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
+  }
+
+  goToLogin() {
+    window.location.href = `${window.location.origin}/login/index.html`
   }
 }

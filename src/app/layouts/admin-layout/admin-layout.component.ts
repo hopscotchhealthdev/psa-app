@@ -14,7 +14,11 @@ export class AdminLayoutComponent implements OnInit {
   constructor() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.user=true
+        if (user.providerData.length == 0) {
+          this.user=false;
+        }else{
+          this.user=true;
+        }
       }})
   }
   changeSidebarColor(color){

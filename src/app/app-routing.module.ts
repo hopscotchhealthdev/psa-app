@@ -20,10 +20,10 @@ const routes: Routes = [
       }
     ]
   },
-  { path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
-  { path: 'forgot-password', loadChildren: () => import('./pages/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule) },
-  { path: 'register', loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterModule) },
-  { path: 'verify-email', loadChildren: () => import('./pages/verify-email/verify-email.module').then(m => m.VerifyEmailModule) },
+  //{ path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
+ // { path: 'forgot-password', loadChildren: () => import('./pages/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule) },
+ // { path: 'register', loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterModule) },
+ // { path: 'verify-email', loadChildren: () => import('./pages/verify-email/verify-email.module').then(m => m.VerifyEmailModule) },
   {
     path: 'video-recording',
     component: VideoRecoderComponent

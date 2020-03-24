@@ -1,0 +1,79 @@
+<div class="full-page login-page ">
+  <div class="content">
+    <div class="container"><br/>
+      <div class="col-lg-4 col-md-6 m-auto">
+        <form class="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+          <div class="card card-login card-white">
+            <div class="card-header"><img alt=""
+                src="https://demos.creative-tim.com/black-dashboard-pro-angular/assets/img/card-primary.png">
+              <h1 class="card-title">Register</h1>
+            </div>
+            <div *ngIf="error" class="alert alert-danger" role="alert"><span>{{error}}</span></div>
+
+            <div class="card-body">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><i class="tim-icons icon-single-02"></i></div>
+                </div><input formControlName="userName" class="form-control" placeholder="Full Name" type="text">
+              </div>
+              <small class="text-danger"
+                *ngIf="form.get('userName').touched && form.get('userName').hasError('required')">User Name is
+                required</small>
+              <small class="text-danger"
+                *ngIf="form.get('userName').touched && form.get('userName').hasError('userName')">Invalid User
+                Name</small>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><i class="tim-icons icon-email-85"></i></div>
+                </div><input formControlName="email"  class="form-control" placeholder="Email" type="email">
+              </div>
+              <small class="text-danger"
+                *ngIf="form.get('email').touched && form.get('email').hasError('required')">Email is required</small>
+              <small class="text-danger"
+                *ngIf="form.get('email').touched && form.get('email').hasError('pattern')">Invalid email address</small>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><i class="tim-icons icon-lock-circle"></i></div>
+                </div><input formControlName="password" class="form-control" placeholder="Password" type="password">
+              </div>
+              <small class="text-danger"
+                *ngIf="form.get('password').touched && form.get('password').hasError('required')">Password is
+                required</small>
+              <small class="text-danger"
+                *ngIf="form.get('password').touched && form.get('password').hasError('password')">Invalid
+                Password</small>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><i class="tim-icons icon-lock-circle"></i></div>
+                </div><input formControlName="confirmPassword" class="form-control" placeholder="Confirm Password"
+                  type="password">
+              </div>
+              <small class="text-danger"
+                *ngIf="form.get('confirmPassword').touched && form.get('confirmPassword').hasError('required')"> Confirm
+                Password is required</small>
+              <small class="text-danger"
+                *ngIf="form.get('confirmPassword').touched && form.get('confirmPassword').hasError('confirmPassword')">Invalid
+                Confirm Password</small>
+            </div>
+            <div class="form-check text-left" style="padding-left: 15px;padding-right: 10px;"><label class="form-check-label"><input formControlName="termCondition"
+                  class="form-check-input" type="checkbox"><span class="form-check-sign"></span> I agree to the <a
+                  href="javascript:void(0)">
+                  terms and
+                  conditions </a> . </label></div>
+
+            <div class="card-footer"> <button [disabled]="!form.valid" class="btn btn-block" type="submit">
+                Sign up</button>
+              <div class="pull-left">
+              </div>
+              <div class="pull-right">
+                <h6><a class="link footer-link"[routerLink]="['/login']"> Go to Login </a></h6>
+              </div>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

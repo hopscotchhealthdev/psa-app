@@ -1,0 +1,34 @@
+/* You can add global styles to this file, and also import other style files */
+
+.fileinput {
+    display: inline-block;
+    margin-bottom: 9px;
+}
+.fileinput[_ngcontent-evo-c22] input[_ngcontent-evo-c22] {
+    display: none;
+}
+
+.fileinput .thumbnail.img-circle {
+    border-radius: 50%;
+    max-width: 100px;
+}
+.fileinput .thumbnail {
+    display: inline-block;
+    margin-bottom: 10px;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: middle;
+    max-width: 250px;
+    box-shadow: 0 1px 20px 0 rgba(0,0,0,.1);
+}
+.circle{
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color:#12A7CF;
+    border-radius: 50%;
+}
+.li-position{
+    display: inline-block;
+    padding-right:10px;
+}

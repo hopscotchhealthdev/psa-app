@@ -1,0 +1,37 @@
+.text-danger-states{
+  color: #ec250d;
+}
+.btn-outline
+{
+  // border-color: #2196F3;
+  // color: #12A7CF;
+  // border: 2px solid #12A7CF;
+  background-color: transparent;
+  padding: 4px 6px;
+  font-size: 12px;
+  cursor: pointer;
+  display: inline-block;
+  margin: 4px 2px;
+  text-transform: uppercase;
+  border-radius: 30px;
+}
+
+
+.btn-primary1 {
+  color: #fff;
+  background: #337ab7 !important;
+  border-color: #2e6da4;
+  border-width: 2px;
+}
+.btn-success1 {
+  color: #fff;
+  background: #5cb85c !important;
+  border-color: #4cae4c !important;
+  border-width: 2px;
+}
+.btn-danger1 {
+  color: #fff;
+  background: #d9534f !important;
+  border-color: #d43f3a;
+  border-width: 2px;
+}
