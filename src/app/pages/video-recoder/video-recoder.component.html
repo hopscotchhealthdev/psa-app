@@ -5,13 +5,11 @@
         <ng-container *ngTemplateOutlet="marqueeContent"></ng-container>
       </ng-marquee> -->
       <div style="position: relative;">
-
-      
-        <div class="markerText">{{markText}}<div> 
+        <div *ngIf="markText"class="markerText">{{markText}}</div>   
       <video [hidden]="isPlaying" #video class="video"></video>
-      <video [hidden]="!isPlaying" muted controls #videoPlay controls class="video"></video>
-     
     </div>
+    <video [hidden]="!isPlaying" muted controls #videoPlay controls class="video"></video>
+   
   </div>
   </div>
   <div class="row">
@@ -23,7 +21,7 @@
       </div>
       <div *ngIf="recording">
         <div class="timer" *ngIf="timecount !=0">{{timecount}}</div>
-        <div>{{markText}}</div>  
+   
         <img src="assets/img/recording-pause.png" (click)="stopRecording()" />
 
       </div>
@@ -35,9 +33,3 @@
     </div>
   </div>
 </div>
-
-
-
-<ng-template #marqueeContent>
- {{markText}}
-</ng-template>
