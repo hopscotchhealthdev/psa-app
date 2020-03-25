@@ -1,7 +1,7 @@
 {
-  "firestore": {
-    "rules": "firestore.rules"
-  },
+    "firestore": {
+      "rules": "firestore.rules"
+    },
   "hosting": {
     "public": "dist",
     "ignore": [
@@ -17,9 +17,9 @@
     ],
     "redirects": [
       {
-        "source": "",
-        "destination": "/recorder",
-        "type": 301
+        "source": "/",
+        "destination": "/recorder/index.html",
+        "type": 303
       },
       {
         "source": "login",
