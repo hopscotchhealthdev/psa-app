@@ -26,22 +26,42 @@ export class VideoRecoderComponent implements OnInit {
   img: any;
   videoData: any;
   markText: string = "";
-  loginUser = false;
-  constructor(private confirmationDialogService: ConfirmationDailogService, private router: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService) {
-    this.activatedRoute.queryParams.subscribe((params: Params) => {
-      if (params) { }
-    });
-    if (firebase.auth().currentUser && firebase.auth().currentUser.providerData.length != 0) {
-      this.loginUser = true;
-    } else {
-      this.loginUser = false;
+  loginUser = true;
+  psaData = [];
+  loading=false;
+  constructor(private route: ActivatedRoute, private confirmationDialogService: ConfirmationDailogService, private router: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService) {
 
-    }
   }
   ngOnInit() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        if (user.isAnonymous) {
+          this.loginUser = false;
+        } else {
+          this.loginUser = true;
+        }
+      } else {
+        this.loginUser = false;
+
+      }
+    })
+    let me = this;
+    this.route.queryParamMap.subscribe(params => {
+      if (params.get("id")) {
+        me.loading=true;
+        firebase.firestore().collection("psa").doc(params.get("id")).get().then(function (querySnapshot) {
+        me.loading=false;          
+          if (querySnapshot.exists) {
+            me.psaData = querySnapshot.data().time;
+          }
+
+        });
+      }
+    })
 
   }
   ngAfterViewInit() {
+
   }
 
   successCallback(stream: MediaStream) {
@@ -143,41 +163,14 @@ export class VideoRecoderComponent implements OnInit {
     }
     var time = this.pad(hours) + ':' + this.pad(minutes) + ':' + this.pad(seconds);
 
-    if (hours == 0 && minutes == 0) {
-      if (seconds == 1) {
-        this.markText = "With the recent COVID 19 pandemic across the world,";
-      }
-      if (seconds == 5) {
-        this.markText = "it is important for us to stay safe, stay clean and";
-      }
-      if (seconds == 9) {
-        this.markText = "isolate ourselves from large groups";
-      }
-      if (seconds == 12) {
-        this.markText = "Ideally you should be working from home";
-      }
-      if (seconds == 14) {
-        this.markText = "However, if you can’t, here are some things you do in your office.";
-      }
-      if (seconds == 18) {
-        this.markText = "First, make sure that all surfaces are clean, before being touched by anyone.";
-      }
-      if (seconds == 20) {
-        this.markText = "Second, everyone in the office must";
-      }
-      if (seconds == 21) {
-        this.markText = "wash their hands frequently.";
-      }
-      if (seconds == 22) {
-        this.markText = " Make alcohol-based sanitizers available at every entrance door.";
-      }
-      if (seconds == 23) {
-        this.markText = "If the office has visitors, these visitors could be carrying germs for unknown places";
-      }
-      if (seconds > 25) {
-        this.markText = "";
-      }
+    let filter = this.psaData.filter(o => o.min <= count && o.max >= count)[0];
+    if (filter) {
+      this.markText = filter.title;
+    } else {
+      this.markText = "";
     }
+
+
 
     return time;
   }

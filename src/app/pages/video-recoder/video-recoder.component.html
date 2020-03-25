@@ -1,4 +1,5 @@
-<div class="content" >
+<div class="content">
+  <div style="position:relative;">
   <div class="row">
     <div class="col-xs-12 div-center">
       <!-- <ng-marquee *ngIf="recording" duration="50s">
@@ -14,15 +15,14 @@
   </div>
   <div class="row">
     <div class="col-xs-12 div-center">
-      <div *ngIf="!recording">
-
-        <img src="assets/img/recording-play.png" (click)="startRecording()" />
-        <img style="padding-left: 37px;" *ngIf="upload" src="assets/img/upload.png" (click)="uploadvideo()" />
+      <div *ngIf="!recording" class="icon-position">
+        <img src="assets/img/recording-play.png" alt="recording pause icon" width="36" height="36" (click)="startRecording()" />
+        <img style="margin-left:10px;" *ngIf="upload" src="assets/img/upload.png" alt="recording pause icon" width="36" height="36" (click)="uploadvideo()" />
       </div>
       <div *ngIf="recording">
-        <div class="timer" *ngIf="timecount !=0">{{timecount}}</div>
+        <div class="timer red-bg" *ngIf="timecount !=0">{{timecount}}</div>
    
-        <img src="assets/img/recording-pause.png" (click)="stopRecording()" />
+        <img src="assets/img/recording-pause.png" alt="recording pause icon" width="36" height="36" class="icon-position" (click)="stopRecording()" />
 
       </div>
       <div *ngIf="progress">
@@ -33,7 +33,10 @@
     </div>
   </div>
 </div>
+</div>
 <div *ngIf="!loginUser"  style="padding: 1.25rem 1.5rem;
 border-top: 0.0625rem solid rgba(34, 42, 66, 0.05);">
 <button  (click)="goToLogin()" class="btn btn-block" type="submit">Login</button>
 </div>
+
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

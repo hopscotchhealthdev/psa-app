@@ -8,40 +8,43 @@ import * as firebase from 'firebase';
 })
 export class AdminLayoutComponent implements OnInit {
   public sidebarColor: string = "gray";
-  user: boolean= false;
+  user: boolean = false;
 
 
   constructor() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        if (user.providerData.length == 0) {
-          this.user=false;
-        }else{
-          this.user=true;
+        if (user.isAnonymous) {
+          this.user = false;
+        } else {
+          this.user = true;
         }
-      }})
+      }else{
+        this.user = false; 
+      }
+    })
   }
-  changeSidebarColor(color){
+  changeSidebarColor(color) {
     var sidebar = document.getElementsByClassName('sidebar')[0];
     var mainPanel = document.getElementsByClassName('main-panel')[0];
 
     this.sidebarColor = color;
 
-    if(sidebar != undefined){
-        sidebar.setAttribute('data',color);
+    if (sidebar != undefined) {
+      sidebar.setAttribute('data', color);
     }
-    if(mainPanel != undefined){
-        mainPanel.setAttribute('data',color);
+    if (mainPanel != undefined) {
+      mainPanel.setAttribute('data', color);
     }
   }
-  changeDashboardColor(color){
+  changeDashboardColor(color) {
     var body = document.getElementsByTagName('body')[0];
     if (body && color === 'white-content') {
-        body.classList.add(color);
+      body.classList.add(color);
     }
-    else if(body.classList.contains('white-content')) {
+    else if (body.classList.contains('white-content')) {
       body.classList.remove('white-content');
     }
   }
-  ngOnInit() {}
+  ngOnInit() { }
 }

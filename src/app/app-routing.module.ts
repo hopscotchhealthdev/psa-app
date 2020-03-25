@@ -29,6 +29,10 @@ const routes: Routes = [
     component: VideoRecoderComponent
   },  
   {
+    path: 'video-recording:/id',
+    component: VideoRecoderComponent
+  },  
+  {
     path: '',
     component: AuthLayoutComponent,
     children: [
@@ -44,7 +48,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     BrowserModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes,{useHash:true})
   ],
   exports: [RouterModule]
 })

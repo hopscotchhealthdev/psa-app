@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+
 import { RouterModule } from '@angular/router';
-import { RegisterComponent } from './register.component';
 import { NgxLoadingModule } from 'ngx-loading';
+import { LoginEmailComponent } from './login-emal.component';
 export const routes = [
-  { path: '', component: RegisterComponent, pathMatch: 'full'}
+  { path: '', component: LoginEmailComponent, pathMatch: 'full'}
 ];
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ export const routes = [
     RouterModule.forChild(routes),
     NgxLoadingModule.forRoot({})
   ],
-  declarations: [RegisterComponent]
+  declarations: [LoginEmailComponent], 
 })
-export class RegisterModule { }
+export class LoginEmailModule { }

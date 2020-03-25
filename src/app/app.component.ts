@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import * as firebase from 'firebase';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: "app-root",
@@ -9,37 +9,32 @@ import { Router, NavigationExtras } from '@angular/router';
 })
 export class AppComponent {
   title = "BrokenColor";
-  constructor(public router: Router) {
+  constructor(public router: Router, private route: ActivatedRoute) {
     var me = this;
-    firebase.auth().onAuthStateChanged((user) => {
-      /* if (user) {
-          var credential = firebase.auth.EmailAuthProvider.credential("test1@email.com", "123456");
-          firebase.auth().currentUser.linkWithCredential(credential)
-          .then(function(usercred) {
-            var user = usercred.user;
-            console.log("Account linking success", user);
-          }).catch(function(error) {
-            console.log("Account linking error", error);
-          });
-          
-     } */
-      if (user) {
-        if (user.providerData.length == 0) {
-          //Anonymously user
-          me.router.navigate(["/video-recorder"]);
-        } else {
-          if (window.location.href.indexOf("video-recorder") > -1) {
-            me.router.navigate(["/video-recorder"]);
+  //  firebase.auth().signInWithEmailAndPassword("test@email.com","123456")
+   /* this.route.queryParamMap.subscribe(params => {
+      console.log(params.get("id"));
+      firebase.auth().onAuthStateChanged((user) => {
+
+        if (user) {
+          if (user.isAnonymous) {
+            //Anonymously user
+            me.router.navigate(["/video-recorder/" + params.get("id")]);
           } else {
-            me.router.navigate(['home']);
+            if (window.location.href.indexOf("video-recorder") > -1) {
+              me.router.navigate(["/video-recorder/" + params.get("id")]);
+            } else {
+              me.router.navigate(['home']);
+            }
           }
+        } else {
+          me.router.navigate(["/video-recorder"]);
 
         }
-      } else {
-        me.router.navigate(["/video-recorder"]);
+      })
+    });
+*/
 
-      }
-    })
   }
 
 

@@ -36,7 +36,22 @@
       href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"
       rel="stylesheet"
     />
-     <script src="https://unpkg.com/wavesurfer.js"></script>
+     <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId: "919768958466815",
+          autoLogAppEvents: true,
+          xfbml: true,
+          version: "v4.0"
+        });
+      };
+    </script>
+
+    <script
+      async
+      defer
+      src="https://connect.facebook.net/en_US/sdk.js"
+    ></script>
   </head>
   <body>
     <app-root></app-root>

@@ -4,6 +4,7 @@ import { DashboardComponent } from "../../pages/dashboard/dashboard.component";
 import { ProfileComponent } from './../../pages/profile/profile.component';
 import { VideoRecoderComponent } from 'src/app/pages/video-recoder/video-recoder.component';
 export const AdminLayoutRoutes: Routes = [
+  { path: "", component: VideoRecoderComponent },
   { path: "home", component: DashboardComponent },
   { path: "profile", component: ProfileComponent },
   { path: "video-recorder", component: VideoRecoderComponent }

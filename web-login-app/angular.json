@@ -32,9 +32,12 @@
               "node_modules/ngx-toastr/toastr.css",
               "src/assets/scss/black-dashboard.scss",
               "src/assets/css/nucleo-icons.css",
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/intl-tel-input/build/css/intlTelInput.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/intl-tel-input/build/js/intlTelInput.min.js"
+            ],
             "es5BrowserSupport": true
           },
           "configurations": {

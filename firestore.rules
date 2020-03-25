@@ -10,6 +10,9 @@ service cloud.firestore {
          //if request.auth.uid != null;        
       }
     }
+     match /psa/{id} {
+       allow create,read, update, delete : if true;
+      }
   
 }
 

@@ -1,0 +1,74 @@
+<nav class="navbar">
+
+  <!-- logo -->
+  <div class="navbar-brand">
+  </div>
+</nav>
+<div class="full-page login-page ">
+  <div class="content">
+    <div class="container">
+      <div class="col-lg-4 col-md-6 m-auto" style="text-align: -webkit-center;">
+
+
+        <div class="card card-login card-white">
+          <div class="card-header">
+            <img alt="" src="https://demos.creative-tim.com/black-dashboard-pro-angular/assets/img/card-primary.png">
+            <h1 class="card-title">Login with phone number</h1>
+          </div>
+          <div *ngIf="error" class="alert alert-danger" role="alert">
+            <span>{{error}}</span>
+          </div>
+          <div class="card-body">
+            <div class="input-group">
+              <div class="input-item">
+                <p>Phone number</p>
+                <input class="" style="width:270PX;" type="tel" ng2TelInput [(ngModel)]="phone" placeholder="Please enter your valid phone number here"
+                  (countryChange)="onCountryChange($event)" (ng2TelOutput)="getNumber($event)"
+                  [ng2TelInputOptions]="{initialCountry: 'in'}" />
+
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button [disabled]="!phone" (click)="signIn()" class="btn btn-block" type="submit">
+              OTP Send</button>
+              <div id="recaptcha-container"></div>
+            <div class="pull-right">
+              <h6>
+                <a [routerLink]="['/login']" class="link footer-link"> Back
+                </a>
+              </h6>
+            </div>
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+
+<!--Sweet Alerts-->
+<swal
+  #swapOtp
+  [type]="swalType"
+  [showCancelButton]="false"
+  [showCloseButton]="false"
+  [showConfirmButton]="false"
+  [allowOutsideClick]="false"
+  [allowEscapeKey]="false"
+  (confirm)="getOtp($event)"
+  title=""
+  text=""
+  confirmButtonText=""
+  cancelButtonText=""
+  html=""
+  input="text"
+  inputOptions=""
+  [inputValidator]=""
+>
+</swal>

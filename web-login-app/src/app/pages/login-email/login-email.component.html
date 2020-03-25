@@ -1,0 +1,75 @@
+<nav class="navbar">
+
+  <!-- logo -->
+  <div class="navbar-brand">
+  </div>
+</nav>
+<div class="full-page login-page ">
+  <div class="content">
+    <div class="container">
+
+      <div class="col-lg-4 col-md-6 m-auto" style="text-align: -webkit-center;">
+
+
+        <div class="card card-login card-white">
+          <div class="card-header">
+            <img alt="" src="https://demos.creative-tim.com/black-dashboard-pro-angular/assets/img/card-primary.png">
+            <h1 class="card-title">Login</h1>
+          </div>
+          <div *ngIf="error" class="alert alert-danger" role="alert">
+            <span>{{error}}</span>
+          </div>
+
+          <form class="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+            <div class="card-body">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i class="tim-icons icon-email-85"></i>
+                  </div>
+                </div>
+                <input formControlName="email" class="form-control" placeholder="Email" type="text">
+
+              </div>
+              <small class="text-danger" *ngIf="form.get('email').touched && form.get('email').hasError('required')">Email is required</small>
+              <small class="text-danger" *ngIf="form.get('email').touched && form.get('email').hasError('pattern')">Invalid email address</small>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i class="tim-icons icon-lock-circle"></i>
+                  </div>
+                </div>
+                <input formControlName="password" class="form-control" placeholder="Password" type="password">
+
+              </div>
+              <small class="text-danger" *ngIf="form.get('password').touched && form.get('password').hasError('required')">Password is required
+              </small>
+              <small class="text-danger" *ngIf="form.get('password').touched && form.get('password').hasError('minlength')">Password isn't long enough, minimum of 6 characters</small>
+            </div>
+            <div class="card-footer">
+              <button [disabled]="!form.valid" class="btn btn-block" type="submit">
+                Login</button>
+              <div class="pull-left">
+                <h6>
+                  <a [routerLink]="['/register']" class="link footer-link"> Create Account
+                  </a>
+                </h6>
+              </div>
+              <div class="pull-right">
+                <h6>
+                  <a class="link footer-link" [routerLink]="['/forgot-password']"> Forgot Password? </a>
+                </h6>
+              </div>
+            </div>
+          </form>
+
+
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

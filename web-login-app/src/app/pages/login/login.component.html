@@ -10,50 +10,53 @@
 
       <div class="col-lg-4 col-md-6 m-auto" style="text-align: -webkit-center;">
 
-        <form class="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
-          <div class="card card-login card-white">
-            <div class="card-header"><img alt="" src="https://demos.creative-tim.com/black-dashboard-pro-angular/assets/img/card-primary.png">
-              <h1 class="card-title">Login</h1>
-            </div>
-            <div *ngIf="error" class="alert alert-danger" role="alert"><span>{{error}}</span></div>
-            <div class="card-body">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <div class="input-group-text"><i class="tim-icons icon-email-85"></i></div>
-                </div><input formControlName="email" class="form-control" placeholder="Email" type="text">
 
-              </div>
-              <small class="text-danger" *ngIf="form.get('email').touched && form.get('email').hasError('required')">Email
-                is required</small>
-              <small class="text-danger" *ngIf="form.get('email').touched && form.get('email').hasError('pattern')">Invalid
-                email address</small>
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <div class="input-group-text"><i class="tim-icons icon-lock-circle"></i></div>
-                </div><input formControlName="password" class="form-control" placeholder="Password" type="password">
+    
 
-              </div>
-              <small class="text-danger" *ngIf="form.get('password').touched && form.get('password').hasError('required')">Password
-                is
-                required</small>
-              <small class="text-danger" *ngIf="form.get('password').touched && form.get('password').hasError('minlength')">Password
-                isn't long
-                enough, minimum of 6 characters</small>
-            </div>
-            <div class="card-footer"> <button [disabled]="!form.valid" class="btn btn-block" type="submit">
-                Login</button>
-              <div class="pull-left">
-                <h6><a [routerLink]="['/register']" class="link footer-link"> Create Account
-                  </a></h6>
-              </div>
-              <div class="pull-right">
-                <h6><a class="link footer-link" [routerLink]="['/forgot-password']"> Forgot Password? </a></h6>
-              </div>
-            </div>
+
+        <div class="card card-login card-white p-20">
+          <div *ngIf="error" class="alert alert-danger" role="alert">
+            <span>{{error}}</span>
           </div>
-        </form>
+          <button class="google-button" type="button" (click)="doGoogleLogin()" expand="block">
+              <img src="assets/img/google.png" width="20" height="20">
+              <span class="pl-20">Login with Google</span></button>
+     
+          <button class="twitter-button" type="button" (click)="doTwitterLogin()" expand="block">
+              <img src="assets/img/twitter.png" width="20" height="20">
+               <span class="pl-20">Login with Twitter</span></button>
+     
+          <button class="email-button" type="button" [routerLink]="['/login-email']" expand="block">
+              <img src="assets/img/email.png" width="20" height="20">
+              <span class="pl-20">Login with Email</span></button>
+      
+          <button class="phone-button" type="button" [routerLink]="['/auth-phone']" expand="block">
+              <img src="assets/img/phone.png" width="20" height="20">
+              <span class="pl-20">Login with Phone No.</span></button>
+      
+          <button class="github-button" type="button" (click)="doGoogleLogin()" expand="block">
+              <img src="assets/img/github.png" width="20" height="20">
+              <span class="pl-20">Login with Github</span></button>
+     
+          <button class="apple-button" type="button"  expand="block">
+              <img src="assets/img/apple.png" width="20" height="20">
+              <span class="pl-20">Login with Apple</span></button>
+              <button class="facebook-button" type="button" (click)="doFbLogin()" expand="block">
+                <img src="assets/img/facebook.png" width="20" height="20">
+                 <span class="pl-20">Login with Facebook</span></button>
+        
+     
+          <button class="email-button" type="button" [routerLink]="['/register']" expand="block">
+              <img src="assets/img/email.png" width="20" height="20">
+              <span class="pl-20">Signup with Email</span></button>        
+
+      
+      </div>
+
 
       </div>
+
+
     </div>
   </div>
 </div>

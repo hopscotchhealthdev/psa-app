@@ -13,6 +13,7 @@ import * as firebase from "firebase";
 import { firebase_config } from 'src/config/config';
 import { NgxLoadingModule } from 'ngx-loading';
 import {APP_BASE_HREF} from '@angular/common';
+import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
 firebase.initializeApp(firebase_config);
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ firebase.initializeApp(firebase_config);
     AppRoutingModule,
     ReactiveFormsModule,
     ToastrModule.forRoot(),
+    SweetAlert2Module.forRoot(),
   
     NgxLoadingModule.forRoot({})
  ],

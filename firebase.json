@@ -17,6 +17,11 @@
     ],
     "redirects": [
       {
+        "source": "",
+        "destination": "/recorder",
+        "type": 301
+      },
+      {
         "source": "login",
         "destination": "/login",
         "type": 301

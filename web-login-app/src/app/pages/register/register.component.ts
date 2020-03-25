@@ -44,29 +44,14 @@ export class RegisterComponent implements OnInit {
     let me = this;
     me.error = "";
     me.loading = true;
-    if (firebase.auth().currentUser) {
+    if (firebase.auth().currentUser && firebase.auth().currentUser.isAnonymous) {
       var credential = firebase.auth.EmailAuthProvider.credential(values.email,
         values.password);
       firebase.auth().currentUser.linkWithCredential(credential)
         .then(function (usercred) {
           firebase.auth().currentUser.reload();
           var user = usercred.user;
-          me.loading = false;
-          firebase
-            .firestore().collection("users").doc(user.uid).set({
-              userName: values.userName,
-              email: values.email,
-              createdDate: new Date(),
-              userId: user.uid
-            }).then(() => {
-              return firebase
-                .auth().currentUser.sendEmailVerification()
-                .then(() =>{
-                  me.router.navigate(["/verify-email"]);
-                })
-            }).catch(function (error) {
-              me.error = error.message;
-            });
+          me.createUserProfile(user, values.userName, values.email,true);
           console.log("Account linking success", user);
         }).catch(function (error) {
           me.loading = false;
@@ -76,24 +61,34 @@ export class RegisterComponent implements OnInit {
     } else {
       firebase.auth().createUserWithEmailAndPassword(values.email,
         values.password).then(function (data) {
-          me.loading = false;
-          firebase
-            .firestore().collection("users").doc(data.user.uid).set({
-              userName: values.userName,
-              email: values.email,
-              createdDate: new Date(),
-              userId: data.user.uid
-            }).then(() => {
-              return firebase
-                .auth().currentUser.sendEmailVerification()
-                .then(() => console.log("verification sent"))
-            }).catch(function (error) {
-              me.error = error.message;
-            });
+          me.createUserProfile(data.user, values.userName, values.email,false);         
         }).catch(function (error) {
           me.loading = false;
           me.error = error.message;
         });
     }
+  }
+
+  createUserProfile(user, name, email,isAnonymous) {
+    let me = this;
+    firebase
+      .firestore().collection("users").doc(user.uid).set({
+        userName: name,
+        email: email,
+        createdDate: new Date(),
+        userId: user.uid
+      }).then(() => {
+        me.loading = false;
+        return firebase
+          .auth().currentUser.sendEmailVerification()
+          .then(() => {
+            if(isAnonymous){
+              me.router.navigate(["/verify-email"]);
+            }
+          })
+      }).catch(function (error) {
+        me.loading = false;
+        me.error = error.message;
+      });
   }
 }
