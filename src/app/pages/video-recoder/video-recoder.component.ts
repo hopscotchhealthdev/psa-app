@@ -21,14 +21,23 @@ export class VideoRecoderComponent implements OnInit {
   counter: any;
   timecount;
   upload = false;
+  timerSeconds: any;
   @ViewChild('video') video;
   @ViewChild('videoPlay') videoPlay;
   img: any;
   videoData: any;
   markText: string = "";
   loginUser = true;
-  psaData = [];
-  loading=false;
+  psaData = {
+    id: '',
+    name: '',
+    uploadSeconds: 0,
+    data: []
+
+  };
+  loading = false;
+  psa = [];
+  psaSelect: string = '';
   constructor(private route: ActivatedRoute, private confirmationDialogService: ConfirmationDailogService, private router: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService) {
 
   }
@@ -48,18 +57,53 @@ export class VideoRecoderComponent implements OnInit {
     let me = this;
     this.route.queryParamMap.subscribe(params => {
       if (params.get("id")) {
-        me.loading=true;
+        me.loading = true;
         firebase.firestore().collection("psa").doc(params.get("id")).get().then(function (querySnapshot) {
-        me.loading=false;          
+          me.loading = false;
           if (querySnapshot.exists) {
-            me.psaData = querySnapshot.data().time;
-          }
+            me.psaData.data = querySnapshot.data().time;
+            me.psaData.name = querySnapshot.data().name;
+            me.psaData.id = querySnapshot.id;
+            me.psaData.uploadSeconds = querySnapshot.data().uploadSeconds;
 
+          }
+          else {
+            me.fetchPsa();
+          }
         });
+      }
+      else {
+        me.fetchPsa();
       }
     })
 
   }
+
+  choose(value) {
+    let find = this.psa.find(o => o.id == value);
+    this.psaData.data = find.data.time;
+    this.psaData.name = find.data.name;
+    this.psaData.uploadSeconds = find.data.uploadSeconds;
+    this.psaData.id = value;
+
+  }
+
+  fetchPsa() {
+    const me = this;
+    me.psa = [];
+    me.loading = true;
+    firebase.firestore().collection("psa").get().then(function (querySnapshot) {
+      me.loading = false;
+      querySnapshot.forEach(snapItem => {
+        me.psa.push({
+          id: snapItem.id,
+          data: snapItem.data()
+        })
+      });
+    });
+
+  }
+
   ngAfterViewInit() {
 
   }
@@ -70,6 +114,7 @@ export class VideoRecoderComponent implements OnInit {
     };
     this.stream = stream;
     this.recordRTC = RecordRTC(stream, options);
+    debugger;
     this.recordRTC.startRecording();
     let video: HTMLVideoElement = this.video.nativeElement;
     video.srcObject = this.stream;
@@ -91,13 +136,20 @@ export class VideoRecoderComponent implements OnInit {
   }
 
   processVideo(audioVideoWebMURL) {
-    let video: HTMLVideoElement = this.videoPlay.nativeElement;
+    // let video: HTMLVideoElement = this.videoPlay.nativeElement;
     let recordRTC = this.recordRTC;
-    video.src = audioVideoWebMURL;
-    var recordedBlob = recordRTC.getBlob();
-    recordRTC.getDataURL(function (dataURL) {
-      console.log(dataURL)
+    //  video.src = audioVideoWebMURL;
+    const me = this;
+    me.uploadVideoAsPromise().then((video) => {
+      me.saveVideo(video);
+    }).catch((err) => {
+      me.progress = false;
+      me.toastr.error('File upload error', '', {
+        timeOut: 2000,
+        positionClass: 'toast-top-center',
+      });
     });
+
   }
 
   startRecording() {
@@ -118,9 +170,31 @@ export class VideoRecoderComponent implements OnInit {
     stream.getAudioTracks().forEach(track => track.stop());
     stream.getVideoTracks().forEach(track => track.stop());
     this.recording = false;
-    this.isPlaying = true;
+    // this.isPlaying = true;
     this.upload = true
     this.pauseTimer();
+  }
+
+  stopConfirmRecording() {
+    this.recordRTC.pauseRecording();
+    clearInterval(this.counter);
+    const me = this;
+    this.confirmationDialogService.confirm("Attention!!!", "", "Continue Video", "Reset Video")
+      .then((confirmed) => {
+        if (confirmed) {
+          me.recordRTC.resumeRecording();
+          me.startTimer(me.timerSeconds);
+        } else {
+          me.recordRTC.stopRecording();
+          let stream = this.stream;
+          stream.getAudioTracks().forEach(track => track.stop());
+          stream.getVideoTracks().forEach(track => track.stop());
+          me.resetScreen();
+        }
+      })
+      .catch(() => {
+
+      });
   }
 
   download() {
@@ -130,9 +204,9 @@ export class VideoRecoderComponent implements OnInit {
     clearInterval(this.counter);
     this.timecount = 0;
   }
-  startTimer() {
-    this.timecount = 0;
-    var count = '1'; // it's 00:01:02
+
+  startTimer(seconds?) {
+    var count = seconds ? seconds : '1'; // it's 00:01:02
     this.counter = setInterval(timer, 1000);
     var me = this;
     function timer() {
@@ -141,8 +215,7 @@ export class VideoRecoderComponent implements OnInit {
         return;
       }
       me.timecount = me.getHHMMSS(count);
-
-      count = (parseInt(count) + 1).toString();
+      me.timerSeconds = count = (parseInt(count) + 1).toString();
     }
   }
 
@@ -163,13 +236,15 @@ export class VideoRecoderComponent implements OnInit {
     }
     var time = this.pad(hours) + ':' + this.pad(minutes) + ':' + this.pad(seconds);
 
-    let filter = this.psaData.filter(o => o.min <= count && o.max >= count)[0];
+    let filter = this.psaData.data.filter(o => o.min <= count && o.max >= count)[0];
     if (filter) {
       this.markText = filter.title;
     } else {
       this.markText = "";
     }
-
+    if (this.psaData.uploadSeconds == count) {
+      this.stopRecording();
+    }
 
 
     return time;
@@ -177,32 +252,21 @@ export class VideoRecoderComponent implements OnInit {
   pad(n) {
     return (n < 10) ? ("0" + n) : n;
   }
-  public uploadvideo() {
-    var title = 'please confirm...';
-    var message = 'Are you sure you want to upload this video?';
-    var btnOkText = 'Yes';
-    var btnCancelText = 'No';
-    this.openConfirmationDialog(title, message, btnOkText, btnCancelText);
-  }
 
-  saveVideo(url) {
+  /* public uploadvideo() {
+     var title = 'please confirm...';
+     var message = 'Are you sure you want to upload this video?';
+     var btnOkText = 'Yes';
+     var btnCancelText = 'No';
+     this.openConfirmationDialog(title, message, btnOkText, btnCancelText);
+   }*/
+
+
+
+  saveVideo(video) {
     var me = this;
     if (firebase.auth().currentUser) {
-      var userId = firebase.auth().currentUser.uid;
-      firebase.firestore().collection("users").doc(userId).collection('videos').add({
-        url: url,
-        createdDate: new Date().getTime(),
-        userId: userId
-      })
-        .then(function () {
-          me.toastr.success('file uploaded successfully', '', {
-            timeOut: 2000,
-            positionClass: 'toast-top-center',
-          });
-          me.resetScreen();
-        })
-        .catch(function (error) {
-        });
+      me.updateVideoData(video);
     }
     else {
       // create Anonymously user
@@ -212,23 +276,35 @@ export class VideoRecoderComponent implements OnInit {
         var errorMessage = error.message;
         // ...
       }).then(function (res) {
-        var userId = firebase.auth().currentUser.uid;
-        firebase.firestore().collection("users").doc(userId).collection('videos').add({
-          url: url,
-          createdDate: new Date().getTime(),
-          userId: userId
-        })
-          .then(function () {
-            me.toastr.success('file uploaded successfully', '', {
-              timeOut: 2000,
-              positionClass: 'toast-top-center',
-            });
-            me.resetScreen();
-          })
-          .catch(function (error) { });
+    var userId = firebase.auth().currentUser.uid;        
+        firebase.firestore().collection("users").doc(userId).set({userName:"Anonymous"})
+        me.updateVideoData(video);
       });
 
     }
+  }
+
+  updateVideoData(video) {
+    var userId = firebase.auth().currentUser.uid;
+    const me = this;
+    firebase.firestore().collection("users").doc(userId).collection('videos').add({
+      url: video.downloadURL,
+      videoId: video.videoId,
+      createdDate: new Date().getTime(),
+      userId: userId,
+      psaId: me.psaData.id,
+      psaName: me.psaData.name
+    })
+      .then(function () {
+        me.toastr.success('Video file uploaded successfully', '', {
+          timeOut: 2000,
+          positionClass: 'toast-top-center',
+        });
+        me.resetScreen();
+      })
+      .catch(function (error) {
+      });
+
   }
 
   resetScreen() {
@@ -238,7 +314,8 @@ export class VideoRecoderComponent implements OnInit {
     this.isPlaying = false;
     this.upload = false;
     this.markText = '';
-    if (firebase.auth().currentUser.providerData.length == 0) {
+    this.timecount = 0;
+    if (firebase.auth().currentUser.isAnonymous) {
       var title = 'Attention';
       var message = 'Please Login the app, if you want to share the video';
       var btnOkText = 'login';
@@ -247,26 +324,35 @@ export class VideoRecoderComponent implements OnInit {
     }
   }
 
+
+
+
   uploadVideoAsPromise(): any {
     var me = this;
     var recordedBlob = this.recordRTC.getBlob();
     me.progress = true;
     return new Promise(function (resolve, reject) {
-      var uploadTask = firebase.storage().ref().child('videos').child(me.Guid()).put(recordedBlob);
+      const videoId = me.Guid();
+      var uploadTask = firebase.storage().ref().child('videos').child(videoId).put(recordedBlob);
       uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, function (snapshot) {
         me.uploadProgress = snapshot.bytesTransferred / snapshot.totalBytes * 100;
-        if (me.uploadProgress == 100) {
-          setTimeout(function () {
-            uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-              resolve(downloadURL);
-            })
-          }, 3000);
-        }
-      }), function (error) {
-        console.log(error)
-        reject(error);
 
-      }
+      }, function (error) {
+        // Handle unsuccessful uploads
+        reject(error);
+      }, function () {
+        // Handle successful uploads on complete
+        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+        setTimeout(function () {
+          uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+            resolve({
+              downloadURL: downloadURL,
+              videoId: videoId
+            });
+          })
+        }, 1000);
+
+      });
     });
   }
 
@@ -280,7 +366,7 @@ export class VideoRecoderComponent implements OnInit {
       s4() + '-' + s4() + s4() + s4();
   }
 
-  public openConfirmationDialog(title, message, btnOkText, btnCancelText) {
+  /*public openConfirmationDialog(title, message, btnOkText, btnCancelText) {
     this.confirmationDialogService.confirm(title, message, btnOkText, btnCancelText)
       .then((confirmed) => {
         if (confirmed) {
@@ -298,7 +384,7 @@ export class VideoRecoderComponent implements OnInit {
       })
       .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
   }
-
+*/
   public loginConfirmationDialog(title, message, btnOkText, btnCancelText) {
     this.confirmationDialogService.confirm(title, message, btnOkText, btnCancelText)
       .then((confirmed) => {

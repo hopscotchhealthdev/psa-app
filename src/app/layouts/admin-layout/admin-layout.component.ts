@@ -12,17 +12,7 @@ export class AdminLayoutComponent implements OnInit {
 
 
   constructor() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        if (user.isAnonymous) {
-          this.user = false;
-        } else {
-          this.user = true;
-        }
-      }else{
-        this.user = false; 
-      }
-    })
+   
   }
   changeSidebarColor(color) {
     var sidebar = document.getElementsByClassName('sidebar')[0];

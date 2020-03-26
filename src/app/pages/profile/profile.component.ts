@@ -14,6 +14,7 @@ export class ProfileComponent implements OnInit {
     image: ''
   }
   public loading: boolean = false;
+  public isAnonymous = false;
   constructor(private toastr: ToastrService) { }
   ngOnInit() {
 
@@ -21,30 +22,40 @@ export class ProfileComponent implements OnInit {
   ngAfterViewInit() {
     let me = this;
 
-    if (firebase.auth().currentUser) {
+    if (firebase.auth().currentUser && !firebase.auth().currentUser.isAnonymous) {
       me.loading = true;
+      me.isAnonymous = false;
       firebase
         .firestore().collection("users").doc(firebase.auth().currentUser.uid).get().then((userRef) => {
           me.loading = false;
           const data = userRef.data();
           me.user.userName = data.userName ? data.userName : '';
           me.user.age = data.age ? data.age : null;
-          me.user.gender = data.gender?data.gender:"male";
+          me.user.gender = data.gender ? data.gender : "male";
           me.user.email = data.email;
-          me.user.image = data.image ? data.image : "assets/img/placeholder.jpg"
+          me.user.image = data.image ? data.image : "assets/img/anime3.png"
         }).catch(err => {
           me.loading = false;
         })
+    } else {
+      this.isAnonymous = true;
     }
   }
+
+  goToLogin() {
+    window.location.href = `${window.location.origin}/login/index.html`;
+  }
+
   update() {
     let me = this;
     me.loading = true;
     firebase
       .firestore().collection("users").doc(firebase.auth().currentUser.uid).update({
-        userName: me.user.userName,
-        age: me.user.age,
-        gender: me.user.gender
+        userName: me.user.userName ? me.user.userName : '',
+        age: me.user.age ? me.user.age : '',
+        gender: me.user.gender ? me.user.gender : '',
+        email: me.user.email ? me.user.email : '',
+
       }).then(res => {
         me.loading = false;
         me.toastr.success('Profile  updated successfully', '', {

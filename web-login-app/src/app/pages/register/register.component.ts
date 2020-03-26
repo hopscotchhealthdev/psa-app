@@ -82,9 +82,7 @@ export class RegisterComponent implements OnInit {
         return firebase
           .auth().currentUser.sendEmailVerification()
           .then(() => {
-            if(isAnonymous){
               me.router.navigate(["/verify-email"]);
-            }
           })
       }).catch(function (error) {
         me.loading = false;

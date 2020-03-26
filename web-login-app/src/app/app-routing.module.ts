@@ -4,9 +4,10 @@ import { BrowserModule } from "@angular/platform-browser";
 import { Routes, RouterModule } from "@angular/router";
 
 const routes: Routes = [
-  { path: 'recorder', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
+  { path: '', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
   { path: 'auth-phone', loadChildren: () => import('./pages/auth-phone/auth-phone.module').then(m => m.AuthPhoneModule) },
   { path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
+  { path: 'login/:next', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) }, 
   { path: 'login-email', loadChildren: () => import('./pages/login-email/login-email.module').then(m => m.LoginEmailModule) },
   { path: 'forgot-password', loadChildren: () => import('./pages/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule) },
   { path: 'register', loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterModule) },

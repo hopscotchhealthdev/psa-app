@@ -1,42 +1,50 @@
 <div class="content">
+  <p *ngIf="psaData.name" class="psa-name">{{psaData.name}} </p>
+  <div  *ngIf="psa.length >0 " class="select-style mb-20 px-5p">
+    <label>Select PSA </label>
+    <select (change)="choose($event.target.value)" [(ngModel)]="psaSelect" class="psa-select" placeHolder="choose your psa script">
+      <option *ngFor="let item of psa" value="{{item.id}}">{{item.data.name}}</option>
+    </select>
+  </div>
+<br/>
   <div style="position:relative;">
-  <div class="row">
-    <div class="col-xs-12 div-center">
-      <!-- <ng-marquee *ngIf="recording" duration="50s">
+    <div class="row">
+      <div class="col-xs-12 div-center">
+        <!-- <ng-marquee *ngIf="recording" duration="50s">
         <ng-container *ngTemplateOutlet="marqueeContent"></ng-container>
       </ng-marquee> -->
-      <div style="position: relative;">
-        <div *ngIf="markText"class="markerText">{{markText}}</div>   
-      <video [hidden]="isPlaying" #video class="video"></video>
-    </div>
-    <video [hidden]="!isPlaying" muted controls #videoPlay controls class="video"></video>
-   
-  </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 div-center">
-      <div *ngIf="!recording" class="icon-position">
-        <img src="assets/img/recording-play.png" alt="recording pause icon" width="36" height="36" (click)="startRecording()" />
-        <img style="margin-left:10px;" *ngIf="upload" src="assets/img/upload.png" alt="recording pause icon" width="36" height="36" (click)="uploadvideo()" />
-      </div>
-      <div *ngIf="recording">
-        <div class="timer red-bg" *ngIf="timecount !=0">{{timecount}}</div>
-   
-        <img src="assets/img/recording-pause.png" alt="recording pause icon" width="36" height="36" class="icon-position" (click)="stopRecording()" />
+        <div style="position: relative;">
+          <div *ngIf="markText" class="markerText">{{markText}}</div>
+          <video [hidden]="isPlaying" #video class="video"></video>
+        </div>
+        <!-- <video [hidden]="!isPlaying" muted controls #videoPlay controls class="video"></video> -->
 
       </div>
-      <div *ngIf="progress">
-        <progress-bar [progress]="uploadProgress" [color]="'#70E083'">
-        </progress-bar>
-        <h4>Video Uploading...</h4>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 div-center">
+        <div *ngIf="!recording" class="icon-position">
+          <img src="assets/img/recording-play.png" *ngIf="psaData.id" alt="recording pause icon" width="36" height="36" (click)="startRecording()"
+          />
+          <!-- <img style="margin-left:10px;" *ngIf="upload" src="assets/img/upload.png" alt="recording pause icon" width="36" height="36"
+            (click)="uploadvideo()" /> -->
+        </div>
+        <div *ngIf="recording">
+          <div class="timer red-bg" *ngIf="timecount !=0">{{timecount}}</div>
+
+          <img src="assets/img/recording-pause.png" alt="recording pause icon" width="36" height="36" class="icon-position" (click)="stopConfirmRecording()"
+          />
+
+        </div>
+        <div *ngIf="progress">
+          <progress-bar [progress]="uploadProgress" [color]="'#70E083'">
+          </progress-bar>
+          <h4>Video Uploading...</h4>
+        </div>
       </div>
     </div>
   </div>
-</div>
-</div>
-<div *ngIf="!loginUser"  style="padding: 1.25rem 1.5rem;
-border-top: 0.0625rem solid rgba(34, 42, 66, 0.05);">
-<button  (click)="goToLogin()" class="btn btn-block" type="submit">Login</button>
+
 </div>
 
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

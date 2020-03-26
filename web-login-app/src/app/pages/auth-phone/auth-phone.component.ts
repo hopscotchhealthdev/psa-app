@@ -113,9 +113,8 @@ export class AuthPhoneComponent implements OnInit {
         userId: user.uid
       }).then(() => {
         me.loading = false;
-        if (me.isAnonymous) {
           me.redirctToRecorderApp();
-        }
+        
       }).catch(function (error) {
         me.loading = false;
         me.error = error.message;

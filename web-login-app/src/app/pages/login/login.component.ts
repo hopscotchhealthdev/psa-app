@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import * as firebase from "firebase";
 const email_pattern = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|in|net|org|pro|travel|health|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
@@ -12,12 +12,17 @@ declare var FB: any;
 export class LoginComponent implements OnInit {
   public error: string = "";
   public loading: boolean = false;
-  constructor(private router: Router, fb: FormBuilder) {
+  constructor(private router: Router, fb: FormBuilder,private route:ActivatedRoute) {
     this.router = router;
 
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.route.queryParamMap.subscribe(params => {
+    
+    })
+
+   }
 
 
   doFbLogin() {
@@ -71,12 +76,12 @@ export class LoginComponent implements OnInit {
         userName: name,
         email: email,
         createdDate: new Date(),
-        userId: user.uid
+        userId: user.uid,
+        image:user.photoURL?user.photoURL:null
       }).then(() => {
         me.loading = false;
-        if (isAnonymous) {
           me.redirctToReccorderApp();
-        }
+        
       }).catch(function (error) {
         me.loading = false;
         me.error = error.message;
@@ -85,6 +90,7 @@ export class LoginComponent implements OnInit {
 
   doGoogleLogin() {
     const me = this;
+    console.log(firebase.auth().currentUser);
     const provider = new firebase.auth.GoogleAuthProvider();
     if (firebase.auth().currentUser && firebase.auth().currentUser.isAnonymous) {
       firebase.auth().currentUser.linkWithPopup(provider).then(
@@ -143,12 +149,13 @@ export class LoginComponent implements OnInit {
   doTwitterLogin(){
     const me = this;
     const provider = new firebase.auth.TwitterAuthProvider();
+
     if (firebase.auth().currentUser && firebase.auth().currentUser.isAnonymous) {
 
       firebase.auth().currentUser.linkWithPopup(provider).then(
         (twitterUser: any) => {
           me.loading = true;
-          me.createUserProfile(twitterUser.user," ", twitterUser.user.email, true);
+          me.createUserProfile(twitterUser.user,twitterUser.user.displayName, twitterUser.user.email, true);
         },
         error => {
           me.error = error.message;
@@ -157,7 +164,6 @@ export class LoginComponent implements OnInit {
     } else {
       firebase.auth().signInWithPopup(provider).then(
         (twitterUser: any) => {
-          debugger;
           me.loading = true;
           me.createUserProfile(twitterUser.user," ", twitterUser.user.email, false);
          },

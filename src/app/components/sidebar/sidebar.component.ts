@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-
 declare interface RouteInfo {
   path: string;
   title: string;

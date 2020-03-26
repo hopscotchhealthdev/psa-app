@@ -66,3 +66,42 @@ video {
     left: 50%;
     transform: translate(-50%, 0);
 }
+
+
+.psa-name{
+  font-size: 19px;
+  text-align: center;
+  padding: 2px;
+}
+
+
+.psa-select{
+  display: block;
+    max-width: 100%;
+    width: 80%;
+    padding: 10px 15px;
+    background: transparent;
+    font-size: 16px;
+    color: #eee;
+    margin-left: 20px;
+    border: none;
+}
+
+.psa-select>option{
+  color:#141414;
+  font-size:14px;
+  width:90%;
+}
+.select-style{
+  display: flex;
+  align-items: center;
+  border:solid 1px #fff;
+  label{
+    color:#fff;
+  }
+}
+ select:focus {
+   outline: 0;
+ }
+.mb-20{margin: 0px 5% 20px;}
+.px-5p{padding-left: 2%; padding-right: 0%;}

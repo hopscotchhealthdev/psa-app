@@ -7,7 +7,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: "app-dashboard",
   templateUrl: "dashboard.component.html",
-  providers:[NgbActiveModal]
+  providers: [NgbActiveModal]
 })
 export class DashboardComponent implements OnInit {
   @ViewChild('videoPlay') videoPlay;
@@ -15,8 +15,8 @@ export class DashboardComponent implements OnInit {
   collection = [];
   p: number = 1;
   videos: any = [];
-  modalRef:any;
-  constructor(private router: Router,public activeModal: NgbActiveModal, private confirmationDialogService: ConfirmationDailogService,public modalService: NgbModal) {
+  modalRef: any;
+  constructor(private router: Router, public activeModal: NgbActiveModal, private confirmationDialogService: ConfirmationDailogService, public modalService: NgbModal) {
 
   }
   download(url) {
@@ -39,17 +39,25 @@ export class DashboardComponent implements OnInit {
 
               if (change.type === "added") {
                 var data = change.doc.data();
-                me.videos.push({
-                  date: moment(new Date(data.createdDate)).format('LLLL'),
-                  url: data.url,
-                  videoId: change.doc.id
-                })
+
+                firebase.firestore().collection("psa").doc(data.psaId).get().then(function (querySnapshot) {
+                  if (querySnapshot.exists) {
+                    me.videos.push({
+                      date: moment(new Date(data.createdDate)).format('LLLL'),
+                      url: data.url,
+                      id: change.doc.id,
+                      psaName: querySnapshot.data().name,
+                      psaTime: querySnapshot.data().time
+                    })
+                  }
+
+                });
               }
               if (change.type === "modified") {
 
               }
               if (change.type === "removed") {
-                let index = this.videos.findIndex(o => o.videoId == change.doc.id);
+                let index = this.videos.findIndex(o => o.id == change.doc.id);
                 if (index > -1) {
                   this.videos.splice(index, 1);
                 }
@@ -60,19 +68,22 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  play(url,template: TemplateRef<any>) {
-    this.modalRef=this.modalService.open(template);
-  let me =this;
-  setTimeout(() => {
-    let el:any=document.getElementById("videoPlay");
-    el.src=url;
-  }, 400);
+  play(item, template: TemplateRef<any>) {
+    this.modalRef = this.modalService.open(template);
+    let me = this;
+    setTimeout(() => {
+      let el: any = document.getElementById("videoPlay");
+      el.src = item.url;
+      el.play();
+      
+    }, 400);
 
-}
-hide(template: TemplateRef<any>){
-  this.modalService.dismissAll(template);
-  
-}
+  }
+
+  hide(template: TemplateRef<any>) {
+    this.modalService.dismissAll(template);
+
+  }
   delete(item) {
     this.shwDeletePrompt(item, "Are you want to delete this video?", "", "Yes", "No");
   }
@@ -82,7 +93,7 @@ hide(template: TemplateRef<any>){
         if (confirmed) {
           firebase
             .firestore()
-            .collection("users").doc(firebase.auth().currentUser.uid).collection("videos").doc(item.videoId).delete();
+            .collection("users").doc(firebase.auth().currentUser.uid).collection("videos").doc(item.id).delete();
         }
       })
       .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));

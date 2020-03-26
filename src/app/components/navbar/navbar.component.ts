@@ -23,7 +23,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   
   };
   public isCollapsed = true;
-
+  isAnonymous:boolean=true;
   closeResult: string;
 
   constructor(
@@ -59,9 +59,18 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.mobile_menu_visible = 0;
       }
     });
+
+
+    
     firebase.auth().onAuthStateChanged((user) => {
       let me = this;
       if (user) {
+        debugger;
+        if (user.isAnonymous) {
+          this.isAnonymous = true;
+        }else{
+          this.isAnonymous = false;          
+        }
         firebase
           .firestore().collection("users").doc(user.uid).onSnapshot((userRef) => {
             if(userRef.exists){
@@ -75,15 +84,23 @@ export class NavbarComponent implements OnInit, OnDestroy {
             }
             });
 
+      }else{
+        this.isAnonymous = true;                  
       }
     })
 
   }
 
   logout(){
-    firebase.auth().signOut();
+    firebase.auth().signOut().then((userRef) => {
+      this.router.navigate(['/']);
+    })
   }
 
+  goToLogin() {
+    window.location.href = `${window.location.origin}/login/index.html`
+  }
+  
   collapse() {
     this.isCollapsed = !this.isCollapsed;
     const navbar = document.getElementsByTagName("nav")[0];

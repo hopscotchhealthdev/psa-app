@@ -8,9 +8,9 @@
           <span class="navbar-toggler-bar bar3"> </span>
         </button>
       </div>
-      <a class="navbar-brand" href="javascript:void(0)"> {{ getTitle() }} </a>
+      <!-- <a class="navbar-brand" href="javascript:void(0)"> {{ getTitle() }} </a> -->
     </div>
-    <button
+    <button *ngIf="!isAnonymous"
       aria-label="Toggle navigation"
       class="navbar-toggler"
       (click)="collapse()"
@@ -23,11 +23,14 @@
       <span class="navbar-toggler-bar navbar-kebab"> </span>
       <span class="navbar-toggler-bar navbar-kebab"> </span>
     </button>
+    <div *ngIf="isAnonymous" style="border-top: 0.0625rem solid rgba(34, 42, 66, 0.05);">
+        <button (click)="goToLogin()" class="btn btn-block" type="submit">Login</button>
+      </div>
     <div class="navbar-collapse" [ngbCollapse]="isCollapsed" id="navigation">
       <ul class= " navbar-nav ml-auto" style="margin-left: 75px;">
   <li></li>
 <li></li>
-  <li class="nav-item" ngbDropdown>
+  <li  *ngIf="!isAnonymous" class="nav-item" ngbDropdown>
           <a
             class="nav-link"
             data-toggle="dropdown"
