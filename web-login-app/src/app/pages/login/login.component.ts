@@ -117,6 +117,35 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  doAppleLogin(){
+    const me = this;
+    const provider  = new firebase.auth.OAuthProvider('apple.com');
+    provider.addScope('email');
+    provider.addScope('name');
+    if (firebase.auth().currentUser && firebase.auth().currentUser.isAnonymous) {
+
+      firebase.auth().currentUser.linkWithPopup(provider).then(
+        (appleUser: any) => {
+          me.loading = true;
+          me.createUserProfile(appleUser.user,appleUser.user.displayName, appleUser.user.email, true);
+        },
+        error => {
+          me.error = error.message;
+        }
+      );
+    } else {
+      firebase.auth().signInWithPopup(provider).then(
+        (appleUser: any) => {
+          me.loading = true;
+          me.createUserProfile(appleUser.user,appleUser.user.displayName, appleUser.user.email, false);
+         },
+        error => {
+          me.error = error.message;
+        }
+      );
+    }
+  }
+
   doGithubLogin(){
     const me = this;
     const provider = new firebase.auth.GithubAuthProvider();

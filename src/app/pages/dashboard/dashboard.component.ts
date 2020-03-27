@@ -33,10 +33,13 @@ export class DashboardComponent implements OnInit {
         firebase
           .firestore()
           .collection("users").doc(user.uid).collection("videos").where("userId", "==", user.uid).onSnapshot(sessionSnap => {
+            if ( sessionSnap.docs.length==0) {
+              me.loading = false;
+            }
             sessionSnap.docChanges().forEach(change => {
               if (change.type === "added") {
                 count++;
-                if (count == change.doc.data.length) {
+                if (count == sessionSnap.docs.length) {
                   me.loading = false;
                 }
                 var data = change.doc.data();

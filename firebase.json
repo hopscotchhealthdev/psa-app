@@ -9,6 +9,9 @@
       "**/.*",
       "**/node_modules/**"
     ],
+    "headers": [
+      { "source":"**", "headers": [{"key": "Cache-Control", "value": "no-cache"}] }
+    ],
     "rewrites": [
       {
         "source": "**",
@@ -30,6 +33,11 @@
         "source": "recorder",
         "destination": "/recorder",
         "type": 302
+      },
+      {
+        "source": "share",
+        "destination": "/share",
+        "type": 304
       }
     ]
   },

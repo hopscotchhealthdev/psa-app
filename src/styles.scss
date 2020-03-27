@@ -32,3 +32,52 @@
     display: inline-block;
     padding-right:10px;
 }
+.progress-inner{
+    min-width: 15%;
+    min-height: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 0px;
+    border-radius: 5px !important;
+}
+.progress-outer{
+    width: 96%;
+    margin: 10px 2%;
+    padding: 6px;
+    background-color: #4e4e4e!important;
+    border: 1px solid #4e4e4e!important;
+    color: #fff;
+    border-radius: 5px!important;
+    text-align: center;
+}
+
+.card .card-header {
+    padding: 15px 15px;
+}
+
+.pagination-previous{
+    span{
+        display:none;
+    }
+}
+.pagination-next{
+    span{
+        display:none;
+    }
+}
+
+.pagination pagination-controls .pagination-previous.disabled {
+    display: inline-block;
+    width: auto;
+    text-align: center;
+    float: left;
+    padding: 8px 15px;
+    text-decoration: none;
+    -webkit-transition: background-color 0.3s;
+    transition: background-color 0.3s;
+    background: #383b43;
+    /* margin-left: 8px; */
+    font-size: 23px;
+}
+
+

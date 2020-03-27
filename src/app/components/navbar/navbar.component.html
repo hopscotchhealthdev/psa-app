@@ -46,7 +46,7 @@
           
           <ul class="dropdown-navbar" ngbDropdownMenu>
             <li class="nav-link">
-              <a class="nav-item" [routerLink]="['/profile']" href="javascript:void(0)" ngbDropdownItem>
+              <a class="nav-item" (click)="profileCollapse();" [routerLink]="['/profile']" href="javascript:void(0)" ngbDropdownItem>
                 Profile
               </a>
             </li>

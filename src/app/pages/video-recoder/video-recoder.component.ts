@@ -14,7 +14,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 export class VideoRecoderComponent implements OnInit {
   private stream: MediaStream;
   private recordRTC: any;
-  uploadProgress;
+  uploadProgress:any;
   recording: boolean = false;
   progress = false;
   isPlaying = false;
@@ -34,13 +34,14 @@ export class VideoRecoderComponent implements OnInit {
 
   };
   loading = false;
-  psa = [];
-  psaSelect: string = '';
+  animation: boolean = false;
+  timeout:any;
   constructor(private route: ActivatedRoute, private confirmationDialogService: ConfirmationDailogService, private router: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService) {
 
   }
   ngOnInit() {
     let me = this;
+    me.startCamera();
     this.route.queryParamMap.subscribe(params => {
       if (params.get("id")) {
         me.loading = true;
@@ -54,45 +55,19 @@ export class VideoRecoderComponent implements OnInit {
 
           }
           else {
-            me.fetchPsa();
+            me.router.navigate(["/psa-list"]);
           }
         });
       }
       else {
-        me.fetchPsa();
+        me.router.navigate(["/psa-list"]);       
       }
     })
 
   }
 
-  choose(value) {
-    let find = this.psa.find(o => o.id == value);
-    this.psaData.data = find.data.time;
-    this.psaData.name = find.data.name;
-    this.psaData.uploadSeconds = find.data.uploadSeconds;
-    this.psaData.id = value;
 
-  }
-
-  fetchPsa() {
-    const me = this;
-    me.psa = [];
-    me.loading = true;
-    firebase.firestore().collection("psa").get().then(function (querySnapshot) {
-      me.loading = false;
-      querySnapshot.forEach(snapItem => {
-        me.psa.push({
-          id: snapItem.id,
-          data: snapItem.data()
-        })
-      });
-    });
-
-  }
-
-  ngAfterViewInit() {
-
-  }
+  ngAfterViewInit() { }
 
   successCallback(stream: MediaStream) {
     var options = {
@@ -100,15 +75,34 @@ export class VideoRecoderComponent implements OnInit {
     };
     this.stream = stream;
     this.recordRTC = RecordRTC(stream, options);
-    this.recordRTC.startRecording();
     let video: HTMLVideoElement = this.video.nativeElement;
     video.srcObject = this.stream;
     video.muted = true;
     video.controls = false;
     video.autoplay = true;
-    this.recording = true;
-    this.isPlaying = false;
-    this.startTimer();
+  }
+
+
+  startRecordingProcess() {
+    if (this.animation) {
+      this.animation = false;
+      this.resetScreen();
+      if(this.timecount){
+      clearTimeout(this.timecount);
+      }
+    } else {
+      this.animation = true;
+     this.timeout= setTimeout(() => {
+       if(this.animation){
+        this.recordRTC.startRecording();
+        this.animation = false;
+        this.startTimer();
+        this.recording = true;
+        this.isPlaying = false;
+       }    
+      }, 3500);
+
+    }
   }
 
   errorCallback() {
@@ -157,7 +151,7 @@ export class VideoRecoderComponent implements OnInit {
     });
   }
 
-  startRecording() {
+  startCamera() {
     this.upload = false;
     let mediaConstraints: any = {
       video: {
@@ -187,13 +181,10 @@ export class VideoRecoderComponent implements OnInit {
     this.confirmationDialogService.confirm("Attention!!!", "", "Continue Video", "Reset Video")
       .then((confirmed) => {
         if (confirmed) {
-          me.recordRTC.resumeRecording();
-          me.startTimer(me.timerSeconds);
+            me.recordRTC.resumeRecording();
+            me.startTimer(me.timerSeconds);
+
         } else {
-          me.recordRTC.stopRecording();
-          let stream = this.stream;
-          stream.getAudioTracks().forEach(track => track.stop());
-          stream.getVideoTracks().forEach(track => track.stop());
           me.resetScreen();
         }
       })
@@ -205,7 +196,9 @@ export class VideoRecoderComponent implements OnInit {
   }
 
   pauseTimer() {
-    clearInterval(this.counter);
+    if (this.counter) {
+      clearInterval(this.counter);
+    }
     this.timecount = 0;
   }
 
@@ -249,10 +242,9 @@ export class VideoRecoderComponent implements OnInit {
     if (this.psaData.uploadSeconds == count) {
       this.stopRecording();
     }
-
-
     return time;
   }
+
   pad(n) {
     return (n < 10) ? ("0" + n) : n;
   }
@@ -296,6 +288,12 @@ export class VideoRecoderComponent implements OnInit {
     this.upload = false;
     this.markText = '';
     this.timecount = 0;
+    this.recordRTC.stopRecording();
+    this.pauseTimer();
+    let stream = this.stream;
+    stream.getAudioTracks().forEach(track => track.stop());
+    stream.getVideoTracks().forEach(track => track.stop());
+    this.startCamera();
   }
 
 
@@ -307,9 +305,8 @@ export class VideoRecoderComponent implements OnInit {
       const videoId = me.Guid();
       var uploadTask = firebase.storage().ref().child('videos').child(videoId).put(recordedBlob);
       uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, function (snapshot) {
-        me.uploadProgress = snapshot.bytesTransferred / snapshot.totalBytes * 100;
-
-      }, function (error) {
+        me.uploadProgress =  parseInt((snapshot.bytesTransferred / snapshot.totalBytes * 100).toString());
+         }, function (error) {
         // Handle unsuccessful uploads
         reject(error);
       }, function () {

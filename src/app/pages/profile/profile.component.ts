@@ -42,10 +42,6 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  goToLogin() {
-    window.location.href = `${window.location.origin}/login/index.html`;
-  }
-
   update() {
     let me = this;
     me.loading = true;

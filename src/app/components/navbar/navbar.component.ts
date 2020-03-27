@@ -89,8 +89,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
     })
 
   }
+profileCollapse(){
+  if (window.innerWidth < 993){
+    this.collapse();
+  }
+}
 
   logout(){
+    if (window.innerWidth < 993){
+      this.collapse();
+    }
     firebase.auth().signOut().then((userRef) => {
       this.router.navigate(['/']);
     })
@@ -119,7 +127,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     );
     const html = document.getElementsByTagName("html")[0];
     if (window.innerWidth < 991) {
-      mainPanel.style.position = "fixed";
+     // mainPanel.style.position = "fixed";
     }
 
     setTimeout(function () {

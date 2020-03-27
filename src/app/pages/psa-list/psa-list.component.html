@@ -1,0 +1,13 @@
+<div class="content">
+   
+  <div class="psa-list mb-20 p-10">
+      <label>Choose You PSA</label>
+      <ul class="no-margin" >
+        <li (click)="choose(item.id)"*ngFor="let item of psa" class="grey-bg">{{item.data.name}}</li> 
+      </ul>
+    </div>
+</div>
+
+
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+

@@ -16,6 +16,7 @@ import { NgxAudioPlayerModule } from 'ngx-audio-player';
 import { MaterialModule } from 'src/app/material.module';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { NgMarqueeModule } from 'ng-marquee';
+import { PsaListComponent } from '../../pages/psa-list/psa-list.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -34,7 +35,9 @@ import { NgMarqueeModule } from 'ng-marquee';
   declarations: [
     DashboardComponent,
     ProfileComponent,
-    VideoRecoderComponent
+    VideoRecoderComponent,
+    PsaListComponent
+
   
     // RtlComponent
   ],

@@ -13,7 +13,7 @@ export const ROUTES: RouteInfo[] = [
     class: ""
   },
   {
-    path: "/video-recorder",
+    path: "/psa-list",
     title: "Video Recoder",
     icon: "icon-pin",
     class: ""

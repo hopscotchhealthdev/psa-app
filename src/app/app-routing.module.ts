@@ -6,6 +6,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { VideoRecoderComponent } from './pages/video-recoder/video-recoder.component';
+import { PsaListComponent } from './pages/psa-list/psa-list.component';
 
 const routes: Routes = [
   
@@ -27,7 +28,7 @@ const routes: Routes = [
   {
     path: 'video-recording',
     component: VideoRecoderComponent
-  },  
+  },   
   {
     path: 'video-recording:/id',
     component: VideoRecoderComponent

@@ -108,7 +108,7 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
     );
     const html = document.getElementsByTagName("html")[0];
     if (window.innerWidth < 991) {
-      mainPanel.style.position = "fixed";
+    // mainPanel.style.position = "fixed";
     }
 
     setTimeout(function() {
