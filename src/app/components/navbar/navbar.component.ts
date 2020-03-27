@@ -65,7 +65,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     firebase.auth().onAuthStateChanged((user) => {
       let me = this;
       if (user) {
-        debugger;
         if (user.isAnonymous) {
           this.isAnonymous = true;
         }else{

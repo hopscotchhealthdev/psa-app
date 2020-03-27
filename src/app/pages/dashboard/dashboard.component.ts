@@ -16,13 +16,10 @@ export class DashboardComponent implements OnInit {
   p: number = 1;
   videos: any = [];
   modalRef: any;
+  loading: boolean = false;
   constructor(private router: Router, public activeModal: NgbActiveModal, private confirmationDialogService: ConfirmationDailogService, public modalService: NgbModal) {
 
   }
-  download(url) {
-    this.recordRTC.save(url);
-  }
-
   share(url) {
     console.log(url)
   }
@@ -31,15 +28,18 @@ export class DashboardComponent implements OnInit {
     let me = this;
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+        me.loading = true;
+        let count = 0;
         firebase
           .firestore()
           .collection("users").doc(user.uid).collection("videos").where("userId", "==", user.uid).onSnapshot(sessionSnap => {
-            console.log(sessionSnap)
             sessionSnap.docChanges().forEach(change => {
-
               if (change.type === "added") {
+                count++;
+                if (count == change.doc.data.length) {
+                  me.loading = false;
+                }
                 var data = change.doc.data();
-
                 firebase.firestore().collection("psa").doc(data.psaId).get().then(function (querySnapshot) {
                   if (querySnapshot.exists) {
                     me.videos.push({
@@ -75,7 +75,7 @@ export class DashboardComponent implements OnInit {
       let el: any = document.getElementById("videoPlay");
       el.src = item.url;
       el.play();
-      
+
     }, 400);
 
   }

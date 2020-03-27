@@ -23,11 +23,9 @@ export class VideoRecoderComponent implements OnInit {
   upload = false;
   timerSeconds: any;
   @ViewChild('video') video;
-  @ViewChild('videoPlay') videoPlay;
   img: any;
   videoData: any;
   markText: string = "";
-  loginUser = true;
   psaData = {
     id: '',
     name: '',
@@ -42,18 +40,6 @@ export class VideoRecoderComponent implements OnInit {
 
   }
   ngOnInit() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        if (user.isAnonymous) {
-          this.loginUser = false;
-        } else {
-          this.loginUser = true;
-        }
-      } else {
-        this.loginUser = false;
-
-      }
-    })
     let me = this;
     this.route.queryParamMap.subscribe(params => {
       if (params.get("id")) {
@@ -114,7 +100,6 @@ export class VideoRecoderComponent implements OnInit {
     };
     this.stream = stream;
     this.recordRTC = RecordRTC(stream, options);
-    debugger;
     this.recordRTC.startRecording();
     let video: HTMLVideoElement = this.video.nativeElement;
     video.srcObject = this.stream;
@@ -124,24 +109,45 @@ export class VideoRecoderComponent implements OnInit {
     this.recording = true;
     this.isPlaying = false;
     this.startTimer();
-    // this.markText= "With the recent COVID 19 pandemic across the world,it is important for us to stay safe, stay clean and isolate ourselves from large groups.Ideally you should be working from home, However, if you can’t, here are some things you do in your office. First, make sure that all surfaces are clean, before being touched by anyone. Second, everyone in the office must wash their hands frequently. Make alcohol-based sanitizers available at every entrance door. If the office has visitors, these visitors could be carrying germs for unknown places.";
-    let me = this
-
-
   }
 
   errorCallback() {
-    //handle error here
-    console.log("error");
+    this.toastr.error("Browser is not supported RecordRTC", '', {
+      timeOut: 2000,
+      positionClass: 'toast-top-center',
+    });
   }
 
   processVideo(audioVideoWebMURL) {
-    // let video: HTMLVideoElement = this.videoPlay.nativeElement;
+    const me = this;
     let recordRTC = this.recordRTC;
-    //  video.src = audioVideoWebMURL;
+    if (!firebase.auth().currentUser) {
+      me.loading = true;
+      firebase.auth().signInAnonymously().catch(function (error) {
+        // Handle Errors here.
+        me.loading = false;
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        me.toastr.error(errorMessage, '', {
+          timeOut: 2000,
+          positionClass: 'toast-top-center',
+        });
+      }).then(function (res) {
+        me.loading = false;
+        var userId = firebase.auth().currentUser.uid;
+        firebase.firestore().collection("users").doc(userId).set({ userName: "Anonymous" })
+        me.uploadVideo();
+      });
+    }
+    else {
+      me.uploadVideo();
+    }
+  }
+
+  uploadVideo() {
     const me = this;
     me.uploadVideoAsPromise().then((video) => {
-      me.saveVideo(video);
+      me.updateVideoData(video);
     }).catch((err) => {
       me.progress = false;
       me.toastr.error('File upload error', '', {
@@ -149,14 +155,15 @@ export class VideoRecoderComponent implements OnInit {
         positionClass: 'toast-top-center',
       });
     });
-
   }
 
   startRecording() {
     this.upload = false;
     let mediaConstraints: any = {
       video: {
-      }, audio: true
+        width: 640,
+        height: 480
+      }, audio: true,
     };
     navigator.mediaDevices
       .getUserMedia(mediaConstraints)
@@ -170,8 +177,6 @@ export class VideoRecoderComponent implements OnInit {
     stream.getAudioTracks().forEach(track => track.stop());
     stream.getVideoTracks().forEach(track => track.stop());
     this.recording = false;
-    // this.isPlaying = true;
-    this.upload = true
     this.pauseTimer();
   }
 
@@ -192,14 +197,13 @@ export class VideoRecoderComponent implements OnInit {
           me.resetScreen();
         }
       })
-      .catch(() => {
-
-      });
+      .catch(() => { });
   }
 
   download() {
     this.recordRTC.save('video.webm');
   }
+
   pauseTimer() {
     clearInterval(this.counter);
     this.timecount = 0;
@@ -261,29 +265,6 @@ export class VideoRecoderComponent implements OnInit {
      this.openConfirmationDialog(title, message, btnOkText, btnCancelText);
    }*/
 
-
-
-  saveVideo(video) {
-    var me = this;
-    if (firebase.auth().currentUser) {
-      me.updateVideoData(video);
-    }
-    else {
-      // create Anonymously user
-      firebase.auth().signInAnonymously().catch(function (error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // ...
-      }).then(function (res) {
-    var userId = firebase.auth().currentUser.uid;        
-        firebase.firestore().collection("users").doc(userId).set({userName:"Anonymous"})
-        me.updateVideoData(video);
-      });
-
-    }
-  }
-
   updateVideoData(video) {
     var userId = firebase.auth().currentUser.uid;
     const me = this;
@@ -296,15 +277,15 @@ export class VideoRecoderComponent implements OnInit {
       psaName: me.psaData.name
     })
       .then(function () {
-        me.toastr.success('Video file uploaded successfully', '', {
+        me.toastr.success('Video File uploaded successfully', '', {
           timeOut: 2000,
           positionClass: 'toast-top-center',
         });
         me.resetScreen();
+        me.router.navigate(['/home']);
       })
       .catch(function (error) {
       });
-
   }
 
   resetScreen() {
@@ -315,16 +296,7 @@ export class VideoRecoderComponent implements OnInit {
     this.upload = false;
     this.markText = '';
     this.timecount = 0;
-    if (firebase.auth().currentUser.isAnonymous) {
-      var title = 'Attention';
-      var message = 'Please Login the app, if you want to share the video';
-      var btnOkText = 'login';
-      var btnCancelText = 'cancel';
-      this.loginConfirmationDialog(title, message, btnOkText, btnCancelText);
-    }
   }
-
-
 
 
   uploadVideoAsPromise(): any {
@@ -385,17 +357,6 @@ export class VideoRecoderComponent implements OnInit {
       .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
   }
 */
-  public loginConfirmationDialog(title, message, btnOkText, btnCancelText) {
-    this.confirmationDialogService.confirm(title, message, btnOkText, btnCancelText)
-      .then((confirmed) => {
-        if (confirmed) {
-          this.goToLogin();
-        }
-      })
-      .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
-  }
 
-  goToLogin() {
-    window.location.href = `${window.location.origin}/login/index.html`
-  }
+
 }

@@ -1,0 +1,3 @@
+[submodule "covid-video-share"]
+	path = covid-video-share
+	url = https://github.com/sub0-l3/covid-video-share.git
