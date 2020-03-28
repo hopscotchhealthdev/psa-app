@@ -52,20 +52,15 @@
                 <ng-template  #template>
           
                     <div class="modal-header justify-content-center">
-                      <button style="z-index:9999"
-                        class="close"
-                        type="button"
-                        (click)="modalRef.close()"
-                      >
+                      <button style="z-index:9999; color:#fff;" class="close" type="button"
+                        (click)="modalRef.close()">
                         <i class="tim-icons icon-simple-remove"> </i>
                       </button>
                     
                     </div>
-                    <div class="modal-body" style="height:400px">
+                    <div class="modal-body" style="height:auto">
           
-                      <video  style="width: 100%;
-                      padding: 10px;
-                      height: auto;"  id="videoPlay"  class="video"></video>
+                      <video  style="width: 100%; padding: 10px; height: auto; border-radius: 15px;"  id="videoPlay"  class="video"></video>
             
                                       
                     </div>

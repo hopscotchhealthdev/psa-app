@@ -80,4 +80,19 @@
     font-size: 23px;
 }
 
+.modal-content {    
+    background-color: #293654 !important;    
+}
+
+.modal-body {
+   padding: 10px 0px 0px 0px !important;  
+}
+
+.modal-content .modal-header button {
+    position: absolute;
+    right: 12px !important;  
+    top: 12px !important; 
+    color:#fff; 
+    }
+
 
