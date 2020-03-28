@@ -38,6 +38,11 @@
         "source": "share",
         "destination": "/share",
         "type": 304
+      },
+      {
+        "source": "home",
+        "destination": "/home",
+        "type": 305
       }
     ]
   },

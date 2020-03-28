@@ -1,70 +1,68 @@
 <div class="content">
-            <div class="row">
-                  <div class="col-12">
-                        <div class="card card-chart">
-                              <div class="card-header">
-                                    <div class="row">
-                                          <div class="col-sm-6 text-left">
-                                         Home
-                                          </div>
+      <div class="row">
+            <div class="col-12">
+                  <div class="card card-chart">
+                        <div class="card-header">
+                              <div class="row">
+                                    <div class="col-sm-6 text-left">
+                                   Home
                                     </div>
                               </div>
-                           </div>
-                  </div>
+                        </div>
+                     </div>
             </div>
-          
-            <div class="row" *ngFor="let item of videos | paginate: { itemsPerPage: 10, currentPage: p }">
-                  <div class="col-12">
-                        <div class="card card-chart">
-                              <div class="card-header">
-                                    <div class="row">
-                                          <div class="col-6 col-sm-6 text-left">
-                                                <!-- <h4 class="card-title">{{item.video}} </h4> -->
-                                                <h5 class="card-category">{{item.date}}</h5>
-                                                <h6>{{item.psaName}}</h6>
-                                          </div>
-                                         
-                                          <div class="col-sm-6 col-6 col-xs-6 col-md-6 text-right">
-                                              <button class="btn btn-outline btn-round btn-success1" type="button" shape="round"
-                                                    (click)="play(item,template)"> <i class="far fa-play-circle"></i></button>
-                                              <button class="btn btn-outline btn-round btn-danger1" type="button" shape="round"
-                                                    (click)="delete(item)"> <i class="far fa-trash-alt"></i></button>
-                                              <button class="btn btn-outline btn-round btn-primary1" type="button" shape="round"
-                                                    (click)="share(item.url)"><i class="fas fa-share-alt"></i></button>
-                                        </div>
-                                        
+      </div>
+    
+      <div class="row" *ngFor="let item of videos | paginate: { itemsPerPage: 10, currentPage: p }">
+            <div class="col-12">
+                  <div class="card card-chart">
+                        <div class="card-header">
+                              <div class="row">
+                                    <div class="col-6 col-sm-6 text-left">
+                                          <!-- <h4 class="card-title">{{item.video}} </h4> -->
+                                          <h5 class="card-category">{{item.date}}</h5>
+                                          <h6>{{item.psaName}}</h6>
+                                          <h6 [innerHTML]="getStatus(item.status)"></h6>
                                     </div>
+                                   
+                                    <div class="col-sm-6 col-6 col-xs-6 col-md-6 text-right">
+                                          <button  (click)="retry(item,0)"  *ngIf="item.status==2" class="btn btn-outline btn-round btn-replay" type="button" shape="round"><i class="fas fa-sync-alt"></i></button>
+                                          <button *ngIf="item.status==1" class="btn btn-outline btn-round btn-success1" type="button" shape="round"
+                                              (click)="play(item,template)"> <i class="far fa-play-circle"></i></button>
+                                        <button class="btn btn-outline btn-round btn-danger1" type="button" shape="round"
+                                              (click)="delete(item)"> <i class="far fa-trash-alt"></i></button>
+                                        <button *ngIf="item.status==1" class="btn btn-outline btn-round btn-primary1" type="button" shape="round"
+                                              (click)="share(item.url)"><i class="fas fa-share-alt"></i></button>
+                                  </div>
+                                  
                               </div>
                         </div>
                   </div>
             </div>
-          
-          
-          
-            <div class="row">
-                  <div class= "pagination" style="padding-right: 15px; padding-left: 15px;">
-                      <div>
-                        <pagination-controls (pageChange)="p=$event"></pagination-controls>
-                    </div> 
-                  </div>
-                </div>
-          
-                <ng-template  #template>
-          
-                    <div class="modal-header justify-content-center">
-                      <button style="z-index:9999; color:#fff;" class="close" type="button"
-                        (click)="modalRef.close()">
-                        <i class="tim-icons icon-simple-remove"> </i>
-                      </button>
-                    
-                    </div>
-                    <div class="modal-body" style="height:auto">
-          
-                      <video  style="width: 100%; padding: 10px; height: auto; border-radius: 15px;"  id="videoPlay"  class="video"></video>
-            
-                                      
-                    </div>
-          </ng-template>
-          <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
-          
-          
+      </div>
+    
+    
+    
+      <div class="row">
+            <div class= "pagination" style="padding-right: 15px; padding-left: 15px;">
+                <div>
+                  <pagination-controls (pageChange)="p=$event"></pagination-controls>
+              </div> 
+            </div>
+          </div>
+    
+          <ng-template  #template>
+              <div class="modal-header justify-content-center grey-bg">
+                <button style="z-index:9999; color:#fff;" class="close close-button-position" type="button"
+                  (click)="modalRef.close()">
+                  <i class="tim-icons icon-simple-remove"> </i>
+                </button>
+              </div>
+              <div class="modal-body grey-bg padding-10" style="height:auto">
+                <video  style="width: 100%; padding: 10px; height: auto; border-radius: 15px;"  id="videoPlay"  class="video"></video>            
+                                
+              </div>
+    </ng-template>
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+    
+    

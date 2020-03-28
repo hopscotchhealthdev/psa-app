@@ -16,7 +16,7 @@ export class AuthPhoneComponent implements OnInit {
   code: string = "91";
   public swalType = "info";
   confirmationResult: any;
-  isAnonymous:boolean=false;
+  isAnonymous: boolean = false;
   public recaptchaVerifier: firebase.auth.RecaptchaVerifier;
   constructor(private router: Router, fb: FormBuilder) {
     this.router = router;
@@ -41,85 +41,128 @@ export class AuthPhoneComponent implements OnInit {
     const me = this;
     if (firebase.auth().currentUser && firebase.auth().currentUser.isAnonymous) {
       firebase.auth().currentUser.linkWithPhoneNumber(phoneNum, appVerifier)
-      .then((confirmationResult) => {
-        // At this point SMS is sent. Ask user for code.
-        me.confirmationResult = confirmationResult;
-        // SMS sent. Prompt user to type the code from the message, then sign the
-        // user in with confirmationResult.confirm(code).
-        me.cntSwal.title = "Enter your OTP";
-        me.cntSwal.confirmButtonText = "Verify";
-        me.cntSwal.cancelButtonText = "Cancel";
-        me.cntSwal.showConfirmButton = true;
-        me.cntSwal.showCancelButton = true;
-        me.isAnonymous=true;
-        me.cntSwal.show();
-        me.loading = false;
-      })
-      .catch((error) => {
-        me.loading = false;
-        console.error("SMS not sent", error);
-        me.error = error;
-      });
-    }else{
+        .then((confirmationResult) => {
+          // At this point SMS is sent. Ask user for code.
+          me.confirmationResult = confirmationResult;
+          // SMS sent. Prompt user to type the code from the message, then sign the
+          // user in with confirmationResult.confirm(code).
+          me.cntSwal.title = "Enter your OTP";
+          me.cntSwal.confirmButtonText = "Verify";
+          me.cntSwal.cancelButtonText = "Cancel";
+          me.cntSwal.showConfirmButton = true;
+          me.cntSwal.showCancelButton = true;
+          me.isAnonymous = true;
+          me.cntSwal.show();
+          me.loading = false;
+        })
+        .catch((error) => {
+          me.loading = false;
+          console.error("SMS not sent", error);
+          me.error = error;
+        });
+    } else {
       firebase.auth().signInWithPhoneNumber(phoneNum, appVerifier)
-      .then(confirmationResult => {
-        me.confirmationResult = confirmationResult;
-        // SMS sent. Prompt user to type the code from the message, then sign the
-        // user in with confirmationResult.confirm(code).
-        me.cntSwal.title = "Enter your OTP";
-        me.cntSwal.confirmButtonText = "Verify";
-        me.cntSwal.cancelButtonText = "Cancel";
-        me.cntSwal.showConfirmButton = true;
-        me.cntSwal.showCancelButton = true;
-        me.cntSwal.show();
-        me.isAnonymous=false;
-        me.loading = false;
+        .then(confirmationResult => {
+          me.confirmationResult = confirmationResult;
+          // SMS sent. Prompt user to type the code from the message, then sign the
+          // user in with confirmationResult.confirm(code).
+          me.cntSwal.title = "Enter your OTP";
+          me.cntSwal.confirmButtonText = "Verify";
+          me.cntSwal.cancelButtonText = "Cancel";
+          me.cntSwal.showConfirmButton = true;
+          me.cntSwal.showCancelButton = true;
+          me.cntSwal.show();
+          me.isAnonymous = false;
+          me.loading = false;
 
-      })
-      .catch(function (error) {
-        me.loading = false;
-        console.error("SMS not sent", error);
-        me.error = error;
-      });
+        })
+        .catch(function (error) {
+          me.loading = false;
+          console.error("SMS not sent", error);
+          me.error = error;
+        });
     }
-  
+
 
   }
   getOtp(otp) {
     const me = this;
     me.loading = true;
-      this.confirmationResult
-        .confirm(otp)
-        .then(function (result) {
-          // User signed in successfully.
-          me.createUserProfile(result.user, " ",result.user.phoneNumber);
-          // ...
-        })
-        .catch(function (error) {
-          me.loading = false;
-          // User couldn't sign in (bad verification code?)
-          // ...
-        })
-
+    this.confirmationResult
+      .confirm(otp)
+      .then(function (result) {
+        // User signed in successfully.
+        me.createUserProfile(result.user, " ", result.user.phoneNumber);
+        // ...
+      })
+      .catch(function (error) {
+        me.loading = false;
+        // User couldn't sign in (bad verification code?)
+        // ...
+      })
   }
+
 
   createUserProfile(user, name, email) {
     let me = this;
-    firebase
-      .firestore().collection("users").doc(user.uid).set({
-        userName: name,
-        email: email,
-        createdDate: new Date(),
-        userId: user.uid
-      }).then(() => {
-        me.loading = false;
+    const userData = {
+      userName: name,
+      email: email,
+      image: user.photoURL
+    };
+    firebase.firestore().collection("users").doc(user.uid).get().then(function (querySnapshot) {
+      if (querySnapshot.exists) {
+        const data = querySnapshot.data();
+        if (data.email && data.email != "") {
+          userData.email = data.email;
+        }
+        if (data.userName && data.userName != "") {
+          userData.userName = data.userName;
+        }
+        if (data.image && data.image != "") {
+          userData.image = data.image;
+        }
+        updateProfile();
+      } else {
+        createProfile();
+      }
+    });
+
+    function updateProfile() {
+      firebase
+        .firestore().collection("users").doc(user.uid).update({
+          userName: userData.userName,
+          email: userData.email,
+          userId: user.uid,
+          image: userData.image
+        }).then(() => {
+          me.loading = false;
           me.redirctToRecorderApp();
-        
-      }).catch(function (error) {
-        me.loading = false;
-        me.error = error.message;
-      });
+
+        }).catch(function (error) {
+          me.loading = false;
+          me.error = error.message;
+        });
+    }
+    function createProfile() {
+      firebase
+        .firestore().collection("users").doc(user.uid).set({
+          userName: userData.userName,
+          email: userData.email,
+          createdDate: new Date(),
+          userId: user.uid,
+          image: userData.image
+        }).then(() => {
+          me.loading = false;
+          me.redirctToRecorderApp();
+
+        }).catch(function (error) {
+          me.loading = false;
+          me.error = error.message;
+        });
+    }
   }
+
 
   redirctToRecorderApp() {
     window.location.href = `${window.location.origin}/recorder/index.html`;

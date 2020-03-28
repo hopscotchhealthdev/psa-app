@@ -4,6 +4,7 @@ import * as firebase from 'firebase';
 import * as moment from "moment";
 import { ConfirmationDailogService } from '../confirmation-dailog/confirmation-dailog.service';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: "app-dashboard",
   templateUrl: "dashboard.component.html",
@@ -15,9 +16,9 @@ export class DashboardComponent implements OnInit {
   collection = [];
   p: number = 1;
   videos: any = [];
-  modalRef: any;
+  public modalRef: any;
   loading: boolean = false;
-  constructor(private router: Router, public activeModal: NgbActiveModal, private confirmationDialogService: ConfirmationDailogService, public modalService: NgbModal) {
+  constructor(private toastr: ToastrService, private router: Router, public activeModal: NgbActiveModal, private confirmationDialogService: ConfirmationDailogService, public modalService: NgbModal) {
 
   }
   share(url) {
@@ -33,7 +34,7 @@ export class DashboardComponent implements OnInit {
         firebase
           .firestore()
           .collection("users").doc(user.uid).collection("videos").where("userId", "==", user.uid).onSnapshot(sessionSnap => {
-            if ( sessionSnap.docs.length==0) {
+            if (sessionSnap.docs.length == 0) {
               me.loading = false;
             }
             sessionSnap.docChanges().forEach(change => {
@@ -47,8 +48,10 @@ export class DashboardComponent implements OnInit {
                   if (querySnapshot.exists) {
                     me.videos.push({
                       date: moment(new Date(data.createdDate)).format('LLLL'),
-                      url: data.url,
+                      url: data.outputUrl,
                       id: change.doc.id,
+                      status: data.status,
+                      outputVideoId: data.outputVideoId,
                       psaName: querySnapshot.data().name,
                       psaTime: querySnapshot.data().time
                     })
@@ -71,8 +74,57 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  getStatus(status) {
+    if (status == 1) {
+      return "success";
+    }
+    if (status == 2) {
+      return "Retry Again";
+
+    }
+    if (status == 3) {
+      return "failed";
+
+    }
+  }
+
+  retry(item, count) {
+    const me = this;
+    me.loading = true;
+    var uploadTask = firebase.storage().ref().child("videos/output/" + item.outputVideoId);
+    uploadTask.getDownloadURL().then(function (downloadURL) {
+      me.loading = false;
+      firebase
+      .firestore()
+      .collection("users").doc(firebase.auth().currentUser.uid).collection("videos").doc(item.id).update({ "status": 1,outputUrl:downloadURL }).then(function (res) {
+        item.status = 1;
+        item.outputUrl =downloadURL;
+      })
+   
+      item.url = downloadURL;
+    }).catch(function (error) {
+      setTimeout(() => {
+        if (count > 50) {
+          me.loading = false;
+          firebase
+            .firestore()
+            .collection("users").doc(firebase.auth().currentUser.uid).collection("videos").doc(item.id).update({ "status": 3 }).then(function (res) {
+              item.status = 3;
+            })
+        } else {
+          me.retry(item, count + 1);
+        }
+      }, 4000);
+    })
+
+
+  }
+
   play(item, template: TemplateRef<any>) {
-    this.modalRef = this.modalService.open(template);
+    this.modalRef = this.modalService.open(template, {
+      backdrop: 'static',
+      keyboard: false
+    });
     let me = this;
     setTimeout(() => {
       let el: any = document.getElementById("videoPlay");

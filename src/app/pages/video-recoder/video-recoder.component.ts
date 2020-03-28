@@ -5,7 +5,8 @@ import { Observable } from 'rxjs';
 import { ConfirmationDailogService } from '../confirmation-dailog/confirmation-dailog.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+const apiUrl = "http://35.232.141.46/overlay-videos";
 @Component({
   selector: 'app-video-recoder',
   templateUrl: './video-recoder.component.html',
@@ -14,7 +15,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 export class VideoRecoderComponent implements OnInit {
   private stream: MediaStream;
   private recordRTC: any;
-  uploadProgress:any;
+  uploadProgress: any;
   recording: boolean = false;
   progress = false;
   isPlaying = false;
@@ -29,14 +30,15 @@ export class VideoRecoderComponent implements OnInit {
   psaData = {
     id: '',
     name: '',
+    overlay_videos: '',
     uploadSeconds: 0,
     data: []
 
   };
   loading = false;
   animation: boolean = false;
-  timeout:any;
-  constructor(private route: ActivatedRoute, private confirmationDialogService: ConfirmationDailogService, private router: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService) {
+  timeout: any;
+  constructor(private http: HttpClient, private route: ActivatedRoute, private confirmationDialogService: ConfirmationDailogService, private router: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService) {
 
   }
   ngOnInit() {
@@ -50,6 +52,7 @@ export class VideoRecoderComponent implements OnInit {
           if (querySnapshot.exists) {
             me.psaData.data = querySnapshot.data().time;
             me.psaData.name = querySnapshot.data().name;
+            me.psaData.overlay_videos = querySnapshot.data().overlay_videos;
             me.psaData.id = querySnapshot.id;
             me.psaData.uploadSeconds = querySnapshot.data().uploadSeconds;
 
@@ -60,14 +63,33 @@ export class VideoRecoderComponent implements OnInit {
         });
       }
       else {
-        me.router.navigate(["/psa-list"]);       
+        me.router.navigate(["/psa-list"]);
       }
     })
 
   }
 
 
-  ngAfterViewInit() { }
+  fetchOutputUrl(url, id, count) {
+    const me = this;
+    var uploadTask = firebase.storage().ref().child("videos/output/" + url);
+    uploadTask.getDownloadURL().then(function (downloadURL) {
+      me.updateVideoData(id, downloadURL, 1);
+    }).catch(function (error) {
+      setTimeout(() => {
+        if (count > 80) {
+          me.updateVideoData(id, null, 2);
+        } else {
+          me.fetchOutputUrl(url, id, count + 1);
+        }
+      }, 4000);
+    })
+  }
+
+  ngOnDestroy() {
+    this.recordRTC = null;
+  }
+
 
   successCallback(stream: MediaStream) {
     var options = {
@@ -87,19 +109,19 @@ export class VideoRecoderComponent implements OnInit {
     if (this.animation) {
       this.animation = false;
       this.resetScreen();
-      if(this.timecount){
-      clearTimeout(this.timecount);
+      if (this.timecount) {
+        clearTimeout(this.timecount);
       }
     } else {
       this.animation = true;
-     this.timeout= setTimeout(() => {
-       if(this.animation){
-        this.recordRTC.startRecording();
-        this.animation = false;
-        this.startTimer();
-        this.recording = true;
-        this.isPlaying = false;
-       }    
+      this.timeout = setTimeout(() => {
+        if (this.animation) {
+          this.recordRTC.startRecording();
+          this.animation = false;
+          this.startTimer();
+          this.recording = true;
+          this.isPlaying = false;
+        }
       }, 3500);
 
     }
@@ -129,7 +151,7 @@ export class VideoRecoderComponent implements OnInit {
       }).then(function (res) {
         me.loading = false;
         var userId = firebase.auth().currentUser.uid;
-        firebase.firestore().collection("users").doc(userId).set({ userName: "Anonymous" })
+        firebase.firestore().collection("users").doc(userId).set({ userName: "Anonymous", createdDate: new Date() })
         me.uploadVideo();
       });
     }
@@ -138,10 +160,37 @@ export class VideoRecoderComponent implements OnInit {
     }
   }
 
+  defaultHeaders() {
+    return {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json"
+      })
+    };
+  }
+
   uploadVideo() {
     const me = this;
     me.uploadVideoAsPromise().then((video) => {
-      me.updateVideoData(video);
+      const param = {
+        "org_video": `${decodeURI(video.downloadURL)}`,
+        "overlay_videos": me.psaData.overlay_videos,
+        "psa_id": me.psaData.id
+      }
+      me.http
+        .post(`${apiUrl}`, param, me.defaultHeaders())
+        .subscribe(
+          (data: any) => {
+            me.addVideoData(video, data, 2).then((uniqueId) => {
+              me.fetchOutputUrl(data, uniqueId, 0);
+            })
+          },
+          error => {
+            me.addVideoData(video, null, 3).then((uniqueId) => {
+
+             })
+          }
+        );
+
     }).catch((err) => {
       me.progress = false;
       me.toastr.error('File upload error', '', {
@@ -166,7 +215,8 @@ export class VideoRecoderComponent implements OnInit {
 
   stopRecording() {
     let recordRTC = this.recordRTC;
-    recordRTC.stopRecording(this.processVideo.bind(this));
+    if (recordRTC)
+      recordRTC.stopRecording(this.processVideo.bind(this));
     let stream = this.stream;
     stream.getAudioTracks().forEach(track => track.stop());
     stream.getVideoTracks().forEach(track => track.stop());
@@ -181,14 +231,20 @@ export class VideoRecoderComponent implements OnInit {
     this.confirmationDialogService.confirm("Attention!!!", "", "Continue Video", "Reset Video")
       .then((confirmed) => {
         if (confirmed) {
-            me.recordRTC.resumeRecording();
-            me.startTimer(me.timerSeconds);
+          me.recordRTC.resumeRecording();
+          me.startTimer(me.timerSeconds);
 
         } else {
           me.resetScreen();
         }
       })
-      .catch(() => { });
+      .catch(() => {
+        me.toastr.error('Video not processed successfully', '', {
+          timeOut: 2000,
+          positionClass: 'toast-top-center',
+        });
+      me.router.navigate(['/home']);
+       });
   }
 
   download() {
@@ -257,26 +313,53 @@ export class VideoRecoderComponent implements OnInit {
      this.openConfirmationDialog(title, message, btnOkText, btnCancelText);
    }*/
 
-  updateVideoData(video) {
+  addVideoData(video, outputVideoId, status) {
+    const me = this;
+    return new Promise(function (resolve, reject) {
+      var userId = firebase.auth().currentUser.uid;
+      firebase.firestore().collection("users").doc(userId).collection('videos').add({
+        url: video.downloadURL,
+        videoId: video.videoId,
+        createdDate: new Date().getTime(),
+        userId: userId,
+        psaId: me.psaData.id,
+        psaName: me.psaData.name,
+        outputVideoId: outputVideoId,
+        status: 2
+      })
+        .then(function (data) {
+          resolve(data.id);
+        })
+        .catch(function (error) {
+        });
+
+    })
+  }
+
+
+  updateVideoData(id, outputURL, status) {
     var userId = firebase.auth().currentUser.uid;
     const me = this;
-    firebase.firestore().collection("users").doc(userId).collection('videos').add({
-      url: video.downloadURL,
-      videoId: video.videoId,
-      createdDate: new Date().getTime(),
-      userId: userId,
-      psaId: me.psaData.id,
-      psaName: me.psaData.name
+    firebase.firestore().collection("users").doc(userId).collection('videos').doc(id).update({
+      outputUrl: outputURL,
+      status: status
     })
       .then(function () {
-        me.toastr.success('Video File uploaded successfully', '', {
-          timeOut: 2000,
-          positionClass: 'toast-top-center',
-        });
-        me.resetScreen();
+        if (status == 1) {
+          me.toastr.success('Video File Processed successfully', '', {
+            timeOut: 2000,
+            positionClass: 'toast-top-center',
+          });
+        } else {
+          me.toastr.error('Video not processed successfully', '', {
+            timeOut: 2000,
+            positionClass: 'toast-top-center',
+          });
+        }
         me.router.navigate(['/home']);
       })
       .catch(function (error) {
+        me.router.navigate(['/home'])
       });
   }
 
@@ -288,12 +371,16 @@ export class VideoRecoderComponent implements OnInit {
     this.upload = false;
     this.markText = '';
     this.timecount = 0;
-    this.recordRTC.stopRecording();
+    if (this.recordRTC) {
+      this.recordRTC.stopRecording();
+      this.startCamera();
+    }
     this.pauseTimer();
     let stream = this.stream;
-    stream.getAudioTracks().forEach(track => track.stop());
-    stream.getVideoTracks().forEach(track => track.stop());
-    this.startCamera();
+    if (stream) {
+      stream.getAudioTracks().forEach(track => track.stop());
+      stream.getVideoTracks().forEach(track => track.stop());
+    }
   }
 
 
@@ -305,8 +392,8 @@ export class VideoRecoderComponent implements OnInit {
       const videoId = me.Guid();
       var uploadTask = firebase.storage().ref().child('videos').child(videoId).put(recordedBlob);
       uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, function (snapshot) {
-        me.uploadProgress =  parseInt((snapshot.bytesTransferred / snapshot.totalBytes * 100).toString());
-         }, function (error) {
+        me.uploadProgress = parseInt((snapshot.bytesTransferred / snapshot.totalBytes * 100).toString());
+      }, function (error) {
         // Handle unsuccessful uploads
         reject(error);
       }, function () {

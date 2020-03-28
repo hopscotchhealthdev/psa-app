@@ -12,17 +12,17 @@ declare var FB: any;
 export class LoginComponent implements OnInit {
   public error: string = "";
   public loading: boolean = false;
-  constructor(private router: Router, fb: FormBuilder,private route:ActivatedRoute) {
+  constructor(private router: Router, fb: FormBuilder, private route: ActivatedRoute) {
     this.router = router;
 
   }
 
   ngOnInit() {
     this.route.queryParamMap.subscribe(params => {
-    
+
     })
 
-   }
+  }
 
 
   doFbLogin() {
@@ -71,21 +71,62 @@ export class LoginComponent implements OnInit {
 
   createUserProfile(user, name, email, isAnonymous) {
     let me = this;
-    firebase
-      .firestore().collection("users").doc(user.uid).set({
-        userName: name,
-        email: email,
-        createdDate: new Date(),
-        userId: user.uid,
-        image:user.photoURL?user.photoURL:null
-      }).then(() => {
-        me.loading = false;
-          me.redirctToReccorderApp();
-        
-      }).catch(function (error) {
-        me.loading = false;
-        me.error = error.message;
-      });
+    const userData = {
+      userName: name,
+      email: email,
+      image: user.photoURL
+    };
+    firebase.firestore().collection("users").doc(user.uid).get().then(function (querySnapshot) {
+      if (querySnapshot.exists) {
+        const data = querySnapshot.data();
+        if (data.email && data.email != "") {
+          userData.email = data.email;
+        }
+        if (data.userName && data.userName != "") {
+          userData.userName = data.userName;
+        }
+        if (data.image && data.image != "") {
+          userData.image = data.image;
+        }
+        updateProfile();
+      } else {
+        createProfile();
+      }
+    });
+
+    function updateProfile() {
+      firebase
+        .firestore().collection("users").doc(user.uid).update({
+          userName: userData.userName,
+          email: userData.email,
+          userId: user.uid,
+          image: userData.image
+        }).then(() => {
+          me.loading = false;
+          me.redirctToRecorderApp();
+
+        }).catch(function (error) {
+          me.loading = false;
+          me.error = error.message;
+        });
+    }
+    function createProfile() {
+      firebase
+        .firestore().collection("users").doc(user.uid).set({
+          userName: userData.userName,
+          email: userData.email,
+          createdDate: new Date(),
+          userId: user.uid,
+          image: userData.image
+        }).then(() => {
+          me.loading = false;
+          me.redirctToRecorderApp();
+
+        }).catch(function (error) {
+          me.loading = false;
+          me.error = error.message;
+        });
+    }
   }
 
   doGoogleLogin() {
@@ -117,9 +158,9 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  doAppleLogin(){
+  doAppleLogin() {
     const me = this;
-    const provider  = new firebase.auth.OAuthProvider('apple.com');
+    const provider = new firebase.auth.OAuthProvider('apple.com');
     provider.addScope('email');
     provider.addScope('name');
     if (firebase.auth().currentUser && firebase.auth().currentUser.isAnonymous) {
@@ -127,7 +168,7 @@ export class LoginComponent implements OnInit {
       firebase.auth().currentUser.linkWithPopup(provider).then(
         (appleUser: any) => {
           me.loading = true;
-          me.createUserProfile(appleUser.user,appleUser.user.displayName, appleUser.user.email, true);
+          me.createUserProfile(appleUser.user, appleUser.user.displayName, appleUser.user.email, true);
         },
         error => {
           me.error = error.message;
@@ -137,8 +178,8 @@ export class LoginComponent implements OnInit {
       firebase.auth().signInWithPopup(provider).then(
         (appleUser: any) => {
           me.loading = true;
-          me.createUserProfile(appleUser.user,appleUser.user.displayName, appleUser.user.email, false);
-         },
+          me.createUserProfile(appleUser.user, appleUser.user.displayName, appleUser.user.email, false);
+        },
         error => {
           me.error = error.message;
         }
@@ -146,16 +187,15 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  doGithubLogin(){
+  doGithubLogin() {
     const me = this;
     const provider = new firebase.auth.GithubAuthProvider();
     provider.addScope('repo');
     if (firebase.auth().currentUser && firebase.auth().currentUser.isAnonymous) {
-
       firebase.auth().currentUser.linkWithPopup(provider).then(
         (gitUser: any) => {
           me.loading = true;
-          me.createUserProfile(gitUser.user," ", gitUser.user.email, true);
+          me.createUserProfile(gitUser.user, " ", gitUser.user.email, true);
         },
         error => {
           me.error = error.message;
@@ -165,8 +205,8 @@ export class LoginComponent implements OnInit {
       firebase.auth().signInWithPopup(provider).then(
         (gitUser: any) => {
           me.loading = true;
-          me.createUserProfile(gitUser.user," ", gitUser.user.email, false);
-         },
+          me.createUserProfile(gitUser.user, " ", gitUser.user.email, false);
+        },
         error => {
           me.error = error.message;
         }
@@ -175,16 +215,14 @@ export class LoginComponent implements OnInit {
 
   }
 
-  doTwitterLogin(){
+  doTwitterLogin() {
     const me = this;
     const provider = new firebase.auth.TwitterAuthProvider();
-
     if (firebase.auth().currentUser && firebase.auth().currentUser.isAnonymous) {
-
       firebase.auth().currentUser.linkWithPopup(provider).then(
         (twitterUser: any) => {
           me.loading = true;
-          me.createUserProfile(twitterUser.user,twitterUser.user.displayName, twitterUser.user.email, true);
+          me.createUserProfile(twitterUser.user, twitterUser.user.displayName, twitterUser.user.email, true);
         },
         error => {
           me.error = error.message;
@@ -194,16 +232,16 @@ export class LoginComponent implements OnInit {
       firebase.auth().signInWithPopup(provider).then(
         (twitterUser: any) => {
           me.loading = true;
-          me.createUserProfile(twitterUser.user," ", twitterUser.user.email, false);
-         },
+          me.createUserProfile(twitterUser.user, " ", twitterUser.user.email, false);
+        },
         error => {
           me.error = error.message;
         }
       );
-    } 
+    }
   }
 
-  redirctToReccorderApp() {
+  redirctToRecorderApp() {
     window.location.href = `${window.location.origin}/recorder/index.html`;
   }
 

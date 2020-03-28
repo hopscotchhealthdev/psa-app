@@ -13,7 +13,22 @@ const firebase = admin.initializeApp();
 exports.deleteVideos = functions.firestore.document(`/users/{userId}/videos/{videoId}`).onDelete((snapshot, context) => {
 	  const data :any = snapshot.data();
 		console.log(data);
-	  const bucket = firebase.storage().bucket();
-	    return bucket.file(`videos/${data.videoId}`).delete();
-	
+		const bucket = firebase.storage().bucket();
+		if(data.videoId){
+			bucket.file(`videos/${data.videoId}`).delete().then((success) => {
+				deleteOutputFile();
+			}).catch((err) => {
+				deleteOutputFile();
+			});
+		}
+		function deleteOutputFile() {
+			if(data.outputVideoId){
+				bucket.file(`videos/output/${data.outputVideoId}`).delete().then((success) => {
+				return;
+				}).catch((err) => {
+					return;				
+				});
+
+			}
+    }
 })
