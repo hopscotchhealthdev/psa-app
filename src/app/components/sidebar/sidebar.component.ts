@@ -9,19 +9,19 @@ export const ROUTES: RouteInfo[] = [
   {
     path: "/home",
     title: "HomePage",
-    icon: "icon-chart-pie-36",
+    icon: "assets/img/psa-home-64x64.png",
     class: ""
   },
   {
     path: "/psa-list",
     title: "Video Recoder",
-    icon: "icon-pin",
+    icon: "assets/img/psa-video_recorder-64x64.png",
     class: ""
   },
   {
     path: "/profile",
     title: "Profile",
-    icon: "icon-single-02",
+    icon: "assets/img/psa-profile-64x64.png",
     class: ""
   },
   

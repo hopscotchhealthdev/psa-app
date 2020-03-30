@@ -246,10 +246,11 @@
             margin: 0;
             line-height: 30px;
             position: relative;
-            display: block;
+            display: inline-block;
             height: auto;
             white-space: nowrap;
             @extend .animation-transition-general;
+            padding-left:10px;
         }
 
         i{
