@@ -8,8 +8,8 @@ declare interface RouteInfo {
 export const ROUTES: RouteInfo[] = [
   {
     path: "/home",
-    title: "HomePage",
-    icon: "assets/img/psa-home-64x64.png",
+    title: "Videos",
+    icon: "assets/img/psa-recorder_mechnanic_480.png",
     class: ""
   },
   {

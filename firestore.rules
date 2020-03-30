@@ -5,14 +5,26 @@ service cloud.firestore {
         return (request.auth.uid == user);
       }
       allow create, read, update, delete: if is_myself();
-       match /videos/{videoId} {
+      match /videos/{videoId} {
 				allow create,read, update, delete, list : if is_myself();       
       }
     }
-     match /psa/{id} {
-       allow create,read, update, delete : if true;
-      }
-  
-}
-
+    match /psa/{id} {
+      allow create,read, update, delete : if true;
+    }
+    match /videolibrary/{libraryId} {
+      allow create,read, update, delete : if true;
+    }
+    match /videochallenge/{videochallengeId} {
+      allow create,read, update, delete : if true;
+    }
+    match /dailyfeaturevideohomepage/{id} {
+      allow create,read, update, delete : if true;
+    }
+     match /VCindividualpagehandwashings/{id} {
+      allow create,read, update, delete : if true;
+    }
+    
+ 
+  }
 }

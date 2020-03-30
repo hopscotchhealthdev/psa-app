@@ -23,10 +23,15 @@
                                           <h5 class="card-category">{{item.date}}</h5>
                                           <h6>{{item.psaName}}</h6>
                                           <h6 [innerHTML]="getStatus(item.status)"></h6>
+                                          <div *ngIf="item.loading" > 
+                                                <img height="20" src="assets/img/processing.gif"/> Processing
+                                          </div>
                                     </div>
                                    
                                     <div class="col-sm-6 col-6 col-xs-6 col-md-6 text-right">
-                                          <button  (click)="retry(item,0)"  *ngIf="item.status==2" class="btn btn-outline btn-round btn-replay" type="button" shape="round"><i class="fas fa-sync-alt"></i></button>
+                                          <button  (click)="retry(item,0)"  *ngIf="item.status==2" class="btn btn-outline btn-round btn-replay" type="button" shape="round"><i class="fas fa-sync-alt"></i>
+                                    
+                                          </button>
                                           <button *ngIf="item.status==1" class="btn btn-outline btn-round btn-success1" type="button" shape="round"
                                               (click)="play(item,template)"> <i class="far fa-play-circle"></i></button>
                                         <button class="btn btn-outline btn-round btn-danger1" type="button" shape="round"

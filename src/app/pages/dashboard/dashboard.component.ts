@@ -83,17 +83,17 @@ export class DashboardComponent implements OnInit {
 
     }
     if (status == 3) {
-      return "failed";
+      return "Failed";
 
     }
   }
 
   retry(item, count) {
     const me = this;
-    me.loading = true;
+    item.loading = true;
     var uploadTask = firebase.storage().ref().child("videos/output/" + item.outputVideoId);
     uploadTask.getDownloadURL().then(function (downloadURL) {
-      me.loading = false;
+      item.loading = false;
       firebase
       .firestore()
       .collection("users").doc(firebase.auth().currentUser.uid).collection("videos").doc(item.id).update({ "status": 1,outputUrl:downloadURL }).then(function (res) {
@@ -105,7 +105,7 @@ export class DashboardComponent implements OnInit {
     }).catch(function (error) {
       setTimeout(() => {
         if (count > 50) {
-          me.loading = false;
+          item.loading = false;
           firebase
             .firestore()
             .collection("users").doc(firebase.auth().currentUser.uid).collection("videos").doc(item.id).update({ "status": 3 }).then(function (res) {
