@@ -84,6 +84,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
             });
 
       }else{
+        me.user.userName = "";
         this.isAnonymous = true;                  
       }
     })
