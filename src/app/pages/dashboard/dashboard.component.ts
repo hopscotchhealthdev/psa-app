@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
 
   }
   share(url) {
-    console.log(url)
+    window.location.href = `${window.location.origin}/share/index.html`
   }
   ngOnInit() {
     let queryUnsubscribe: any;

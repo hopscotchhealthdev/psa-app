@@ -1,58 +1,76 @@
-<nav class="navbar">
-
-  <!-- logo -->
-  <div class="navbar-brand">
-  </div>
-</nav>
-<div class="full-page login-page ">
-  <div class="content">
-    <div class="container">
-
-      <div class="col-lg-4 col-md-6 m-auto" style="text-align: -webkit-center;">
-        <div class="card card-login card-white p-20">
-          <div *ngIf="error" class="alert alert-danger" role="alert">
-            <span>{{error}}</span>
-          </div>
-          <button class="google-button" type="button" (click)="doGoogleLogin()" expand="block">
-              <img src="assets/img/google.png" width="20" height="20">
-              <span class="pl-20">Login with Google</span></button>
-     
-          <button class="twitter-button" type="button" (click)="doTwitterLogin()" expand="block">
-              <img src="assets/img/twitter.png" width="20" height="20">
-               <span class="pl-20">Login with Twitter</span></button>
-     
-          <button class="email-button" type="button" [routerLink]="['/login-email']" expand="block">
-              <img src="assets/img/email.png" width="20" height="20">
-              <span class="pl-20">Login with Email</span></button>
-      
-          <button class="phone-button" type="button" [routerLink]="['/auth-phone']" expand="block">
-              <img src="assets/img/phone.png" width="20" height="20">
-              <span class="pl-20">Login with Phone No.</span></button>
-      
-          <button class="github-button" type="button" (click)="doGoogleLogin()" expand="block">
-              <img src="assets/img/github.png" width="20" height="20">
-              <span class="pl-20">Login with Github</span></button>
-     
-          <button class="apple-button" type="button" (click)="doAppleLogin()"  expand="block">
-              <img src="assets/img/apple.png" width="20" height="20">
-              <span class="pl-20">Login with Apple</span></button>
-              <button class="facebook-button" type="button" (click)="doFbLogin()" expand="block">
-                <img src="assets/img/facebook.png" width="20" height="20">
-                 <span class="pl-20">Login with Facebook</span></button>
-        
-     
-          <button class="email-button" type="button" [routerLink]="['/register']" expand="block">
-              <img src="assets/img/email.png" width="20" height="20">
-              <span class="pl-20">Signup with Email</span></button>        
-
-      
-      </div>
-
-
-      </div>
-
-
+<div class="card card-login card-white p-20">
+  <h4 class="main-title">Why it's Important?</h4>
+  <div class="row d-flex">
+    <div class="col-5 round-grey-border ">
+      <h5 class="yellow-title">50%</h5>
+      <p class="white-text  fs-13">Sed ut perspiciatis unde omnis iste natus error.</p>
+      <span class="yellow-bg">
+        <img src="assets/img/user.png" width="20" height="20"> 
+      </span> 
     </div>
+    <div class="col-5 round-grey-border">
+      <h5 class="yellow-title">1 in 18</h5>
+      <p class="white-text  fs-13">Sed ut perspiciatis unde omnis iste natus error</p>
+      <span class="yellow-bg">
+        <img src="assets/img/user.png" width="20" height="20"> 
+      </span> 
+    </div>
+  </div>        	
+  <p class="pt-20 dark-grey">Play your pat in tackling the COVID-19 outbreak.<br/>Signup for free Now.</p>
+  <button type="button" class="signup-button"  [routerLink]="['/register']" expand="block">
+        <span>SIGN UP IN EMAIL</span>             
+    </button>	
+   <h4 class="mt-20 main-title">Login Using</h4>
+  <div class="row">	
+  <div class="col-3">
+    <button type="button" class="google-button" (click)="doGoogleLogin()">
+        <img src="assets/img/google.png" width="20" height="20">              
+    </button>
+    <p class="pt-10 dark-grey fs-12">Google</p>
+</div>
+
+<div class="col-3">
+    <button class="twitter-button" type="button" (click)="doTwitterLogin()">
+        <img src="assets/img/twitter.png" width="20" height="20"> </button>
+         <p class="pt-10 dark-grey fs-12">Twitter</p>
+     </div>
+
+  <div class="col-3">
+    <button class="email-button" type="button" [routerLink]="['/login-email']">
+        <img src="assets/img/email.png" width="20" height="20"></button>
+        <p class="pt-10 dark-grey fs-12">Email</p>
+    </div>
+  
+  <div class="col-3"> 
+    <button class="phone-button" type="button" [routerLink]="['/auth-phone']">
+        <img src="assets/img/phone.png" width="20" height="20"></button>
+        <p class="pt-10 dark-grey fs-12">Phone</p>
+  </div>
+
+ <div class="col-3">
+    <button class="github-button" type="button" (click)="doGoogleLogin()">
+        <img src="assets/img/github.png" width="20" height="20"></button>
+        <p class="pt-10 dark-grey fs-12">Github</p>
+    </div>
+
+<div class="col-3">
+    <button class="apple-button" type="button" (click)="doAppleLogin()">
+        <img src="assets/img/apple.png" width="20" height="20"></button>
+        <p class="pt-10 dark-grey fs-12">Apple</p>
+    </div>
+
+     <div class="col-3">
+    <button class="facebook-button" type="button" (click)="doFbLogin()">
+          <img src="assets/img/facebook.png" width="20" height="20"></button>
+           <p class="pt-10 dark-grey fs-12">Facebook</p>
+       </div>
+  
+<div class="col-3">
+    <button class="email-button" type="button" [routerLink]="['/login-email']">
+        <img src="assets/img/email.png" width="20" height="20"></button>  
+        <p class="pt-10 dark-grey fs-12">Email</p>
+    </div>
+
   </div>
 </div>
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
