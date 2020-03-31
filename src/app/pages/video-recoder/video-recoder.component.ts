@@ -6,7 +6,7 @@ import { ConfirmationDailogService } from '../confirmation-dailog/confirmation-d
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-const apiUrl = "http://35.244.46.41/overlay-videos";
+const apiUrl = "https://psa-backend-server.hopscotchhealth.co/overlay-videos";
 @Component({
   selector: 'app-video-recoder',
   templateUrl: './video-recoder.component.html',
