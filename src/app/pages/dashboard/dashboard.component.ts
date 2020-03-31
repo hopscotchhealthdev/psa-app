@@ -21,8 +21,8 @@ export class DashboardComponent implements OnInit {
   constructor(private toastr: ToastrService, private router: Router, public activeModal: NgbActiveModal, private confirmationDialogService: ConfirmationDailogService, public modalService: NgbModal) {
 
   }
-  share(url) {
-    window.location.href = `${window.location.origin}/share/index.html`
+  share(item) {
+    window.location.href = `${window.location.origin}/share/index.html?videos/${item.id}`
   }
   ngOnInit() {
     let queryUnsubscribe: any;
@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit {
         let count = 0;
         firebase
           .firestore()
-          .collection("users").doc(user.uid).collection("videos").where("userId", "==", user.uid).onSnapshot(sessionSnap => {
+          .collection("users").doc(user.uid).collection("videos").orderBy("createdDate").where("userId", "==", user.uid).onSnapshot(sessionSnap => {
             if (sessionSnap.docs.length == 0) {
               me.loading = false;
             }

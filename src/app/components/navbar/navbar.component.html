@@ -1,69 +1,70 @@
-<nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
+<nav class="navbar navbar-expand-lg" style="position: fixed;">
   <div class="container-fluid">
-    <div class="navbar-wrapper">
-      <div class="navbar-toggle d-inline">
-        <button class="navbar-toggler" type="button" (click)="sidebarToggle()">
-          <span class="navbar-toggler-bar bar1"> </span>
-          <span class="navbar-toggler-bar bar2"> </span>
-          <span class="navbar-toggler-bar bar3"> </span>
-        </button>
-      </div>
-      <!-- <a class="navbar-brand" href="javascript:void(0)"> {{ getTitle() }} </a> -->
-    </div>
-    <button *ngIf="!isAnonymous"
-      aria-label="Toggle navigation"
-      class="navbar-toggler"
-      (click)="collapse()"
-      [attr.aria-expanded]="!isCollapsed"
-      aria-controls="collapseExample"
-      id="navigation"
-      type="button"
-    >
-      <span class="navbar-toggler-bar navbar-kebab"> </span>
-      <span class="navbar-toggler-bar navbar-kebab"> </span>
-      <span class="navbar-toggler-bar navbar-kebab"> </span>
-    </button>
-    <div *ngIf="isAnonymous" style="border-top: 0.0625rem solid rgba(34, 42, 66, 0.05);">
-        <button (click)="goToLogin()" class="btn btn-block" type="submit">Login</button>
-      </div>
-    <div class="navbar-collapse" [ngbCollapse]="isCollapsed" id="navigation">
-      <ul class= " navbar-nav ml-auto" style="margin-left: 75px;">
-  <li></li>
-<li></li>
-  <li  *ngIf="!isAnonymous" class="nav-item" ngbDropdown>
-          <a
-            class="nav-link"
-            data-toggle="dropdown"
-            href="javascript:void(0)"
-            ngbDropdownToggle
-          >
-            <div class="photo">
-              <img alt="Profile Photo" src="{{user.image}}" /> 
-            </div>
-            <b class="caret d-none d-lg-block d-xl-block"> </b>
-            <p class="d-lg-none">{{user.userName}}</p>
-          </a>
-          
-          <ul class="dropdown-navbar" ngbDropdownMenu>
-            <li class="nav-link">
-              <a class="nav-item" (click)="profileCollapse();" [routerLink]="['/profile']" href="javascript:void(0)" ngbDropdownItem>
-                Profile
-              </a>
-            </li>
-            <li class="dropdown-divider"></li>
-            <li (click)="logout();" class="nav-link">
-              <a class="nav-item" href="javascript:void(0)" ngbDropdownItem>
-                Log out
-              </a>
-            </li>
-          </ul>
-        </li>
-       <b style="padding-top: 12px;color: #FFF;"> {{user.userName}} </b>
-        <li class="separator d-lg-none"></li>
-      </ul>
-    </div>
+  <div class="navbar-wrapper">
+  <div class="navbar-toggle d-inline">
+  <button class="navbar-toggler" type="button" (click)="sidebarToggle()">
+  <span class="navbar-toggler-bar bar1"> </span>
+  <span class="navbar-toggler-bar bar2"> </span>
+  <span class="navbar-toggler-bar bar3"> </span>
+  </button>
+  </div>
+  <!-- <a class="navbar-brand" href="javascript:void(0)"> {{ getTitle() }} </a> -->
+  </div>
+  <button *ngIf="!isAnonymous"
+  aria-label="Toggle navigation"
+  class="navbar-toggler"
+  (click)="collapse()"
+  [attr.aria-expanded]="!isCollapsed"
+  aria-controls="collapseExample"
+  id="navigation"
+  type="button"
+  >
+  <span class="navbar-toggler-bar navbar-kebab"> </span>
+  <span class="navbar-toggler-bar navbar-kebab"> </span>
+  <span class="navbar-toggler-bar navbar-kebab"> </span>
+  </button>
+  
+  <div class="navbar-collapse" [ngbCollapse]="isCollapsed" id="navigation">
+  <ul class= " navbar-nav ml-auto" >
+  <li *ngIf="!isAnonymous" class="nav-item" ngbDropdown>
+  <a
+  class="nav-link"
+  data-toggle="dropdown"
+  href="javascript:void(0)"
+  ngbDropdownToggle
+  >
+  <div class="photo">
+  <img alt="Profile Photo" src="{{user.image}}" />
+  </div>
+  <b class="caret d-none d-lg-block d-xl-block"> </b>
+  <p class="d-lg-none">{{user.userName}}</p>
+  </a>
+  
+  <ul class="" ngbDropdownMenu>
+  <li class="nav-link">
+  <a class="nav-item" (click)="profileCollapse();" [routerLink]="['/profile']" href="javascript:void(0)" ngbDropdownItem>
+  Profile
+  </a>
+  </li>
+  <li class="dropdown-divider"></li>
+  <li (click)="logout();" class="nav-link">
+  <a class="nav-item" href="javascript:void(0)" ngbDropdownItem>
+  Log out
+  </a>
+  </li>
+  </ul>
+  </li>
+  <b style="padding-top: 12px;color: #FFF;"> {{user.userName}} </b>
+  <li class="separator d-lg-none"></li>
+  </ul>
+  
+  </div>
+  <div *ngIf="isAnonymous" style="border-top: 0.0625rem solid rgba(34, 42, 66, 0.05);">
+  <button (click)="goToLogin()" class="btn btn-block" type="submit">Login</button>
+  
+  </div>
   </div>
   
-</nav>
-
-
+  </nav>
+  
+  

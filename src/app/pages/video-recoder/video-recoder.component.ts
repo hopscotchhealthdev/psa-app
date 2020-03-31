@@ -6,7 +6,7 @@ import { ConfirmationDailogService } from '../confirmation-dailog/confirmation-d
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-const apiUrl = "http://35.232.141.46/overlay-videos";
+const apiUrl = "http://35.244.46.41/overlay-videos";
 @Component({
   selector: 'app-video-recoder',
   templateUrl: './video-recoder.component.html',
@@ -151,7 +151,7 @@ export class VideoRecoderComponent implements OnInit {
       }).then(function (res) {
         me.loading = false;
         var userId = firebase.auth().currentUser.uid;
-        firebase.firestore().collection("users").doc(userId).set({ userName: "Anonymous", createdDate: new Date() })
+        firebase.firestore().collection("users").doc(userId).set({ userName: "Intern-HH", createdDate: new Date() })
         me.uploadVideo();
       });
     }
@@ -180,8 +180,8 @@ export class VideoRecoderComponent implements OnInit {
         .post(`${apiUrl}`, param, me.defaultHeaders())
         .subscribe(
           (data: any) => {
-            me.addVideoData(video, data, 2).then((uniqueId) => {
-              me.fetchOutputUrl(data, uniqueId, 0);
+            me.addVideoData(video, data.file_name, 2).then((uniqueId) => {
+              me.fetchOutputUrl(data.file_name, uniqueId, 0);
             })
           },
           error => {

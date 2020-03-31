@@ -1,3 +1,21 @@
 {
+    "indexes": [
+      {
+        "collectionGroup": "videos",
+        "queryScope": "COLLECTION",
+        "fields": [
+          {
+            "fieldPath": "userId",
+            "order": "ASCENDING"
+          },
+          {
+            "fieldPath": "createdDate",
+            "order": "ASCENDING"
+          }
+        ]
+      }
+     
+    ]
 
-}
+  }
+  
