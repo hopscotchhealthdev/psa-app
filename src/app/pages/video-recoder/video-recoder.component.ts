@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 const apiUrl = "https://psa-backend-server.hopscotchhealth.co/overlay-videos";
+declare var window: any;
 @Component({
   selector: 'app-video-recoder',
   templateUrl: './video-recoder.component.html',
@@ -38,12 +39,32 @@ export class VideoRecoderComponent implements OnInit {
   loading = false;
   animation: boolean = false;
   timeout: any;
+  browserFailed: string = '';
   constructor(private http: HttpClient, private route: ActivatedRoute, private confirmationDialogService: ConfirmationDailogService, private router: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService) {
 
   }
   ngOnInit() {
     let me = this;
     me.startCamera();
+    let browser: any = (function () {
+      var ua = navigator.userAgent, tem,
+        M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+      if (/trident/i.test(M[1])) {
+        tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+        return 'IE ' + (tem[1] || '');
+      }
+      if (M[1] === 'Chrome') {
+        tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
+        if (tem != null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+      }
+      M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
+      if ((tem = ua.match(/version\/(\d+)/i)) != null) M.splice(1, 1, tem[1]);
+      return M.join(' ');
+    })();
+    if (browser.toLowerCase().indexOf('safari') > -1) {
+      me.browserFailed = "Use Chrome browser to access this page";
+    }
+
     this.route.queryParamMap.subscribe(params => {
       if (params.get("id")) {
         me.loading = true;
@@ -128,10 +149,7 @@ export class VideoRecoderComponent implements OnInit {
   }
 
   errorCallback() {
-    this.toastr.error("Browser is not supported RecordRTC", '', {
-      timeOut: 2000,
-      positionClass: 'toast-top-center',
-    });
+    this.browserFailed = "Use latest Chrome browser to access this page";
   }
 
   processVideo(audioVideoWebMURL) {
@@ -187,7 +205,7 @@ export class VideoRecoderComponent implements OnInit {
           error => {
             me.addVideoData(video, null, 3).then((uniqueId) => {
 
-             })
+            })
           }
         );
 
@@ -243,8 +261,8 @@ export class VideoRecoderComponent implements OnInit {
           timeOut: 2000,
           positionClass: 'toast-top-center',
         });
-      me.router.navigate(['/home']);
-       });
+        me.router.navigate(['/home']);
+      });
   }
 
   download() {
