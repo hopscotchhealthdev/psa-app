@@ -81,16 +81,19 @@ Build the Recorder ann and Login app with this command
 ```
 ng build --prod
 ```
-Create recorder folder inside dist- and paste your recorder build code
-Create login folder inside dist- and paste your login build code
-Create share folder inside dist- and paste your share(react) build code
-update index.html file removed "/" forard slash for all static folder path
-Inside home folder paste your static html website
+Create recorder folder inside the build folder and paste your recorder build code
 
-So the final dist folder structure like-
+Create login folder inside build folder and paste your login build code
+
+Create share folder inside build folder and paste your share(react) build code
+update index.html file removed "/" forard slash for all static folder path
+
+Create home folder inside build folder and paste your static (corvid-19)  static folder code
+
+So the final build folder structure like-
 
 ```
-├── dist
+├── build
 │   ├── home
 |   ├── login
 │   ├── share
