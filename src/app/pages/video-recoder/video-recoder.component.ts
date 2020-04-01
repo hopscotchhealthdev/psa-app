@@ -320,7 +320,7 @@ export class VideoRecoderComponent implements OnInit {
       firebase.firestore().collection("users").doc(userId).collection('videos').add({
         url: video.downloadURL,
         videoId: video.videoId,
-        createdDate: new Date().getTime(),
+        createdDate: new Date(),
         userId: userId,
         psaId: me.psaData.id,
         psaName: me.psaData.name,

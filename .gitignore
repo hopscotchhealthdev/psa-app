@@ -45,6 +45,7 @@ src/config/config.ts
 Thumbs.db
 /dist
 /.firebase
+/build
 
 # System Files
 .DS_Store

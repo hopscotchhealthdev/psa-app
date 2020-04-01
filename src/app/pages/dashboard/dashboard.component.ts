@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
 
   }
   share(item) {
-    window.location.href = `${window.location.origin}/share/index.html?videos/${item.id}`
+    window.location.href = `${window.location.origin}/share/index.html#/videos/${item.id}`
   }
   ngOnInit() {
     let queryUnsubscribe: any;
@@ -47,7 +47,7 @@ export class DashboardComponent implements OnInit {
                 firebase.firestore().collection("psa").doc(data.psaId).get().then(function (querySnapshot) {
                   if (querySnapshot.exists) {
                     me.videos.push({
-                      date: moment(new Date(data.createdDate)).format('LLLL'),
+                      date: moment(new Date(data.createdDate.toDate())).format('LLLL'),
                       url: data.outputUrl,
                       id: change.doc.id,
                       status: data.status,
