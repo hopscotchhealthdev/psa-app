@@ -1,6 +1,0 @@
-[submodule "covid-video-share"]
-	path = covid-video-share
-	url = https://github.com/sub0-l3/covid-video-share.git
-[submodule "covid19"]
-	path = covid19
-	url = https://github.com/avanish-hopscotch/covid19.git
