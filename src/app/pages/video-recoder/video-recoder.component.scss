@@ -5,7 +5,6 @@ video {
   padding: 10px;
   text-align: center;
   border: 1px solid white;
-
 }
 
 .row {
@@ -34,19 +33,19 @@ video {
 }
 .markerText{
   color: white;
-  font-size: 16px;
-  position: absolute;
-  right: 40%;
-  bottom: 205px;
-  z-index: 999;
-  margin: 0 auto; 
-  font-weight: 600;
-  background: rgba(107, 107, 107, 0.47);
-  position: absolute;  
-  width: 50%;
-  height: 150px;
-  text-align: center;
-  padding: 5px;
+    font-size: 16px;
+    position: absolute;
+    left: 8%;
+    top: 50%;
+    z-index: 999;
+    margin: 0 auto;
+    font-weight: 600;
+    background: rgba(107, 107, 107, 0.47);
+    width: 50%;
+    height: 150px;
+    text-align: center;
+    padding: 5px;
+    transform: translate(0,-50%);
 }
 
 .red-bg{
@@ -161,7 +160,8 @@ body {
   padding: $pad;
   border-radius: 20px;
   transform: translateX(-50%);
-
+  font-size: 50px;
+  color:#FFF
   &__colored-blocks {
     overflow: hidden;
     position: absolute;
@@ -343,4 +343,16 @@ body {
     opacity: 0;
   }
 }
+
+ @media only screen and (min-device-width: 480px) and (max-device-width: 640px) {
+  .video {
+  height: 220px;
+  max-height: 450px;
+  width: 85%;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid white;
+  object-fit: cover;
+}
+ }
 

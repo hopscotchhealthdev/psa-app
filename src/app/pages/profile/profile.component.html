@@ -23,7 +23,7 @@
               <div class=" form-group"><input (ngModelChange)="user.userName = $event" [ngModel]="user.userName" class="form-control" type="text"></div>
 
               <label> Age </label>
-              <div class=" form-group"><input (ngModelChange)="user.age = $event" [ngModel]="user.age" class="form-control" type="number"></div>
+              <div class=" form-group"><input (ngModelChange)="user.age = $event" [ngModel]="user.age" min="0" class="form-control" type="number"></div>
 
               <div class=" row"><label class=" col-sm-2 col-form-label"> Gender </label>
                 <div  radio-group  class=" col-sm-10 checkbox-radios" style="display: flex;">
@@ -41,7 +41,7 @@
                 Update </button></div>
           </div>
           <div *ngIf="isAnonymous" style="border-top: 0.0625rem solid rgba(34, 42, 66, 0.05);">
-            <p>Login into the app for updating the profile</p>
+            <p>Login into the app</p>
             </div>
         </div>
       </div>

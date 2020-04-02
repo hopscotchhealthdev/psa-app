@@ -19,6 +19,7 @@ export class VideoRecoderComponent implements OnInit {
   uploadProgress: any;
   recording: boolean = false;
   progress = false;
+  timecountStart: any;
   isPlaying = false;
   counter: any;
   timecount;
@@ -108,6 +109,15 @@ export class VideoRecoderComponent implements OnInit {
   }
 
   ngOnDestroy() {
+    if (this.timecount) {
+      clearInterval(this.timecount);
+    }
+    if (this.timecountStart) {
+      clearInterval(this.timecountStart);
+    }
+    if (this.counter) {
+      clearInterval(this.counter);
+    }
     this.recordRTC = null;
   }
 
@@ -127,23 +137,34 @@ export class VideoRecoderComponent implements OnInit {
 
 
   startRecordingProcess() {
+    let me = this;
     if (this.animation) {
       this.animation = false;
       this.resetScreen();
-      if (this.timecount) {
-        clearTimeout(this.timecount);
+      if (this.timecountStart) {
+        clearInterval(this.timecountStart);
       }
     } else {
       this.animation = true;
-      this.timeout = setTimeout(() => {
-        if (this.animation) {
-          this.recordRTC.startRecording();
-          this.animation = false;
-          this.startTimer();
-          this.recording = true;
-          this.isPlaying = false;
+
+      var timeleft = 5;
+      me.timecountStart = setInterval(function () {
+        if (timeleft <= 0) {
+          clearInterval(me.timecountStart);
+          this.recordRTC
+          me.recordRTC.startRecording();
+          me.animation = false;
+          me.startTimer();
+          me.recording = true;
+          me.isPlaying = false;
+        } else {
+          let el = document.getElementById("countdown");
+          if (el) {
+            el.innerHTML = timeleft.toString();
+          }
         }
-      }, 3500);
+        timeleft -= 1;
+      }, 1000);
 
     }
   }
@@ -169,7 +190,7 @@ export class VideoRecoderComponent implements OnInit {
       }).then(function (res) {
         me.loading = false;
         var userId = firebase.auth().currentUser.uid;
-        firebase.firestore().collection("users").doc(userId).set({ userName: "Intern-HH", createdDate: new Date() })
+        firebase.firestore().collection("users").doc(userId).set({ userName: "Anonymous", createdDate: new Date() })
         me.uploadVideo();
       });
     }
@@ -266,7 +287,7 @@ export class VideoRecoderComponent implements OnInit {
   }
 
   download() {
-    this.recordRTC.save('video.webm');
+    this.recordRTC.save('video.webm;codecs=vp9');
   }
 
   pauseTimer() {

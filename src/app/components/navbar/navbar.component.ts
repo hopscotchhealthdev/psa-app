@@ -67,7 +67,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       if (user) {
         if (user.isAnonymous) {
           this.isAnonymous = true;
-          me.user.userName = "Intern-HH";
+          me.user.userName = "Anonymous";
         }else{
           this.isAnonymous = false;          
         }
@@ -83,7 +83,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
             });
 
       }else{
-        me.user.userName = "Intern-HH";
+        me.user.userName = "Anonymous";
         this.isAnonymous = true;                  
       }
     })
