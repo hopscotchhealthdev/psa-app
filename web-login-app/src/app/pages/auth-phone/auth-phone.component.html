@@ -20,9 +20,9 @@
           </div>
           <div class="card-body">
             <div class="input-group">
-              <div class="input-item">
-                <p>Phone number</p>
-                <input class="" style="width:270PX;" type="tel" ng2TelInput [(ngModel)]="phone" placeholder="Please enter your phone number"
+              <div class="input-item" style="width: 100%;">
+                <p style="color:#141414;text-align: left;">Phone number</p>
+                <input class="" style="width: 100%;" type="tel" ng2TelInput [(ngModel)]="phone" placeholder="Please enter your phone number"
                   (countryChange)="onCountryChange($event)" (ng2TelOutput)="getNumber($event)"
                   [ng2TelInputOptions]="{initialCountry: 'in'}" />
 

@@ -41,6 +41,7 @@ export class VideoRecoderComponent implements OnInit {
   animation: boolean = false;
   timeout: any;
   browserFailed: string = '';
+  isSafariBrowser: boolean = false;
   constructor(private http: HttpClient, private route: ActivatedRoute, private confirmationDialogService: ConfirmationDailogService, private router: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService) {
 
   }
@@ -63,7 +64,8 @@ export class VideoRecoderComponent implements OnInit {
       return M.join(' ');
     })();
     if (browser.toLowerCase().indexOf('safari') > -1) {
-      me.browserFailed = "Use Chrome browser to access this page";
+      // me.browserFailed = "Use Chrome browser to access this page";
+      me.isSafariBrowser = true;
     }
 
     this.route.queryParamMap.subscribe(params => {
@@ -123,6 +125,7 @@ export class VideoRecoderComponent implements OnInit {
 
 
   successCallback(stream: MediaStream) {
+
     var options = {
       mimeType: 'video/webm',
     };
@@ -269,26 +272,22 @@ export class VideoRecoderComponent implements OnInit {
   }
 
   stopConfirmRecording() {
-    this.recordRTC.pauseRecording();
-    clearInterval(this.counter);
-    const me = this;
-    this.confirmationDialogService.confirm("Attention!!!", "", "Continue Video", "Reset Video")
-      .then((confirmed) => {
-        if (confirmed) {
-          me.recordRTC.resumeRecording();
-          me.startTimer(me.timerSeconds);
+    if (!this.isSafariBrowser) {
+      this.recordRTC.pauseRecording();
+      clearInterval(this.counter);
+      const me = this;
+      this.confirmationDialogService.confirm("Attention!!!", "", "Continue Video", "Reset Video")
+        .then((confirmed) => {
+          if (confirmed) {
+            me.recordRTC.resumeRecording();
+            me.startTimer(me.timerSeconds);
 
-        } else {
-          me.resetScreen();
-        }
-      })
-      .catch(() => {
-        me.toastr.error('Video not processed successfully', '', {
-          timeOut: 2000,
-          positionClass: 'toast-top-center',
-        });
-        me.router.navigate(['/home']);
-      });
+          } else {
+            me.resetScreen();
+          }
+        })
+        .catch(() => { });
+    }
   }
 
   download() {
