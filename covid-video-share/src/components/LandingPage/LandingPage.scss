@@ -1,0 +1,30 @@
+$block: "psa-landing-page";
+
+.#{$block} {
+  align-items: center;
+  justify-content: center;
+  background-color: #1e1e2f;
+  max-width: 100%;
+}
+
+.#{$block}__video-list {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 1rem;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+}
+
+.#{$block}__loader-div {
+  background-color: #1e1e2f;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100vh;
+  text-align: center;
+}
