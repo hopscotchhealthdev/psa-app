@@ -18,7 +18,6 @@ export class VideoRecoderComponent implements OnInit {
   private recordRTC: any;
   uploadProgress: any;
   recording: boolean = false;
-  progress = false;
   timecountStart: any;
   isPlaying = false;
   counter: any;
@@ -29,6 +28,7 @@ export class VideoRecoderComponent implements OnInit {
   img: any;
   videoData: any;
   markText: string = "";
+  currentStatus: number = 0;
   psaData = {
     id: '',
     name: '',
@@ -175,6 +175,7 @@ export class VideoRecoderComponent implements OnInit {
 
   processVideo(audioVideoWebMURL) {
     const me = this;
+    me.currentStatus = 2;
     let recordRTC = this.recordRTC;
     if (!firebase.auth().currentUser) {
       me.loading = true;
@@ -190,12 +191,16 @@ export class VideoRecoderComponent implements OnInit {
       }).then(function (res) {
         me.loading = false;
         var userId = firebase.auth().currentUser.uid;
-        firebase.firestore().collection("users").doc(userId).set({ userName: "Anonymous", createdDate: new Date() })
-        me.uploadVideo();
+        firebase.firestore().collection("users").doc(userId).set({ createdDate: new Date() })
+        setTimeout(() => {
+          me.uploadVideo();
+        }, 1000);
       });
     }
     else {
-      me.uploadVideo();
+      setTimeout(() => {
+        me.uploadVideo();
+      }, 2000);
     }
   }
 
@@ -231,7 +236,7 @@ export class VideoRecoderComponent implements OnInit {
         );
 
     }).catch((err) => {
-      me.progress = false;
+      me.currentStatus = 0;
       me.toastr.error('File upload error', '', {
         timeOut: 2000,
         positionClass: 'toast-top-center',
@@ -405,7 +410,7 @@ export class VideoRecoderComponent implements OnInit {
   resetScreen() {
     this.uploadProgress = 0;
     this.recording = false;
-    this.progress = false;
+    this.currentStatus = 0;
     this.isPlaying = false;
     this.upload = false;
     this.markText = '';
@@ -426,7 +431,7 @@ export class VideoRecoderComponent implements OnInit {
   uploadVideoAsPromise(): any {
     var me = this;
     var recordedBlob = this.recordRTC.getBlob();
-    me.progress = true;
+    me.currentStatus = 1;
     return new Promise(function (resolve, reject) {
       const videoId = me.Guid();
       var uploadTask = firebase.storage().ref().child('videos').child(videoId).put(recordedBlob);

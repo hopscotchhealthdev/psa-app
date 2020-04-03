@@ -162,6 +162,7 @@ body {
   transform: translateX(-50%);
   font-size: 50px;
   color:#FFF;
+  
 }
 
 
@@ -186,3 +187,14 @@ body {
 }
  }
 
+ @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
+  .video{
+  height: 220px;
+  max-height: 450px;
+  width: 85%;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid white;
+  object-fit: cover;
+}
+}

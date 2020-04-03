@@ -3,52 +3,56 @@
 
   <br/>
   <div *ngIf="browserFailed == ''">
-  <div *ngIf="!progress" style="position:relative;">
-    <div class="row">
-      <div class="col-xs-12 div-center">
-        <!-- <ng-marquee *ngIf="recording" duration="50s">
+    <div *ngIf="currentStatus ==0" style="position:relative;">
+      <div class="row">
+        <div class="col-xs-12 div-center">
+          <!-- <ng-marquee *ngIf="recording" duration="50s">
         <ng-container *ngTemplateOutlet="marqueeContent"></ng-container>
       </ng-marquee> -->
-        <div style="position: relative;">
-          <div *ngIf="markText" class="markerText">{{markText}}</div>
-          <video [hidden]="isPlaying" #video class="video"></video>
-        </div>
+          <div style="position: relative;">
+            <div *ngIf="markText" class="markerText">{{markText}}</div>
+            <video [hidden]="isPlaying" #video class="video"></video>
+          </div>
 
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-12 div-center">
-        <div class="demo"id ="countdown"  *ngIf="animation">         
-        </div>
+      <div class="row">
+        <div class="col-xs-12 div-center">
+          <div class="demo" id="countdown" *ngIf="animation">
+          </div>
 
-        <div *ngIf="!recording && recordRTC" class="icon-position">
-		 <p *ngIf="!animation">Hit the play button and read out what you see on the screen.</p>
-          <img src="assets/img/recording-play.png" *ngIf="psaData.id" alt="recording pause icon" width="36" height="36" (click)="startRecordingProcess()"
-          />
-          <!-- <img style="margin-left:10px;" *ngIf="upload" src="assets/img/upload.png" alt="recording pause icon" width="36" height="36"
+          <div *ngIf="!recording && recordRTC" class="icon-position">
+            <p *ngIf="!animation">Hit the play button and read out what you see on the screen.</p>
+            <img src="assets/img/recording-play.png" *ngIf="psaData.id" alt="recording pause icon" width="36" height="36" (click)="startRecordingProcess()"
+            />
+            <!-- <img style="margin-left:10px;" *ngIf="upload" src="assets/img/upload.png" alt="recording pause icon" width="36" height="36"
             (click)="uploadvideo()" /> -->
+          </div>
+          <div *ngIf="recording">
+            <div class="timer red-bg" *ngIf="timecount !=0">{{timecount}}</div>
+
+            <img src="assets/img/recording-pause.png" alt="recording pause icon" width="36" height="36" class="icon-position" (click)="stopConfirmRecording()"
+            />
+
+          </div>
+
         </div>
-        <div *ngIf="recording">
-          <div class="timer red-bg" *ngIf="timecount !=0">{{timecount}}</div>
-
-          <img src="assets/img/recording-pause.png" alt="recording pause icon" width="36" height="36" class="icon-position" (click)="stopConfirmRecording()"
-          />
-
-        </div>
-
       </div>
     </div>
+    <div *ngIf="currentStatus==1 && uploadProgress != 100">
+      <progress-bar [progress]="uploadProgress" [color]="'#70E083'">
+      </progress-bar>
+      <h4>Video Uploading...</h4>
+    </div>
+    <div style="text-align: center;" *ngIf="currentStatus==1 && uploadProgress == 100">
+      <img height="100" src="assets/img/processing.gif" />
+      <h4>Your file is processing. Do not close this window. It will take a few minutes</h4>
+    </div>
+
+    <div style="text-align: center;" *ngIf="currentStatus ==2">
+      <h3>You're done. Thank you for recording</h3>
+    </div>
   </div>
-  <div *ngIf="progress && uploadProgress != 100">
-    <progress-bar [progress]="uploadProgress" [color]="'#70E083'">
-    </progress-bar>
-    <h4>Video Uploading...</h4>
-  </div>
-  <div style="text-align: center;" *ngIf="progress && uploadProgress == 100">
-    <img height="100" src="assets/img/processing.gif"/>
-    <h4>Your file is processing. Do not close this window. It will take a few minutes</h4>
-  </div>
-</div>
   <div style="text-align: center;" *ngIf="browserFailed !=''">
     <h4>{{browserFailed}}</h4>
   </div>
