@@ -23,7 +23,7 @@
 
           <div *ngIf="!recording && recordRTC" class="icon-position">
             <p *ngIf="!animation">Hit the play button and read out what you see on the screen.</p>
-            <img src="assets/img/recording-play.png" *ngIf="psaData.id" alt="recording pause icon" width="36" height="36" (click)="startRecordingProcess()"
+            <img src="assets/img/recording-play.png" *ngIf="psaData.id" alt="recording pause icon" width="36" height="36" (click)="verifyRecording()"
             />
             <!-- <img style="margin-left:10px;" *ngIf="upload" src="assets/img/upload.png" alt="recording pause icon" width="36" height="36"
             (click)="uploadvideo()" /> -->

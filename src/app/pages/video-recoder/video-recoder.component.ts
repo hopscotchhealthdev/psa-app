@@ -136,20 +136,25 @@ export class VideoRecoderComponent implements OnInit {
     video.controls = false;
     video.autoplay = true;
 
+  }
+
+  verifyRecording() {
     let me = this;
     if (this.isSafariBrowser) {
       me.loading = true;
       setTimeout(() => {
         if (me.recordRTC.state == "recording") {
           me.recordRTC.stopRecording();
-          me.loading = false;   
+          me.loading = false;
+          me.startRecordingProcess();
         } else {
-          me.router.navigate(["/psa-list"], { queryParams: { instruction: true },skipLocationChange:true });
+          me.router.navigate(["/psa-list"], { queryParams: { instruction: true }, skipLocationChange: true });
         }
       }, 1200);
       me.recordRTC.initRecorder()
+    } else {
+      me.startRecordingProcess();
     }
-
 
   }
 
