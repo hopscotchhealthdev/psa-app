@@ -55,6 +55,11 @@ export class DashboardComponent implements OnInit {
                       psaName: querySnapshot.data().name,
                       psaTime: querySnapshot.data().time
                     })
+                    if (count == sessionSnap.docs.length) {
+                      me.videos.sort(function (x, y) {
+                        return new Date(y.date).getTime() -  new Date(x.date).getTime();
+                      })
+                    }
                   }
 
                 });
