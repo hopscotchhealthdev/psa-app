@@ -140,7 +140,7 @@ export class VideoRecoderComponent implements OnInit {
 
   verifyRecording() {
     let me = this;
-    if (this.isSafariBrowser) {
+   /* if (this.isSafariBrowser) {
       me.loading = true;
       setTimeout(() => {
         if (me.recordRTC.state == "recording") {
@@ -154,7 +154,8 @@ export class VideoRecoderComponent implements OnInit {
       me.recordRTC.initRecorder()
     } else {
       me.startRecordingProcess();
-    }
+    }*/
+    me.startRecordingProcess();
 
   }
 
@@ -194,8 +195,12 @@ export class VideoRecoderComponent implements OnInit {
   errorCallback() {
     this.browserFailed = "Use latest Chrome browser to access this page";
   }
+  processVideoPrompt(){
 
-  processVideo(audioVideoWebMURL) {
+    
+  }
+
+  processVideo() {
     const me = this;
     me.currentStatus = 2;
     let recordRTC = this.recordRTC;
