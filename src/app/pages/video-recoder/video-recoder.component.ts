@@ -140,8 +140,8 @@ export class VideoRecoderComponent implements OnInit {
     if (this.isSafariBrowser) {
       me.loading = true;
       setTimeout(() => {
-        if (me.recordRTC.state === "recording") {
-          me.recordRTC.reset();
+        if (me.recordRTC.state == "recording") {
+          me.recordRTC.stopRecording();
           me.loading = false;   
         } else {
           me.router.navigate(["/psa-list"], { queryParams: { instruction: true },skipLocationChange:true });
@@ -169,7 +169,6 @@ export class VideoRecoderComponent implements OnInit {
       me.timecountStart = setInterval(function () {
         if (timeleft <= 0) {
           clearInterval(me.timecountStart);
-          this.recordRTC
           me.recordRTC.startRecording();
           me.animation = false;
           me.startTimer();
@@ -430,7 +429,7 @@ export class VideoRecoderComponent implements OnInit {
     this.markText = '';
     this.timecount = 0;
     if (this.recordRTC) {
-      this.recordRTC.reset();
+      this.recordRTC.stopRecording();
       this.startCamera();
     }
     this.pauseTimer();
