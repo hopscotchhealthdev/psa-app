@@ -12,17 +12,23 @@ export class PsaListComponent implements OnInit {
   public loading = false;
   psa = [];
   psaSelect: string = '';
-  constructor( private router: Router) {
+  instruction = false;
+  constructor(private router: Router, private route: ActivatedRoute) {
 
   }
   ngOnInit() {
+    this.route.queryParamMap.subscribe(params => {
+      if (params.get("instruction")) {
+        this.instruction = true;
+      }
+    })
     this.fetchPsa();
   }
   ngAfterViewInit() { }
 
-  choose(value){
+  choose(value) {
     this.router.navigate(['/video-recorder'], { queryParams: { id: value } });
-     
+
   }
 
   fetchPsa() {

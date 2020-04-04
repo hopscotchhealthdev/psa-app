@@ -1,10 +1,14 @@
 <div class="content">
    
-  <div class="psa-list mb-20 p-10">
+  <div  *ngIf="!instruction" class="psa-list mb-20 p-10">
       <label>Choose You PSA</label>
       <ul class="no-margin" >
         <li (click)="choose(item.id)"*ngFor="let item of psa" class="grey-bg">{{item.data.name}}</li> 
       </ul>
+    </div>
+    <div *ngIf="instruction"class="psa-list mb-20 p-10">
+      <label>Instructions</label>
+      <video autoplay controls  src="https://firebasestorage.googleapis.com/v0/b/recordingmechanic.appspot.com/o/instruction%2FFile%20from%20iOS%20(3).mp4?alt=media&token=e3d47df5-b926-4f8c-a601-3a5c0aac8b93" style="width: 100%;height:auto;"   class="video"></video> 
     </div>
 </div>
 
