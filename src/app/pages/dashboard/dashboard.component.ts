@@ -109,7 +109,7 @@ export class DashboardComponent implements OnInit {
       item.url = downloadURL;
     }).catch(function (error) {
       setTimeout(() => {
-        if (count > 50) {
+        if (count > 90) {
           item.loading = false;
           firebase
             .firestore()

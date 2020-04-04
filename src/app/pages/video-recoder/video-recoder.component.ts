@@ -140,7 +140,7 @@ export class VideoRecoderComponent implements OnInit {
 
   verifyRecording() {
     let me = this;
-   /* if (this.isSafariBrowser) {
+    if (this.isSafariBrowser) {
       me.loading = true;
       setTimeout(() => {
         if (me.recordRTC.state == "recording") {
@@ -154,9 +154,7 @@ export class VideoRecoderComponent implements OnInit {
       me.recordRTC.initRecorder()
     } else {
       me.startRecordingProcess();
-    }*/
-    me.startRecordingProcess();
-
+    }
   }
 
 
@@ -196,8 +194,8 @@ export class VideoRecoderComponent implements OnInit {
     this.browserFailed = "Use latest Chrome browser to access this page";
   }
   processVideoPrompt(){
+    this.openConfirmationDialog("Would you like to proceed to upload the video or retry?", "", "UPLOAD", "RETRY");
 
-    
   }
 
   processVideo() {
@@ -287,7 +285,7 @@ export class VideoRecoderComponent implements OnInit {
   stopRecording() {
     let recordRTC = this.recordRTC;
     if (recordRTC)
-      recordRTC.stopRecording(this.processVideo.bind(this));
+      recordRTC.stopRecording(this.processVideoPrompt.bind(this));
     let stream = this.stream;
     stream.getAudioTracks().forEach(track => track.stop());
     stream.getVideoTracks().forEach(track => track.stop());
@@ -489,25 +487,22 @@ export class VideoRecoderComponent implements OnInit {
       s4() + '-' + s4() + s4() + s4();
   }
 
-  /*public openConfirmationDialog(title, message, btnOkText, btnCancelText) {
+  public openConfirmationDialog(title, message, btnOkText, btnCancelText) {
+    let me =this;
     this.confirmationDialogService.confirm(title, message, btnOkText, btnCancelText)
       .then((confirmed) => {
         if (confirmed) {
-          var me = this;
-          me.uploadVideoAsPromise().then((videoUrl) => {
-            me.saveVideo(videoUrl);
-          }).catch((err) => {
-            me.progress = false;
-            me.toastr.error('file upload error', '', {
-              timeOut: 2000,
-              positionClass: 'toast-top-center',
-            });
-          });
+          me.processVideo();
+        }else{
+          me.resetScreen();
+
         }
       })
-      .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
+      .catch(() => {
+        me.resetScreen();
+      });
   }
-*/
+
 
 
 }
