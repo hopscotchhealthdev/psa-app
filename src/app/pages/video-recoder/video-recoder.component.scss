@@ -185,6 +185,16 @@ body {
   border: 1px solid white;
   object-fit: cover;
 }
+.psa-name{
+    position: absolute;
+    top: 29%;
+    left: 50%;
+    z-index: 222;
+    font-size: 16px;
+    background-color: #000000a1;
+    padding: 5px 10px;
+    transform: translate(-50%, 0);
+}
  }
 
  @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
@@ -196,5 +206,15 @@ body {
   text-align: center;
   border: 1px solid white;
   object-fit: cover;
+}
+.psa-name{
+    position: absolute;
+    top: 19%;
+    left: 50%;
+    z-index: 222;
+    font-size: 16px;
+    background-color: #000000a1;
+    padding: 5px 10px;
+    transform: translate(-50%, 0);
 }
 }
