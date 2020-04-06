@@ -35,7 +35,7 @@
 }
 .sidebar, .off-canvas-sidebar{
   &, &[data="gray"]{
-   background: #1E1E2D;
+   background: #ffffff;
   }
   &[data="primary"]{
     @include linear-gradient($primary-states, $primary);

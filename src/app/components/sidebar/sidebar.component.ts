@@ -9,7 +9,7 @@ export const ROUTES: RouteInfo[] = [
   {
     path: "/home",
     title: "Videos",
-    icon: "assets/img/psa-recorder_mechnanic_480.png",
+    icon: "assets/img/psa-recorder_mechnanic-64x64.png",
     class: ""
   },
   {
