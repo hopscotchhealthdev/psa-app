@@ -88,13 +88,13 @@ export class LoginComponent implements OnInit {
         if (data.image && data.image != "") {
           userData.image = data.image;
         }
-        updateProfile();
+        updateProfile(userData);
       } else {
-        createProfile();
+        createProfile(userData);
       }
     });
 
-    function updateProfile() {
+    function updateProfile(userData) {
       firebase
         .firestore().collection("users").doc(user.uid).update({
           userName: userData.userName,
@@ -110,7 +110,7 @@ export class LoginComponent implements OnInit {
           me.error = error.message;
         });
     }
-    function createProfile() {
+    function createProfile(userData) {
       firebase
         .firestore().collection("users").doc(user.uid).set({
           userName: userData.userName,
