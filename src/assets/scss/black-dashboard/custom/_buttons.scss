@@ -7,8 +7,7 @@
     margin:4px 1px;
     border-radius: $border-radius-lg;
     cursor: pointer;
-
-    @include btn-styles($default, $default-states);
+  //  @include btn-styles($default, $default-states);
 
     &:hover,
     &:focus{

@@ -145,7 +145,7 @@ export class DashboardComponent implements OnInit {
 
   }
   delete(item) {
-    this.shwDeletePrompt(item, "Are you want to delete this video?", "", "Yes", "No");
+    this.shwDeletePrompt(item, "Are you sure you want to delete this video?", "", "Yes", "No");
   }
   public shwDeletePrompt(item, title, message, btnOkText, btnCancelText) {
     this.confirmationDialogService.confirm(title, message, btnOkText, btnCancelText)
