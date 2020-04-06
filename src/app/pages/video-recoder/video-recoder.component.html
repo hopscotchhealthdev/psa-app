@@ -46,7 +46,7 @@
     </div>
     <div style="text-align: center;" *ngIf="currentStatus==1 && uploadProgress == 100">
       <img height="100" src="assets/img/processing.gif" />
-      <h4>Your file is processing. Do not close this window. It will take a few minutes</h4>
+      <h4><b>{{processText}}</b></h4>
     </div>
 
     <div style="text-align: center;" *ngIf="currentStatus ==2">
