@@ -135,13 +135,7 @@ body{font-family: 'Montserrat', sans-serif;}
           top: 100%;
           left: 0;
         }
-        .main-panel .content {
-            padding-left: 0px !important; 
-       }
-       .main-panel .content {
-           padding: 40px 10px 30px 10px !important; 
-       }
-      }
+    }
     
   }
   @supports not (-webkit-touch-callout: none) {
@@ -156,13 +150,7 @@ body{font-family: 'Montserrat', sans-serif;}
           position: absolute;
           top: 100%;
           left: 0;
-        }
-        .main-panel .content {
-            padding-left: 0px !important; 
-       }
-       .main-panel .content {
-           padding: 40px 10px 30px 10px !important; 
-       }
+        }       
       }
     
   }
