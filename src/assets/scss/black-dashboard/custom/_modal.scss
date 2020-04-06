@@ -99,8 +99,10 @@
     }
 
     .modal-header .close{
-        color: $danger;
+        color: #000;
         text-shadow: none;
+        top: 2%;
+        right: 2%;
 
         &:hover,
         &:focus{

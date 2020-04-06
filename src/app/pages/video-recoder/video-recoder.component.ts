@@ -42,6 +42,7 @@ export class VideoRecoderComponent implements OnInit {
   timeout: any;
   browserFailed: string = '';
   isSafariBrowser: boolean = false;
+  processText: string = "";
   constructor(private http: HttpClient, private route: ActivatedRoute, private confirmationDialogService: ConfirmationDailogService, private router: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService) {
 
   }
@@ -193,8 +194,8 @@ export class VideoRecoderComponent implements OnInit {
   errorCallback() {
     this.browserFailed = "Use latest Chrome browser to access this page";
   }
-  processVideoPrompt(){
-    this.openConfirmationDialog("Would you like to proceed to upload the video or retry?", "", "UPLOAD", "RETRY");
+  processVideoPrompt() {
+    this.openConfirmationDialog("Would you like to proceed to upload your video or re-record it?", "", "UPLOAD", "RE-RECORD");
 
   }
 
@@ -298,7 +299,7 @@ export class VideoRecoderComponent implements OnInit {
       this.recordRTC.pauseRecording();
       clearInterval(this.counter);
       const me = this;
-      this.confirmationDialogService.confirm("Attention!!!", "", "Continue Video", "Reset Video")
+      this.confirmationDialogService.confirm("Attention!", "", "Continue Video", "Reset Video")
         .then((confirmed) => {
           if (confirmed) {
             me.recordRTC.resumeRecording();
@@ -436,6 +437,7 @@ export class VideoRecoderComponent implements OnInit {
     this.upload = false;
     this.markText = '';
     this.timecount = 0;
+    this.processText = "";
     if (this.recordRTC) {
       this.recordRTC.stopRecording();
       this.startCamera();
@@ -458,6 +460,13 @@ export class VideoRecoderComponent implements OnInit {
       var uploadTask = firebase.storage().ref().child('videos').child(videoId).put(recordedBlob);
       uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, function (snapshot) {
         me.uploadProgress = parseInt((snapshot.bytesTransferred / snapshot.totalBytes * 100).toString());
+        if (me.uploadProgress == 100) {
+          me.processText = "Your file is processing. Do not close this window. It will take a few seconds"
+          setTimeout(() => {
+            me.processText = "The video is taking a little longer to process than usual. Our servers are crunching bits as fast as it can to get the video ready for you ASAP.";
+          }, 1000 * 60);
+        }
+
       }, function (error) {
         // Handle unsuccessful uploads
         reject(error);
@@ -488,12 +497,12 @@ export class VideoRecoderComponent implements OnInit {
   }
 
   public openConfirmationDialog(title, message, btnOkText, btnCancelText) {
-    let me =this;
+    let me = this;
     this.confirmationDialogService.confirm(title, message, btnOkText, btnCancelText)
       .then((confirmed) => {
         if (confirmed) {
           me.processVideo();
-        }else{
+        } else {
           me.resetScreen();
 
         }
