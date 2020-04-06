@@ -104,7 +104,7 @@ body{font-family: 'Montserrat', sans-serif;}
     color:#fff !important;
 }
 
-@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
+/*@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
     html {
       transform: rotate(-90deg);
       transform-origin: left top;
@@ -121,6 +121,50 @@ body{font-family: 'Montserrat', sans-serif;}
 .main-panel .content {
     padding: 40px 10px 30px 10px !important; 
 }
+  }*/
+  @supports (-webkit-touch-callout: none) {
+    /* CSS specific to iOS devices */ 
+    @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
+        html {
+          transform: rotate(-90deg);
+          transform-origin: left top;
+          width: 85vh;
+          //height: 100vw;
+          overflow-x: hidden;
+          position: absolute;
+          top: 100%;
+          left: 0;
+        }
+        .main-panel .content {
+            padding-left: 0px !important; 
+       }
+       .main-panel .content {
+           padding: 40px 10px 30px 10px !important; 
+       }
+      }
+    
+  }
+  @supports not (-webkit-touch-callout: none) {
+    /* CSS specific to non iOS devices */ 
+    @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
+        html {
+          transform: rotate(-90deg);
+          transform-origin: left top;
+          width: 100vh;
+          //height: 100vw;
+          overflow-x: hidden;
+          position: absolute;
+          top: 100%;
+          left: 0;
+        }
+        .main-panel .content {
+            padding-left: 0px !important; 
+       }
+       .main-panel .content {
+           padding: 40px 10px 30px 10px !important; 
+       }
+      }
+    
   }
 
 

@@ -5,8 +5,8 @@ service cloud.firestore {
         return (request.auth.uid == user);
       }
       allow create, read, update, delete: if is_myself();
-      match /videos/{videoId} {
-				allow create,read, update, delete, list : if is_myself();       
+     match /videos/{videoId} {
+				allow create,read, update, delete, list :  if true; // if is_myself();       
       }
     }
     match /psa/{id} {
