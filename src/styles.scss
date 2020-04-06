@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
+*{font-family: 'Montserrat', sans-serif;}
+
 .fileinput {
     display: inline-block;
     margin-bottom: 9px;
@@ -112,3 +114,10 @@
       left: 0;
     }
   }
+
+
+.modal-content .modal-footer {
+    border-top: 0;
+    -webkit-box-pack: justify;
+    justify-content: center;
+}  
