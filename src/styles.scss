@@ -129,7 +129,7 @@ body{font-family: 'Montserrat', sans-serif;}
           transform: rotate(-90deg);
           transform-origin: left top;
           width: 85vh;
-          //height: 100vw;
+          height: 100vw;
           overflow-x: hidden;
           position: absolute;
           top: 100%;
@@ -137,7 +137,7 @@ body{font-family: 'Montserrat', sans-serif;}
         }
     }
     
-  }
+ }
   @supports not (-webkit-touch-callout: none) {
     /* CSS specific to non iOS devices */ 
     @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
@@ -145,7 +145,8 @@ body{font-family: 'Montserrat', sans-serif;}
           transform: rotate(-90deg);
           transform-origin: left top;
           width: 100vh;
-          //height: 100vw;
+          width: 100vh;
+          height: 100vw;
           overflow-x: hidden;
           position: absolute;
           top: 100%;
@@ -156,11 +157,11 @@ body{font-family: 'Montserrat', sans-serif;}
   }
 
 
-.modal-content .modal-footer {
-    border-top: 0;
-    -webkit-box-pack: justify;
-    justify-content: center;
-}
+// .modal-content .modal-footer {
+//     border-top: 0;
+//     -webkit-box-pack: justify;
+//     justify-content: center;
+// }
 
 .blue-button{
         background-color: #5274E6;
