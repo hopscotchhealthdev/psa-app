@@ -18,7 +18,7 @@
                   <div class="card card-chart">
                         <div class="card-header">
                               <div class="row">
-                                    <div class="col-6 col-sm-6 text-left">
+                                    <div class="col-6 text-left">
                                           <!-- <h4 class="card-title">{{item.video}} </h4> -->
                                           <h5 class="card-category">{{item.date}}</h5>
                                           <h6>{{item.psaName}}</h6>
@@ -28,7 +28,7 @@
                                           </div>
                                     </div>
                                    
-                                    <div class="col-sm-6 col-6 col-xs-6 col-md-6 text-right">
+                                    <div class="col-6 text-right">
                                           <button [disabled]="item.loading" (click)="retry(item,0)"  *ngIf="item.status==2" class="btn btn-outline btn-round btn-replay" type="button" shape="round"><i class="fas fa-sync-alt"></i>
                                     
                                           </button>

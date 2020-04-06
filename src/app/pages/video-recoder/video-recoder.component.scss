@@ -199,9 +199,9 @@ body {
 
  @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
   .video{
-  height: 220px;
+  height: 302px;
   max-height: 450px;
-  width: 85%;
+  width: 100%;
   padding: 10px;
   text-align: center;
   border: 1px solid white;
@@ -209,12 +209,18 @@ body {
 }
 .psa-name{
     position: absolute;
-    top: 19%;
+    top: 12%;
     left: 50%;
     z-index: 222;
     font-size: 16px;
     background-color: #000000a1;
     padding: 5px 10px;
     transform: translate(-50%, 0);
+}
+.main-panel .content {
+     padding-left: 0px !important; 
+}
+.main-panel .content {
+    padding: 40px 10px 30px 10px !important; 
 }
 }
