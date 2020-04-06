@@ -199,7 +199,7 @@ body {
 
  @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
   .video{
-  height: 302px;
+  height: 273px;
   max-height: 450px;
   width: 100%;
   padding: 10px;
@@ -217,10 +217,7 @@ body {
     padding: 5px 10px;
     transform: translate(-50%, 0);
 }
-/*.main-panel .content {
-     padding-left: 0px !important; 
-}
 .main-panel .content {
-    padding: 42px 30px 30px 280px  !important; 
-}*/
+    padding: 50px 30px 0px 280px !important; 
+}
 }
