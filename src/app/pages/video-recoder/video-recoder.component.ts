@@ -299,7 +299,7 @@ export class VideoRecoderComponent implements OnInit {
       this.recordRTC.pauseRecording();
       clearInterval(this.counter);
       const me = this;
-      this.confirmationDialogService.confirm("Attention!!!", "", "Continue Video", "Reset Video")
+      this.confirmationDialogService.confirm("Attention!", "", "Continue Video", "Reset Video")
         .then((confirmed) => {
           if (confirmed) {
             me.recordRTC.resumeRecording();
