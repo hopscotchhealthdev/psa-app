@@ -122,7 +122,8 @@ video {
   color:#FFF;  
 }
 .mr-0{margin-right: 0px;}
- @media only screen and (min-device-width: 480px) and (max-device-width: 767px) {
+
+ @media screen and (min-width: 480px) and (max-width: 767px) {
   .video {
   height: 293px;
   max-height: 450px;
