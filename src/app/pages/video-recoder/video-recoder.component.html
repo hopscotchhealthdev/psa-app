@@ -6,12 +6,9 @@
     <div *ngIf="currentStatus ==0" style="position:relative;">
       <div class="row">
         <div class="col-xs-12 div-center">
-          <!-- <ng-marquee *ngIf="recording" duration="50s">
-        <ng-container *ngTemplateOutlet="marqueeContent"></ng-container>
-      </ng-marquee> -->
           <div style="position: relative;">
             <div *ngIf="markText" class="markerText">{{markText}}</div>
-            <video [hidden]="isPlaying" #video class="video"></video>
+            <video #video class="video"></video>
           </div>
 
         </div>
@@ -33,9 +30,7 @@
 
             <img src="assets/img/recording-pause.png" alt="recording pause icon" width="36" height="36" class="icon-position" (click)="stopConfirmRecording()"
             />
-
           </div>
-
         </div>
       </div>
     </div>
@@ -46,7 +41,9 @@
     </div>
     <div style="text-align: center;" *ngIf="currentStatus==1 && uploadProgress == 100">
       <img height="100" src="assets/img/processing.gif" />
-      <h4><b>{{processText}}</b></h4>
+      <h4>
+        <b>{{processText}}</b>
+      </h4>
     </div>
 
     <div style="text-align: center;" *ngIf="currentStatus ==2">

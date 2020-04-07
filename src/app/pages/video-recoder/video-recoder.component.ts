@@ -19,7 +19,6 @@ export class VideoRecoderComponent implements OnInit {
   uploadProgress: any;
   recording: boolean = false;
   timecountStart: any;
-  isPlaying = false;
   counter: any;
   timecount;
   upload = false;
@@ -48,6 +47,7 @@ export class VideoRecoderComponent implements OnInit {
   }
   ngOnInit() {
     let me = this;
+    me.startCamera();
     let browser: any = (function () {
       var ua = navigator.userAgent, tem,
         M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
@@ -67,7 +67,7 @@ export class VideoRecoderComponent implements OnInit {
       // me.browserFailed = "Use Chrome browser to access this page";
       me.isSafariBrowser = true;
     }
-    me.startCamera();
+   
     this.route.queryParamMap.subscribe(params => {
       if (params.get("id")) {
         me.loading = true;
@@ -176,7 +176,6 @@ export class VideoRecoderComponent implements OnInit {
           me.animation = false;
           me.startTimer();
           me.recording = true;
-          me.isPlaying = false;
         } else {
           let el = document.getElementById("countdown");
           if (el) {
@@ -431,7 +430,6 @@ export class VideoRecoderComponent implements OnInit {
     this.uploadProgress = 0;
     this.recording = false;
     this.currentStatus = 0;
-    this.isPlaying = false;
     this.upload = false;
     this.markText = '';
     this.timecount = 0;
