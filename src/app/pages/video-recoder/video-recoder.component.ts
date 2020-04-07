@@ -131,15 +131,11 @@ export class VideoRecoderComponent implements OnInit {
     this.stream = stream;
     this.recordRTC = RecordRTC(stream, options);
     let video: HTMLVideoElement = this.video.nativeElement;
-
-    setTimeout(() => {
-      video.srcObject = this.stream;
+      video.srcObject = stream;
       video.muted = true;
-      video.controls = true;
+      video.controls = false;
       video.autoplay = true;
-      video.setAttribute("playsinline", "true");    
-    }, 300);
-  
+      video.setAttribute("playsinline", "true");      
   }
 
   verifyRecording() {
