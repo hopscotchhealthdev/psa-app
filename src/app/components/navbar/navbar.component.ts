@@ -4,7 +4,7 @@ import { Location } from "@angular/common";
 import { Router } from "@angular/router";
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import * as firebase from "firebase";
-
+import { ConfirmationDailogService } from '../../pages/confirmation-dailog/confirmation-dailog.service';
 @Component({
   selector: "app-navbar",
   templateUrl: "./navbar.component.html",
@@ -30,7 +30,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     location: Location,
     private element: ElementRef,
     private router: Router,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private confirmationDialogService: ConfirmationDailogService
   ) {
     this.location = location;
     this.sidebarVisible = false;
@@ -105,8 +106,16 @@ profileCollapse(){
   }
 
   goToLogin() {
-    window.location.href = `${window.location.origin}/login/index.html`
+    this.confirmationDialogService.confirm("I agree to terms and conditions", "Read more about our <a  href='https://google.com' target='_blank;'><b style='color: #314DBD;font-weight: 700;'>terms and conditions</b></a>", "Accept", "Decline")
+      .then((confirmed) => {
+        if (confirmed) {
+          window.location.href = `${window.location.origin}/login/index.html`
+        }
+      });
+
+ 
   }
+
   
   collapse() {
     this.isCollapsed = !this.isCollapsed;
