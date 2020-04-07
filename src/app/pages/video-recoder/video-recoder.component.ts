@@ -47,7 +47,6 @@ export class VideoRecoderComponent implements OnInit {
   }
   ngOnInit() {
     let me = this;
-    me.startCamera();
     let browser: any = (function () {
       var ua = navigator.userAgent, tem,
         M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
@@ -67,7 +66,7 @@ export class VideoRecoderComponent implements OnInit {
       // me.browserFailed = "Use Chrome browser to access this page";
       me.isSafariBrowser = true;
     }
-   
+    me.startCamera();   
     this.route.queryParamMap.subscribe(params => {
       if (params.get("id")) {
         me.loading = true;
@@ -271,7 +270,10 @@ export class VideoRecoderComponent implements OnInit {
   startCamera() {
     this.upload = false;
     let mediaConstraints: any = {
-      video: true,
+      video: {
+        width: 640,
+        height: 480
+      },
        audio: true,
     };
     navigator.mediaDevices
