@@ -4,9 +4,9 @@
       <div class="col-lg-4 col-md-6 m-auto">
         <form class="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
           <div class="card card-login card-white">
-            <div class="card-header"><img alt=""
-                src="https://demos.creative-tim.com/black-dashboard-pro-angular/assets/img/card-primary.png">
-              <h1 class="card-title">Register</h1>
+            <div class="card-header text-center">
+              <img alt="Login Logo" src="assets/img/login-logo.png">
+              <h3 class="card-title" style="font-weight:600;">Register</h3>
             </div>
             <div *ngIf="error" class="alert alert-danger" role="alert"><span>{{error}}</span></div>
 
@@ -66,7 +66,7 @@
               <div class="pull-left">
               </div>
               <div class="pull-right">
-                <h6><a class="link footer-link"[routerLink]="['/login']"> Go to Login </a></h6>
+                <h6><a class="link footer-link"[routerLink]="['/login']" style="font-weight: 600;"> Go to Login </a></h6>
               </div>
             </div>
           </div>

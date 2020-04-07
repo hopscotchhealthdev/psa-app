@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
-
+*{font-family: 'Montserrat', sans-serif;}
+h1, h2, h3, h4, h5, h6{font-family: 'Montserrat', sans-serif;}
+body{background-color: #010101;}
 .fileinput {
     display: inline-block;
     margin-bottom: 9px;
@@ -41,3 +43,5 @@
     display: inline-block;
     width: 100% !important;
 }
+.btn{background-color: #5274E6; background-image: linear-gradient(to bottom left, #5274E6, #4f73ea, #5274E6);}
+.btn:hover{background-color: #5274E6; background-image: linear-gradient(to bottom left, #5274E6, #4f73ea, #5274E6);}

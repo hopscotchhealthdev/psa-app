@@ -13,7 +13,7 @@
         <div class="card card-login card-white">
           <div class="card-header">
             <img alt="" src="https://demos.creative-tim.com/black-dashboard-pro-angular/assets/img/card-primary.png">
-            <h1 class="card-title">Log in with phone number</h1>
+            <h3 class="card-title" style="font-weight: 500;">Log in with phone number</h3>
           </div>
           <div *ngIf="error" class="alert alert-danger" role="alert">
             <span>{{error}}</span>
@@ -35,7 +35,7 @@
               <div id="recaptcha-container"></div>
             <div class="pull-right">
               <h6>
-                <a [routerLink]="['/login']" class="link footer-link"> Back
+                <a [routerLink]="['/login']" class="link footer-link" style="font-weight: 600;"> Back
                 </a>
               </h6>
             </div>
