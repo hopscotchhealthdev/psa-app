@@ -442,8 +442,8 @@ export class VideoRecoderComponent implements OnInit {
     this.processText = "";
     if (this.recordRTC) {
       this.recordRTC.stopRecording();
-      this.startCamera();
     }
+    this.startCamera();
     this.pauseTimer();
     let stream = this.stream;
     if (stream) {
