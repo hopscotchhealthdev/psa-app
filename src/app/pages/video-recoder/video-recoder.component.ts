@@ -125,7 +125,6 @@ export class VideoRecoderComponent implements OnInit {
 
 
   successCallback(stream: MediaStream) {
-
     var options = {
       mimeType: 'video/webm',
     };
@@ -136,7 +135,6 @@ export class VideoRecoderComponent implements OnInit {
     video.muted = true;
     video.controls = false;
     video.autoplay = true;
-    alert('camera success')
   }
 
   verifyRecording() {
@@ -191,8 +189,7 @@ export class VideoRecoderComponent implements OnInit {
     }
   }
 
-  errorCallback() {
-    alert('camera failed');    
+  errorCallback() {  
     this.browserFailed = "Use latest Chrome browser to access this page";
   }
   processVideoPrompt() {
@@ -273,7 +270,6 @@ export class VideoRecoderComponent implements OnInit {
 
   startCamera() {
     this.upload = false;
-    alert('camera start call');
     let mediaConstraints: any = {
       video: {
         width: 640,
