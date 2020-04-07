@@ -108,73 +108,18 @@ video {
 .px-5p{padding-left: 2%; padding-right: 0%;}
 
 
-
-*, *:before, *:after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-$bgColor: #32386D;
-
-$numOfColBlocks: 3; // must be higher than 2
-$deg: 360deg / $numOfColBlocks;
-
-$red: #FD3359;
-$yellow: #F4D302;
-$blue: #21BDFF;
-
-$blocksColors: (
-  1: $red,
-  2: $yellow,
-  3: $blue
-);
-
-
-$size: 140px;
-$sizeBig: 500px;
-$pad: 10px;
-$numSize: 100px;
-$totalAT: 4s;
-$contBr: 20px;
-
-$num1Len: 72.1554946899414;
-$num2Len: 136.02162170410156;
-$num3Len: 144.4256591796875;
-$numJoin1-2: 82.63925170898438;
-$numJoin2-3: 42.81303787231445;
-$numJoin3-0: 40;
-
-$totalLen: $num1Len + $num2Len + $num3Len + $numJoin1-2 + $numJoin2-3 + $numJoin3-0;
-
-body {
-  background: $bgColor;
-  font-family: Helvetica, Arial, sans-serif;
-}
-
 .demo {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: $sizeBig;
-  height: $size;
-  margin-top: $size / -2;
-  padding: $pad;
+  width: 500px;
+  height: 140px;
+  margin-top: 140px / -2;
+  padding: 10px;
   border-radius: 20px;
   transform: translateX(-50%);
   font-size: 50px;
-  color:#FFF;
-  
-}
-
-
-@keyframes hideText {
-  15%, 100% {
-    opacity: 1;
-  }
-  20%, 96% {
-    opacity: 0;
-  }
+  color:#FFF;  
 }
 
  @media only screen and (min-device-width: 480px) and (max-device-width: 767px) {
