@@ -183,7 +183,7 @@
             }
 
             &.active > a:not([data-toggle="collapse"]){
-                background: transparent;
+                background: #e5e5e5;
 
                 i,p{
                   color: $gray-900;
