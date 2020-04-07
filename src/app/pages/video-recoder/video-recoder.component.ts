@@ -131,10 +131,15 @@ export class VideoRecoderComponent implements OnInit {
     this.stream = stream;
     this.recordRTC = RecordRTC(stream, options);
     let video: HTMLVideoElement = this.video.nativeElement;
-    video.srcObject = this.stream;
-    video.muted = true;
-    video.controls = false;
-    video.autoplay = true;
+
+    setTimeout(() => {
+      video.srcObject = this.stream;
+      video.muted = true;
+      video.controls = true;
+      video.autoplay = true;
+      video.setAttribute("playsinline", "true");    
+    }, 300);
+  
   }
 
   verifyRecording() {
@@ -270,10 +275,8 @@ export class VideoRecoderComponent implements OnInit {
   startCamera() {
     this.upload = false;
     let mediaConstraints: any = {
-      video: {
-        width: 640,
-        height: 480
-      }, audio: true,
+      video: true,
+       audio: true,
     };
     navigator.mediaDevices
       .getUserMedia(mediaConstraints)
