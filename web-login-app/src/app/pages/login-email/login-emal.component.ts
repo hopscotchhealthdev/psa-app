@@ -44,7 +44,7 @@ export class LoginEmailComponent implements OnInit {
             me.error = "user not found"
           }
           else if (err.code == "auth/wrong-password") {
-            me.error = "wrong password";
+            me.error = "Invalid  password";
           }
           else {
             me.error = err.message;
