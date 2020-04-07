@@ -150,7 +150,7 @@ export class VideoRecoderComponent implements OnInit {
           me.router.navigate(["/psa-list"], { queryParams: { instruction: true }, skipLocationChange: true });
         }
       }, 1200);
-      me.recordRTC.initRecorder()
+      me.recordRTC.startRecording();
     } else {
       me.startRecordingProcess();
     }
