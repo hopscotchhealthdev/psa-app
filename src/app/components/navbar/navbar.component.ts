@@ -112,10 +112,10 @@ profileCollapse(){
     this.isCollapsed = !this.isCollapsed;
     const navbar = document.getElementsByTagName("nav")[0];
     if (!this.isCollapsed) {
-      navbar.classList.remove("navbar-transparent");
-      navbar.classList.add("bg-white");
+   //  navbar.classList.remove("navbar-transparent");
+  navbar.classList.add("bg-white");
     } else {
-      navbar.classList.add("navbar-transparent");
+  //   navbar.classList.add("navbar-transparent");
       navbar.classList.remove("bg-white");
     }
   }

@@ -23,7 +23,7 @@ export class PsaListComponent implements OnInit {
         var userAgent = window.navigator.userAgent;
         if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) {
           // iPad or iPhone 
-          this.src="https://firebasestorage.googleapis.com/v0/b/recordingmechanic.appspot.com/o/instruction%2FFile%20from%20iOS.MP4?alt=media&token=c0dcafda-4d33-46e9-8a1d-f4ca6af1d1dd"
+          this.src="https://firebasestorage.googleapis.com/v0/b/recordingmechanic.appspot.com/o/instruction%2Fios_Device.MP4?alt=media&token=e4e228ab-f4ff-4903-8e56-c82463ee3107";
         }
         else {
        this.src="https://firebasestorage.googleapis.com/v0/b/recordingmechanic.appspot.com/o/instruction%2FFile%20from%20iOS%20(3).mp4?alt=media&token=e3d47df5-b926-4f8c-a601-3a5c0aac8b93"
