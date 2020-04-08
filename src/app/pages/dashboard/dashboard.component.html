@@ -18,17 +18,17 @@
                   <div class="card card-chart">
                         <div class="card-header">
                               <div class="row">
-                                    <div class="col-6 text-left">
+                                    <div class="col-12 text-left">
                                           <!-- <h4 class="card-title">{{item.video}} </h4> -->
                                           <h5 class="card-category">{{item.date}}</h5>
-                                          <h6>{{item.psaName}}</h6>
-                                          <h6 [innerHTML]="getStatus(item.status)"></h6>
+                                          <h6 style="display:flex;">{{item.psaName}} - <h6 style="display:flex;" [innerHTML]="getStatus(item.status)"></h6></h6>
+                                          
                                           <div *ngIf="item.loading" > 
                                                 <img height="20" src="assets/img/processing.gif"/> Processing
                                           </div>
                                     </div>
                                    
-                                    <div class="col-6 text-right">
+                                    <div class="col-12">
                                           <button [disabled]="item.loading" (click)="retry(item,0)"  *ngIf="item.status==2" class="btn btn-outline btn-round btn-replay" type="button" shape="round"><i class="fas fa-sync-alt"></i>
                                     
                                           </button>
