@@ -111,7 +111,7 @@ body{font-family: 'Montserrat', sans-serif;}
       width: 100vh;
       height: 100vw;
       overflow-x: hidden;
-      position: absolute;
+      position: fixed;
       top: 100%;
       left: 0;
     }
@@ -131,7 +131,7 @@ body{font-family: 'Montserrat', sans-serif;}
           width: 85vh;
           height: 100vw;
           overflow-x: hidden;
-          position: absolute;
+          position: fixed;
           top: 100%;
           left: 0;
         }
@@ -148,7 +148,7 @@ body{font-family: 'Montserrat', sans-serif;}
           width: 100vh;
           height: 100vw;
           overflow-x: hidden;
-          position: absolute;
+          position: fixed;
           top: 100%;
           left: 0;
         }       
