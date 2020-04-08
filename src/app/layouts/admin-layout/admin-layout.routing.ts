@@ -6,6 +6,7 @@ import { VideoRecoderComponent } from 'src/app/pages/video-recoder/video-recoder
 import { PsaListComponent } from '../../pages/psa-list/psa-list.component';
 export const AdminLayoutRoutes: Routes = [
   { path: "", component: VideoRecoderComponent },
+  { path: "recorder", component: VideoRecoderComponent },
   { path: "psa-list", component: PsaListComponent },      
   { path: "home", component: DashboardComponent },
   { path: "profile", component: ProfileComponent },
