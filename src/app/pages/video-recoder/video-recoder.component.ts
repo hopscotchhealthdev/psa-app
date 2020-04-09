@@ -198,7 +198,6 @@ export class VideoRecoderComponent implements OnInit {
 
   processVideo() {
     const me = this;
-    me.currentStatus = 2;
     let recordRTC = this.recordRTC;
     if (!firebase.auth().currentUser) {
       me.loading = true;
@@ -215,15 +214,11 @@ export class VideoRecoderComponent implements OnInit {
         me.loading = false;
         var userId = firebase.auth().currentUser.uid;
         firebase.firestore().collection("users").doc(userId).set({ createdDate: new Date() })
-        setTimeout(() => {
           me.uploadVideo();
-        }, 1000);
       });
     }
     else {
-      setTimeout(() => {
         me.uploadVideo();
-      }, 2000);
     }
   }
 
