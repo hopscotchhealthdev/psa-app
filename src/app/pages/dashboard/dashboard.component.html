@@ -23,7 +23,7 @@
                                           <h5 class="card-category">{{item.date}}</h5>
                                           <h6 style="display:flex;">{{item.psaName}} - <h6 style="display:flex;" [innerHTML]="getStatus(item.status)"></h6></h6>
                                           
-                                          <div *ngIf="item.loading" > 
+                                          <div *ngIf="item.loading" class="processing" > 
                                                 <img height="20" src="assets/img/processing.gif"/> Processing
                                           </div>
                                     </div>
