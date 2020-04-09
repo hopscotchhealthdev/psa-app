@@ -24,7 +24,7 @@
   <span class="navbar-toggler-bar navbar-kebab"> </span>
   </button>
   
-  <div class="navbar-collapse" [ngbCollapse]="isCollapsed" id="navigation">
+  <div class="navbar-collapse pl-20" [ngbCollapse]="isCollapsed" id="navigation">
   <ul class= " navbar-nav ml-auto" >
   <li *ngIf="!isAnonymous" class="nav-item" ngbDropdown>
   <a
@@ -59,7 +59,7 @@
   </ul>
   
   </div>
-  <div *ngIf="isAnonymous" style="border-top: 0.0625rem solid rgba(34, 42, 66, 0.05);">
+  <div *ngIf="isAnonymous" class="logo-order" style="border-top: 0.0625rem solid rgba(34, 42, 66, 0.05);">
   <button (click)="goToLogin()" class="btn btn-block black-button" type="submit" >Login</button>
   
   </div>
