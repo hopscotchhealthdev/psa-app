@@ -356,7 +356,7 @@ export class VideoRecoderComponent implements OnInit {
     if (seconds < 10) {
       seconds = 0 + seconds;
     }
-    var time = this.pad(hours) + ':' + this.pad(minutes) + ':' + this.pad(seconds);
+    var time =  this.pad(minutes) + ':' + this.pad(seconds);
 
     let filter = this.psaData.data.filter(o => o.min <= count && o.max >= count)[0];
     if (filter) {
