@@ -58,7 +58,6 @@ export class DashboardComponent implements OnInit {
                     })
 
                     if (count == sessionSnap.docs.length) {
-                      me.refreshList();
                       me.videos.sort(function (x, y) {
                         return new Date(y.date).getTime() - new Date(x.date).getTime();
                       })
@@ -80,11 +79,14 @@ export class DashboardComponent implements OnInit {
           });
       }
     })
+    me.interval = setInterval(() => {
+      me.refreshList();
+    }, 3000);
   }
 
   ngOnDestroy() {
     if (this.interval) {
-      setInterval(this.interval);
+      clearInterval(this.interval);
     }
   }
   getStatus(status) {
@@ -103,14 +105,13 @@ export class DashboardComponent implements OnInit {
 
   refreshList() {
     let me = this
+    console.log("refresh");
     me.videos.forEach(element => {
       if (element.status == 2) {
         me.fetchUrl(element);
       }
     });
-    me.interval = setInterval(() => {
-      me.refreshList();
-    }, 4000);
+    
   }
 
   fetchUrl(item) {
@@ -130,27 +131,7 @@ export class DashboardComponent implements OnInit {
   }
 
   retry(item, count) {
-    const me = this;
-    item.loading = true;
-    var uploadTask = firebase.storage().ref().child("videos/output/" + item.outputVideoId);
-    uploadTask.getDownloadURL().then(function (downloadURL) {
-      item.loading = false;
-      firebase
-        .firestore()
-        .collection("users").doc(firebase.auth().currentUser.uid).collection("videos").doc(item.id).update({ "status": 1, outputUrl: downloadURL }).then(function (res) {
-          item.status = 1;
-          item.outputUrl = downloadURL;
-        })
-
-      item.url = downloadURL;
-    }).catch(function (error) {
-      // setTimeout(() => {
-
-      //     me.retry(item, count + 1);
-
-      // }, 4000);
-    })
-
+    this.fetchUrl(item);
 
   }
 
