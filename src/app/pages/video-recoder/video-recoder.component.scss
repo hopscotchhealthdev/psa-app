@@ -13,7 +13,7 @@ video {
 .timer{
   text-align: center;
   width: 100%;
-  font-size: 16px;
+  font-size: 24px;
   color: #FFFF;
   align-content: center;
 }
@@ -36,7 +36,7 @@ video {
   font-family: 'Montserrat', sans-serif;
     font-size: 16px;
     position: absolute;
-    left: 23%;
+    left: 24%;
     top: 50%;
     z-index: 999;
     margin: 0 auto;
@@ -61,6 +61,26 @@ video {
     font-weight: 600;
     background: rgba(107, 107, 107, 0.47);
     width: 85%;
+    height: auto;
+    text-align: left;
+    padding: 5px;
+    transform: translate(0,-50%);
+}
+}
+/*Landscape mode css*/
+@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape)  {
+.markerText{
+  color:#D3D3D3;
+  font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    position: absolute;
+    left: 8%;
+    top: 42%;
+    z-index: 999;
+    margin: 0 auto;
+    font-weight: 600;
+    background: rgba(107, 107, 107, 0.47);
+    width: 60%;
     height: auto;
     text-align: left;
     padding: 5px;

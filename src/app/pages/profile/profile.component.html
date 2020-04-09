@@ -3,15 +3,15 @@
   <div class="container" style="padding:0px;">
 
     <div class="col-md-12">
-      <div class="card" style="background-color:#fff;">
+      <div class="card white-bg">
         <!-- <div class="card-header"></div> -->
-        <div class="card-body">
+        <div class="card-body white-bg">
           <div class=" col-md-12">
             <div *ngIf="!isAnonymous" class="">
               <div class="card-header" style="text-align: center;">
                 <h5 class="title" style="color:#141414;">Edit Profile</h5>
               </div>
-              <div style="background-color:#fff;">
+              <div class="white-bg">
                 <div style="text-align: center;">
                   <div class="fileinput text-center" style="position: relative;">
                     <input accept="image/*" (change)="fileInput($event)" id="file" style="display:none" type="file">
@@ -28,7 +28,7 @@
                   </div>
                 </div>
               </div>
-              <div class="" style="background-color:#fff;">
+              <div class="white-bg">
 
                 <label> Email </label>
                 <div class=" form-group">
@@ -71,7 +71,7 @@
                   Update </button>
               </div>
             </div>
-            <div *ngIf="isAnonymous" style="border-top: 0.0625rem solid rgba(34, 42, 66, 0.05);">
+            <div *ngIf="isAnonymous" class="login-card" style="border-top: 0.0625rem solid rgba(34, 42, 66, 0.05);">
               <p style="color:#000"> Log into the app to continue</p>
             </div>
           </div>

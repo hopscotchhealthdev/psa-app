@@ -69,7 +69,7 @@ body{font-family: 'Montserrat', sans-serif;}
   color:#010101!important;
 }
 .form-control{
-  color:rgba(173, 173, 173, 0.9)!important;
+  color:#403f3f !important;
   border-color:#e5e5e5!important;
 }
 .pagination-previous{
@@ -98,6 +98,9 @@ body{font-family: 'Montserrat', sans-serif;}
 }
 .grey-bg{
     background-color: #293654 !important;  
+}
+.white-bg{
+  background-color: #ffffff !important;
 }
 .padding-10{
     padding: 10px 0px 0px 0px !important;
@@ -219,5 +222,7 @@ body{font-family: 'Montserrat', sans-serif;}
 .processing{
     font-size: 11px;
     color: #020202;
-
 }
+
+.login-card{border-top: 0.0625rem solid rgba(34, 42, 66, 0.05);
+    padding: 10px;}

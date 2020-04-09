@@ -14,3 +14,4 @@
 @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
 .user-display{display:none;}
 }
+.black-button{background-color:#010101; color:#fff;}
