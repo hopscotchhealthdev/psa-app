@@ -122,8 +122,8 @@ body{font-family: 'Montserrat', sans-serif;}
     padding: 40px 10px 30px 10px !important; 
 }
   }*/
-  @supports (-webkit-touch-callout: none) {
-    /* CSS specific to iOS devices */ 
+  /* @supports (-webkit-touch-callout: none) {
+    // CSS specific to iOS devices  
     @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
         html {
           transform: rotate(-90deg);
@@ -139,7 +139,7 @@ body{font-family: 'Montserrat', sans-serif;}
     
  }
   @supports not (-webkit-touch-callout: none) {
-    /* CSS specific to non iOS devices */ 
+    // CSS specific to non iOS devices  
     @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
         html {
           transform: rotate(-90deg);
@@ -155,7 +155,7 @@ body{font-family: 'Montserrat', sans-serif;}
       }
     
   }
-
+*/
 
 // .modal-content .modal-footer {
 //     border-top: 0;
