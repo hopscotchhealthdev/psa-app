@@ -13,7 +13,7 @@
             </div>
       </div>
     
-      <div class="row" *ngFor="let item of videos | paginate: { itemsPerPage: 10, currentPage: p }">
+      <div class="row" *ngFor="let item of videos">
             <div class="col-12">
                   <div class="card card-chart">
                         <div class="card-header">
@@ -48,14 +48,14 @@
     
     
     
-      <div class="row">
+      <!-- <div class="row">
             <div class= "pagination" style="padding-right: 15px; padding-left: 15px;">
                 <div>
                   <pagination-controls (pageChange)="p=$event"></pagination-controls>
               </div> 
             </div>
           </div>
-    
+     -->
           <ng-template  #template>
               <div style="height: 42px;" class="modal-header justify-content-center">
                 <button style="z-index:9999; color:#010101;" class="close close-button-position" type="button"
