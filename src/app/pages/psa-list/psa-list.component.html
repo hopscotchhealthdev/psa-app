@@ -1,7 +1,7 @@
 <div class="content">
    
   <div  *ngIf="!instruction" class="psa-list mb-20 p-10">
-      <label>Choose You PSA</label>
+      <label>Choose Your Video Challenge</label>
       <ul class="no-margin" >
         <li (click)="choose(item.id)"*ngFor="let item of psa" class="white-button">{{item.data.name}}</li> 
       </ul>

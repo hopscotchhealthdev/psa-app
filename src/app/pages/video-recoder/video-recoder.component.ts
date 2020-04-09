@@ -66,7 +66,7 @@ export class VideoRecoderComponent implements OnInit {
       // me.browserFailed = "Use Chrome browser to access this page";
       me.isSafariBrowser = true;
     }
-    me.startCamera();   
+    me.startCamera();
     this.route.queryParamMap.subscribe(params => {
       if (params.get("id")) {
         me.loading = true;
@@ -130,11 +130,11 @@ export class VideoRecoderComponent implements OnInit {
     this.stream = stream;
     this.recordRTC = RecordRTC(stream, options);
     let video: HTMLVideoElement = this.video.nativeElement;
-      video.srcObject = stream;
-      video.muted = true;
-      video.controls = false;
-      video.autoplay = true;
-      video.setAttribute("playsinline", "true");      
+    video.srcObject = stream;
+    video.muted = true;
+    video.controls = false;
+    video.autoplay = true;
+    video.setAttribute("playsinline", "true");
   }
 
   verifyRecording() {
@@ -188,9 +188,19 @@ export class VideoRecoderComponent implements OnInit {
     }
   }
 
-  errorCallback() {  
-    this.browserFailed = "Use latest Chrome browser to access this page";
+  errorCallback(error) {
+    this.loading = false;
+    if (error.message == 'Permission denied') {
+      this.browserFailed = "Allow camera and microphone permission  to access this page.";
+    }
+    else if (this.isSafariBrowser) {
+      this.browserFailed = error.message + " Use latest Safari browser to access this page";
+    }
+    else {
+      this.browserFailed = error.message + " Use latest Chrome browser to access this page";
+    }
   }
+
   processVideoPrompt() {
     this.openConfirmationDialog("Would you like to proceed to upload your video or re-record it?", "", "UPLOAD", "RE-RECORD");
 
@@ -214,11 +224,11 @@ export class VideoRecoderComponent implements OnInit {
         me.loading = false;
         var userId = firebase.auth().currentUser.uid;
         firebase.firestore().collection("users").doc(userId).set({ createdDate: new Date() })
-          me.uploadVideo();
+        me.uploadVideo();
       });
     }
     else {
-        me.uploadVideo();
+      me.uploadVideo();
     }
   }
 
@@ -269,7 +279,7 @@ export class VideoRecoderComponent implements OnInit {
         width: 640,
         height: 480
       },
-       audio: true,
+      audio: true,
     };
     navigator.mediaDevices
       .getUserMedia(mediaConstraints)
@@ -432,7 +442,7 @@ export class VideoRecoderComponent implements OnInit {
     this.processText = "";
     if (this.recordRTC) {
       this.recordRTC.stopRecording();
-    this.startCamera();      
+      this.startCamera();
     }
     this.pauseTimer();
     let stream = this.stream;

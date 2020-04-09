@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
     let me = this;
     const userData = {
       userName: name,
-      email: email,
+      email: email ? email : user.email,
       image: user.photoURL
     };
     firebase.firestore().collection("users").doc(user.uid).get().then(function (querySnapshot) {
