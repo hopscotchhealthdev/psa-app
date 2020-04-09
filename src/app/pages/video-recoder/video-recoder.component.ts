@@ -194,10 +194,10 @@ export class VideoRecoderComponent implements OnInit {
       this.browserFailed = "Allow camera and microphone permission  to access this page.";
     }
     else if (this.isSafariBrowser) {
-      this.browserFailed = "Use latest Safari browser to access this page";
+      this.browserFailed = error.message + " Use latest Safari browser to access this page";
     }
     else {
-      this.browserFailed = "Use latest Chrome browser to access this page";
+      this.browserFailed = error.message + " Use latest Chrome browser to access this page";
     }
   }
 

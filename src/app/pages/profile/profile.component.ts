@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import * as firebase from "firebase";
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 const email_pattern = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|in|net|org|pro|travel|health|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
 @Component({
   selector: "app-profile",
@@ -19,7 +20,7 @@ export class ProfileComponent implements OnInit {
   uploadProgress: any;
   public loading: boolean = false;
   public isAnonymous = false;
-  constructor(private toastr: ToastrService) { }
+  constructor(private toastr: ToastrService,private router:Router) { }
   ngOnInit() {
     let me = this;
     firebase.auth().onAuthStateChanged((user) => {
@@ -95,6 +96,7 @@ export class ProfileComponent implements OnInit {
           timeOut: 2000,
           positionClass: 'toast-top-center',
         });
+    me.router.navigate(['/home']);
       }).catch(err => {
         me.loading = false;
         me.toastr.error('Profile error', '', {
