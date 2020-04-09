@@ -22,7 +22,7 @@
     "redirects": [
       {
         "source": "/",
-        "destination": "/recorder/index.html",
+        "destination": "/login/index.html",
         "type": 303
       },
       {
