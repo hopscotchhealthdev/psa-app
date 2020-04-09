@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
   videos: any = [];
   public modalRef: any;
   loading: boolean = false;
+  interval: any;
   constructor(private toastr: ToastrService, private router: Router, public activeModal: NgbActiveModal, private confirmationDialogService: ConfirmationDailogService, public modalService: NgbModal) {
 
   }
@@ -55,9 +56,11 @@ export class DashboardComponent implements OnInit {
                       psaName: querySnapshot.data().name,
                       psaTime: querySnapshot.data().time
                     })
+
                     if (count == sessionSnap.docs.length) {
+                      me.refreshList();
                       me.videos.sort(function (x, y) {
-                        return new Date(y.date).getTime() -  new Date(x.date).getTime();
+                        return new Date(y.date).getTime() - new Date(x.date).getTime();
                       })
                     }
                   }
@@ -79,6 +82,11 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  ngOnDestroy() {
+    if (this.interval) {
+      setInterval(this.interval);
+    }
+  }
   getStatus(status) {
     if (status == 1) {
       return "success";
@@ -93,6 +101,34 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  refreshList() {
+    let me = this
+    me.videos.forEach(element => {
+      if (element.status == 2) {
+        me.fetchUrl(element);
+      }
+    });
+    me.interval = setInterval(() => {
+      me.refreshList();
+    }, 4000);
+  }
+
+  fetchUrl(item) {
+    const me = this;
+    item.loading = true;
+    var uploadTask = firebase.storage().ref().child("videos/output/" + item.outputVideoId);
+    uploadTask.getDownloadURL().then(function (downloadURL) {
+      item.loading = false;
+      firebase
+        .firestore()
+        .collection("users").doc(firebase.auth().currentUser.uid).collection("videos").doc(item.id).update({ "status": 1, outputUrl: downloadURL }).then(function (res) {
+          item.status = 1;
+          item.outputUrl = downloadURL;
+        })
+      item.url = downloadURL;
+    }).catch(function (error) { })
+  }
+
   retry(item, count) {
     const me = this;
     item.loading = true;
@@ -100,26 +136,19 @@ export class DashboardComponent implements OnInit {
     uploadTask.getDownloadURL().then(function (downloadURL) {
       item.loading = false;
       firebase
-      .firestore()
-      .collection("users").doc(firebase.auth().currentUser.uid).collection("videos").doc(item.id).update({ "status": 1,outputUrl:downloadURL }).then(function (res) {
-        item.status = 1;
-        item.outputUrl =downloadURL;
-      })
-   
+        .firestore()
+        .collection("users").doc(firebase.auth().currentUser.uid).collection("videos").doc(item.id).update({ "status": 1, outputUrl: downloadURL }).then(function (res) {
+          item.status = 1;
+          item.outputUrl = downloadURL;
+        })
+
       item.url = downloadURL;
     }).catch(function (error) {
-      setTimeout(() => {
-        if (count > 90) {
-          item.loading = false;
-          firebase
-            .firestore()
-            .collection("users").doc(firebase.auth().currentUser.uid).collection("videos").doc(item.id).update({ "status": 3 }).then(function (res) {
-              item.status = 3;
-            })
-        } else {
-          me.retry(item, count + 1);
-        }
-      }, 4000);
+      // setTimeout(() => {
+
+      //     me.retry(item, count + 1);
+
+      // }, 4000);
     })
 
 

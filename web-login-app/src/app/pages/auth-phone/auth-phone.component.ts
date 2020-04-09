@@ -92,7 +92,7 @@ export class AuthPhoneComponent implements OnInit {
       .confirm(otp)
       .then(function (result) {
         // User signed in successfully.
-        me.createUserProfile(result.user, " ", result.user.phoneNumber);
+        me.createUserProfile(result.user, " ", " ");
         // ...
       })
       .catch(function (error) {

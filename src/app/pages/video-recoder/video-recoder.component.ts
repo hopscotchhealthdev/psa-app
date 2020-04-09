@@ -415,7 +415,7 @@ export class VideoRecoderComponent implements OnInit {
             positionClass: 'toast-top-center',
           });
         } else {
-          me.toastr.error('Video not processed successfully', '', {
+          me.toastr.error('Video is still processing, try after sometime', '', {
             timeOut: 2000,
             positionClass: 'toast-top-center',
           });

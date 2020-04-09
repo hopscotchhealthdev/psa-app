@@ -33,6 +33,8 @@ export class VerifyEmailComponent implements OnInit {
   }
 
   logout() {
-    firebase.auth().signOut();
+    firebase.auth().signOut().then((userRef) => {
+      this.router.navigate(['/login']);
+    })
   }
 }
