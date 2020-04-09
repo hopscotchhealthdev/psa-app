@@ -25,7 +25,7 @@
   </button>
   
   <div class="navbar-collapse pl-20" [ngbCollapse]="isCollapsed" id="navigation">
-  <ul class= " navbar-nav ml-auto" >
+  <ul class= " navbar-nav ml-auto d-flex" >
   <li *ngIf="!isAnonymous" class="nav-item" ngbDropdown>
   <a
   class="nav-link"
@@ -54,7 +54,7 @@
   </li>
   </ul>
   </li>
-  <b style="padding-top: 12px;color: #141414;" class="user-display"> {{user.userName}} </b>
+  <b style="color: #141414;" class="user-display"> {{user.userName}} </b>
   <li class="separator d-lg-none"></li>
   </ul>
   

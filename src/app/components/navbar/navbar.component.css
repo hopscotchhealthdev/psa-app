@@ -7,6 +7,7 @@
 .user-display{
 	display:inline-block;
 }
+.d-flex{align-items: center; display: flex;}
 .position-fixed{position: fixed;}
 @media only screen and (min-device-width: 480px) and (max-device-width: 767px) {
 .user-display{display:none;}
@@ -19,5 +20,4 @@
 .navbar-collapse{order: 2;}
 .logo-order{order: 1;}
 .pl-20{padding-left: 20px;}
-
 }
