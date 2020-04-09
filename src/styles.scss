@@ -57,8 +57,21 @@ body{font-family: 'Montserrat', sans-serif;}
 
 .card .card-header {
     padding: 15px 15px;
+    h6{color:#141414;}
 }
-
+.card .card-header .card-category{
+  color:#676767!important;
+}
+.card .card-header:not([data-background-color]){
+  background-color: #fff!important;
+}
+.card label{
+  color:#010101!important;
+}
+.form-control{
+  color:rgba(173, 173, 173, 0.9)!important;
+  border-color:#e5e5e5!important;
+}
 .pagination-previous{
     span{
         display:none;
@@ -198,5 +211,8 @@ body{font-family: 'Montserrat', sans-serif;}
 }
 .nav li.active > a:p{
   color:#141414;
+}
+.sidebar .nav p, .sidebar .logo a.logo-normal{
+  font-weight:600;
 }
 

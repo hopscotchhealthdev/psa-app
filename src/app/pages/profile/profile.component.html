@@ -1,19 +1,17 @@
 <div class="content">
   <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
-  <div class="container">
+  <div class="container" style="padding:0px;">
 
     <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">
-
-        </div>
+      <div class="card" style="background-color:#fff;">
+        <!-- <div class="card-header"></div> -->
         <div class="card-body">
           <div class=" col-md-12">
-            <div *ngIf="!isAnonymous" class=" card">
+            <div *ngIf="!isAnonymous" class="">
               <div class="card-header" style="text-align: center;">
-                <h5 class="title">Edit Profile</h5>
+                <h5 class="title" style="color:#141414;">Edit Profile</h5>
               </div>
-              <div>
+              <div style="background-color:#fff;">
                 <div style="text-align: center;">
                   <div class="fileinput text-center" style="position: relative;">
                     <input accept="image/*" (change)="fileInput($event)" id="file" style="display:none" type="file">
@@ -30,7 +28,7 @@
                   </div>
                 </div>
               </div>
-              <div class=" card-body">
+              <div class="" style="background-color:#fff;">
 
                 <label> Email </label>
                 <div class=" form-group">
@@ -68,7 +66,7 @@
                 </div>
 
               </div>
-              <div class="card-footer" style="text-align: center;">
+              <div class="" style="text-align: center;">
                 <button [disabled]="!user.email || !user.userName ||  !user.age || !user.validEmail" (click)="update()" class=" btn btn-fill blue-button p-10" type="submit">
                   Update </button>
               </div>
