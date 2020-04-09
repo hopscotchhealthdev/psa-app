@@ -47,6 +47,7 @@ export class AuthPhoneComponent implements OnInit {
           // SMS sent. Prompt user to type the code from the message, then sign the
           // user in with confirmationResult.confirm(code).
           me.cntSwal.title = "Enter your OTP";
+          me.cntSwal.text = "OTP will take a few seconds to receive. Please check your phone.";         
           me.cntSwal.confirmButtonText = "Verify";
           me.cntSwal.cancelButtonText = "Cancel";
           me.cntSwal.showConfirmButton = true;
@@ -67,6 +68,7 @@ export class AuthPhoneComponent implements OnInit {
           // SMS sent. Prompt user to type the code from the message, then sign the
           // user in with confirmationResult.confirm(code).
           me.cntSwal.title = "Enter your OTP";
+          me.cntSwal.text = "OTP will take a few seconds to receive. Please check your phone.";                   
           me.cntSwal.confirmButtonText = "Verify";
           me.cntSwal.cancelButtonText = "Cancel";
           me.cntSwal.showConfirmButton = true;
@@ -97,6 +99,7 @@ export class AuthPhoneComponent implements OnInit {
       })
       .catch(function (error) {
         me.loading = false;
+        me.error=error
         // User couldn't sign in (bad verification code?)
         // ...
       })
