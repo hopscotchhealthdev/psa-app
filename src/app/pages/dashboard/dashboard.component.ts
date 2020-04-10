@@ -1,10 +1,12 @@
-import { Router, NavigationExtras } from '@angular/router';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { Component, ViewChild, TemplateRef, OnInit } from "@angular/core";
 import * as firebase from 'firebase';
 import * as moment from "moment";
 import { ConfirmationDailogService } from '../confirmation-dailog/confirmation-dailog.service';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { PreviewDailogComponent } from '../preview-dailog/preview-dailog.component';
+import { PreviewDailogService } from '../preview-dailog/preview-dailog..service';
 @Component({
   selector: "app-dashboard",
   templateUrl: "dashboard.component.html",
@@ -12,28 +14,51 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class DashboardComponent implements OnInit {
   @ViewChild('videoPlay') videoPlay;
-  recordRTC: any;
-  collection = [];
   p: number = 1;
   videos: any = [];
   public modalRef: any;
   loading: boolean = false;
   interval: any;
-  constructor(private toastr: ToastrService, private router: Router, public activeModal: NgbActiveModal, private confirmationDialogService: ConfirmationDailogService, public modalService: NgbModal) {
+  subscribe: any;
+  queryUnsubscribe: any;
+  constructor(private toastr: ToastrService, private router: Router, public activeModal: NgbActiveModal, private previewDailogService: PreviewDailogService, private confirmationDialogService: ConfirmationDailogService, public modalService: NgbModal, private route: ActivatedRoute, ) {
 
   }
   share(item) {
-    window.location.href=`https://psanodeapp1.appspot.com/${firebase.auth().currentUser.uid}/videos/${item.id}`
-  //  window.location.href = `${window.location.origin}/share/index.html#/${firebase.auth().currentUser.uid}/videos/${item.id}`
+    window.location.href = `https://psanodeapp1.appspot.com/${firebase.auth().currentUser.uid}/videos/${item.id}`
+    //  window.location.href = `${window.location.origin}/share/index.html#/${firebase.auth().currentUser.uid}/videos/${item.id}`
   }
   ngOnInit() {
     let queryUnsubscribe: any;
     let me = this;
+    this.subscribe = this.route.queryParamMap.subscribe(params => {
+      if (params.get("id")) {
+        const videoId = params.get("id");
+        firebase
+          .firestore()
+          .collection("users").doc(firebase.auth().currentUser.uid).collection("videos").doc(videoId).get().then(function (querySnapshot) {
+            if (querySnapshot.exists) {
+              const data = querySnapshot.data();
+              const item = {
+                url: data.outputUrl,
+                id: querySnapshot.id,
+                status: data.status,
+                outputVideoId: data.outputVideoId,
+                psaName: querySnapshot.data().name,
+                psaId: querySnapshot.data().name,
+                date: moment(new Date(data.createdDate.toDate())).format('LLLL')
+              }
+            me.open(item);
+
+            }
+          });
+      }
+    })
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         me.loading = true;
         let count = 0;
-        firebase
+        this.queryUnsubscribe = firebase
           .firestore()
           .collection("users").doc(user.uid).collection("videos").orderBy("createdDate").where("userId", "==", user.uid).onSnapshot(sessionSnap => {
             if (sessionSnap.docs.length == 0) {
@@ -46,26 +71,33 @@ export class DashboardComponent implements OnInit {
                   me.loading = false;
                 }
                 var data = change.doc.data();
-                firebase.firestore().collection("psa").doc(data.psaId).get().then(function (querySnapshot) {
-                  if (querySnapshot.exists) {
-                    me.videos.push({
-                      date: moment(new Date(data.createdDate.toDate())).format('LLLL'),
-                      url: data.outputUrl,
-                      id: change.doc.id,
-                      status: data.status,
-                      outputVideoId: data.outputVideoId,
-                      psaName: querySnapshot.data().name,
-                      psaTime: querySnapshot.data().time
-                    })
-
-                    if (count == sessionSnap.docs.length) {
-                      me.videos.sort(function (x, y) {
-                        return new Date(y.date).getTime() - new Date(x.date).getTime();
-                      })
-                    }
-                  }
-
-                });
+                me.videos.push({
+                  date: moment(new Date(data.createdDate.toDate())).format('LLLL'),
+                  url: data.outputUrl,
+                  id: change.doc.id,
+                  status: data.status,
+                  outputVideoId: data.outputVideoId,
+                  psaName: data.psaName,
+                  psaId: data.psaId
+                })
+                if (count == sessionSnap.docs.length) {
+                  me.videos.sort(function (x, y) {
+                    return new Date(y.date).getTime() - new Date(x.date).getTime();
+                  })
+                }
+                /* firebase.firestore().collection("psa").doc(data.psaId).get().then(function (querySnapshot) {
+                   if (querySnapshot.exists) {
+                     me.videos.push({
+                       date: moment(new Date(data.createdDate.toDate())).format('LLLL'),
+                       url: data.outputUrl,
+                       id: change.doc.id,
+                       status: data.status,
+                       outputVideoId: data.outputVideoId,
+                       psaName: querySnapshot.data().name,
+                       psaTime: querySnapshot.data().time
+                     })                
+                   }
+                 });*/
               }
               if (change.type === "modified") {
 
@@ -88,6 +120,12 @@ export class DashboardComponent implements OnInit {
   ngOnDestroy() {
     if (this.interval) {
       clearInterval(this.interval);
+    }
+    if (this.subscribe) {
+      this.subscribe.unsubscribe();
+    }
+    if (this.queryUnsubscribe) {
+      this.queryUnsubscribe();
     }
   }
   getStatus(status) {
@@ -112,7 +150,7 @@ export class DashboardComponent implements OnInit {
         me.fetchUrl(element);
       }
     });
-    
+
   }
 
   fetchUrl(item) {
@@ -136,19 +174,20 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  play(item, template: TemplateRef<any>) {
-    this.modalRef = this.modalService.open(template, {
-      backdrop: 'static',
-      keyboard: false
-    });
-    let me = this;
-    setTimeout(() => {
-      let el: any = document.getElementById("videoPlay");
-      el.src = item.url;
-      el.play();
 
-    }, 400);
+  open(item) {
+    let buttonText = "";
+    if (!firebase.auth().currentUser.isAnonymous) {
+      buttonText = "Re-record";
+    } else {
+      buttonText = "Record your own";
 
+    }
+    this.previewDailogService.open(item.psaId,item.id, item.url, buttonText)
+      .then((item:any) => {
+        this.router.navigate(['/video-recorder'], { queryParams: { id: item.psaId,isUpdated:true,videoId:item.videoId },skipLocationChange:true });
+      })
+      .catch(() => { });
   }
 
   hide(template: TemplateRef<any>) {

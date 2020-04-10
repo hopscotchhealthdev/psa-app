@@ -5,14 +5,14 @@
                         <div class="card-header">
                               <div class="row">
                                     <div class="col-sm-6 text-left" style="color:#141414;">
-                                   Home
+                                          Home
                                     </div>
                               </div>
                         </div>
-                     </div>
+                  </div>
             </div>
       </div>
-    
+
       <div class="row" *ngFor="let item of videos">
             <div class="col-12">
                   <div class="card card-chart">
@@ -22,32 +22,36 @@
                                           <!-- <h4 class="card-title">{{item.video}} </h4> -->
                                           <h5 class="card-category">{{item.date}}</h5>
                                           <h6 style="display:flex;">{{item.psaName}}</h6>
-                                          
-                                          <div *ngIf="item.loading" class="processing" > 
-                                                <img height="20" src="assets/img/processing.gif"/> Processing
+
+                                          <div *ngIf="item.loading" class="processing">
+                                                <img height="20" src="assets/img/processing.gif" /> Processing
                                           </div>
                                     </div>
-                                   
+
                                     <div class="col-12">
-                                          <button [disabled]="item.loading" (click)="retry(item,0)"  *ngIf="item.status==2" class="btn btn-outline btn-round btn-replay" type="button" shape="round"><i class="fas fa-sync-alt"></i>
-                                    
+                                          <button [disabled]="item.loading" (click)="retry(item,0)" *ngIf="item.status==2" class="btn btn-outline btn-round btn-replay"
+                                                type="button" shape="round">
+                                                <i class="fas fa-sync-alt"></i>
+
                                           </button>
-                                          <button *ngIf="item.status==1" class="btn btn-outline btn-round btn-success1" type="button" shape="round"
-                                              (click)="play(item,template)">Preview <i class="far fa-play-circle"></i></button>
-                                        <button class="btn btn-outline btn-round btn-danger1" type="button" shape="round"
-                                              (click)="delete(item)">Delete <i class="far fa-trash-alt"></i></button>
-                                        <button *ngIf="item.status==1" class="btn btn-outline btn-round share-button" type="button" shape="round"
-                                              (click)="share(item)">Share <i class="fas fa-share-alt"></i></button>
-                                  </div>
-                                  
+                                          <button *ngIf="item.status==1" class="btn btn-outline btn-round btn-success1" type="button" shape="round" (click)="open(item)">Preview
+                                                <i class="far fa-play-circle"></i>
+                                          </button>
+                                          <button class="btn btn-outline btn-round btn-danger1" type="button" shape="round" (click)="delete(item)">Delete
+                                                <i class="far fa-trash-alt"></i>
+                                          </button>
+                                          <button *ngIf="item.status==1" class="btn btn-outline btn-round share-button" type="button" shape="round" (click)="share(item)">Share
+                                                <i class="fas fa-share-alt"></i>
+                                          </button>
+                                    </div>
+
                               </div>
                         </div>
                   </div>
             </div>
       </div>
-    
-    
-    
+
+
       <!-- <div class="row">
             <div class= "pagination" style="padding-right: 15px; padding-left: 15px;">
                 <div>
@@ -56,18 +60,5 @@
             </div>
           </div>
      -->
-          <ng-template  #template>
-              <div style="height: 42px;" class="modal-header justify-content-center">
-                <button style="z-index:9999; color:#010101;" class="close close-button-position" type="button"
-                  (click)="modalRef.close()">
-                  <i class="tim-icons icon-simple-remove"> </i>
-                </button>
-              </div>
-              <div class="modal-body padding-10" style="height:auto; background-color: #ffffff;">
-                <video  style="width: 100%; padding: 10px; height: auto; border-radius: 15px;"  id="videoPlay"  class="video"></video>            
-                                
-              </div>
-    </ng-template>
-    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
-    
-    
+  
+      <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

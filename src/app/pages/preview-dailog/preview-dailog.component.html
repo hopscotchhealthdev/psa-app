@@ -1,0 +1,12 @@
+<div class=" justify-content-center">
+  <button type="button" class="b-button" (click)="perform()">
+    {{buttonText}}
+  </button>
+  <button style="z-index:9999; color:#010101;" class="close close-button-position" type="button" (click)="dismiss()">
+    <i class="tim-icons icon-simple-remove"> </i>
+  </button>
+</div>
+<div class="modal-body padding-10 body-text">
+  <video style="width: 100%; padding: 10px; height: auto; border-radius: 15px;" src="{{url}}" class="video"></video>
+
+</div>

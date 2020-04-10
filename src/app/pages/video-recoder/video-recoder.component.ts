@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import * as RecordRTC from "recordrtc/recordrtc.min.js";
 import * as firebase from "firebase";
-import { Observable } from 'rxjs';
+import { Observable, merge } from 'rxjs';
 import { ConfirmationDailogService } from '../confirmation-dailog/confirmation-dailog.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -35,7 +35,7 @@ export class VideoRecoderComponent implements OnInit {
     overlay_videos: '',
     uploadSeconds: 0,
     data: [],
-    description:''
+    description: ''
 
   };
   loading = false;
@@ -44,6 +44,11 @@ export class VideoRecoderComponent implements OnInit {
   browserFailed: string = '';
   isSafariBrowser: boolean = false;
   processText: string = "";
+  subscribe: any;
+  updatedVideo = {
+    isUpdated: false,
+    videoId: ''
+  }
   constructor(private http: HttpClient, private route: ActivatedRoute, private textDailogService: TextDailogService, private confirmationDialogService: ConfirmationDailogService, private router: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService) {
 
   }
@@ -69,7 +74,7 @@ export class VideoRecoderComponent implements OnInit {
       me.isSafariBrowser = true;
     }
     me.startCamera();
-    this.route.queryParamMap.subscribe(params => {
+    this.subscribe = this.route.queryParamMap.subscribe(params => {
       if (params.get("id")) {
         me.loading = true;
         firebase.firestore().collection("psa").doc(params.get("id")).get().then(function (querySnapshot) {
@@ -79,7 +84,7 @@ export class VideoRecoderComponent implements OnInit {
             me.psaData.name = querySnapshot.data().name;
             me.psaData.overlay_videos = querySnapshot.data().overlay_videos;
             me.psaData.id = querySnapshot.id;
-            me.psaData.description= querySnapshot.data().description;
+            me.psaData.description = querySnapshot.data().description;
             me.psaData.uploadSeconds = querySnapshot.data().uploadSeconds;
             me.textDailogService.open("Hit the record button and read out what you see on the screen.", "", "GOT IT");
 
@@ -88,6 +93,11 @@ export class VideoRecoderComponent implements OnInit {
             me.router.navigate(["/psa-list"]);
           }
         });
+
+        if (params.get("isUpdated")) {
+          this.updatedVideo.isUpdated = true;
+          this.updatedVideo.videoId = params.get("videoId");
+        }
       }
       else {
         me.router.navigate(["/psa-list"]);
@@ -95,9 +105,9 @@ export class VideoRecoderComponent implements OnInit {
     })
 
   }
-  back(){
+  back() {
     this.router.navigate(["/psa-list"]);
-    
+
   }
 
   fetchOutputUrl(url, id, count) {
@@ -107,7 +117,7 @@ export class VideoRecoderComponent implements OnInit {
       me.updateVideoData(id, downloadURL, 1);
     }).catch(function (error) {
       setTimeout(() => {
-        if (count > 80) {
+        if (count > 100) {
           me.updateVideoData(id, null, 2);
         } else {
           me.fetchOutputUrl(url, id, count + 1);
@@ -131,6 +141,9 @@ export class VideoRecoderComponent implements OnInit {
       stream.getAudioTracks().forEach(track => track.stop());
       stream.getVideoTracks().forEach(track => track.stop());
 
+    }
+    if (this.subscribe) {
+      this.subscribe.unsubscribe();
     }
     this.recordRTC = null;
   }
@@ -399,22 +412,40 @@ export class VideoRecoderComponent implements OnInit {
     const me = this;
     return new Promise(function (resolve, reject) {
       var userId = firebase.auth().currentUser.uid;
-      firebase.firestore().collection("users").doc(userId).collection('videos').add({
-        url: video.downloadURL,
-        videoId: video.videoId,
-        createdDate: new Date(),
-        userId: userId,
-        psaId: me.psaData.id,
-        psaName: me.psaData.name,
-        description:me.psaData.description,
-        outputVideoId: outputVideoId,
-        status: 2
-      })
-        .then(function (data) {
-          resolve(data.id);
+      if (!me.updatedVideo.isUpdated) {
+        firebase.firestore().collection("users").doc(userId).collection('videos').add({
+          url: video.downloadURL,
+          videoId: video.videoId,
+          createdDate: new Date(),
+          userId: userId,
+          psaId: me.psaData.id,
+          psaName: me.psaData.name,
+          description: me.psaData.description,
+          outputVideoId: outputVideoId,
+          status: 2
         })
-        .catch(function (error) {
-        });
+          .then(function (data) {
+            resolve(data.id);
+          })
+          .catch(function (error) {
+          });
+      } else {
+        firebase.firestore().collection("users").doc(userId).collection('videos').doc(me.updatedVideo.videoId).update({
+          url: video.downloadURL,
+          createdDate: new Date(),
+          psaName: me.psaData.name,
+          description: me.psaData.description,
+          outputVideoId: outputVideoId,
+          status: 2
+        })
+          .then(function (data) {
+            resolve(me.updatedVideo.videoId);
+          })
+          .catch(function (error) {
+          });
+
+      }
+
 
     })
   }
@@ -439,7 +470,7 @@ export class VideoRecoderComponent implements OnInit {
             positionClass: 'toast-top-center',
           });
         }
-        me.router.navigate(['/home']);
+        me.router.navigate(['/home', { queryParams: { videoId: id }, skipLocationChange: true }]);
       })
       .catch(function (error) {
         me.router.navigate(['/home'])
