@@ -151,14 +151,14 @@ video {
 .demo {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 40%;
   width: 500px;
   height: 140px;
   margin-top: 140px / -2;
   padding: 10px;
   border-radius: 20px;
   transform: translateX(-50%);
-  font-size: 50px;
+  font-size: 70px;
   color:#FFF;  
 }
 .mr-0{margin-right: 0px;}
@@ -222,3 +222,4 @@ video {
     min-height: calc(100vh - 70px);
   }
 }
+

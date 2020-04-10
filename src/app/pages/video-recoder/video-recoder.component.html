@@ -42,7 +42,7 @@
     <div style="text-align: center;" *ngIf="currentStatus==1 && uploadProgress == 100">
       <img height="100" src="assets/img/processing.gif" />
       <h4>
-        <b>{{processText}}</b>
+        {{processText}}
       </h4>
     </div>
   </div>
@@ -50,6 +50,7 @@
     <h4>{{browserFailed}}</h4>
   </div>
 </div>
+
 
 
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

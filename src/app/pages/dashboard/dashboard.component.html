@@ -33,9 +33,9 @@
                                     
                                           </button>
                                           <button *ngIf="item.status==1" class="btn btn-outline btn-round btn-success1" type="button" shape="round"
-                                              (click)="play(item,template)"> <i class="far fa-play-circle"></i></button>
+                                              (click)="play(item,template)">Preview <i class="far fa-play-circle"></i></button>
                                         <button class="btn btn-outline btn-round btn-danger1" type="button" shape="round"
-                                              (click)="delete(item)"> <i class="far fa-trash-alt"></i></button>
+                                              (click)="delete(item)">Delete <i class="far fa-trash-alt"></i></button>
                                         <button *ngIf="item.status==1" class="btn btn-outline btn-round btn-primary1" type="button" shape="round"
                                               (click)="share(item)">Share <i class="fas fa-share-alt"></i></button>
                                   </div>
