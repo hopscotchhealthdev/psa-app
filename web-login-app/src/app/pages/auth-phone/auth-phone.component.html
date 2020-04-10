@@ -8,11 +8,9 @@
   <div class="content">
     <div class="container">
       <div class="col-lg-4 col-md-6 m-auto" style="text-align: -webkit-center;">
-
-
         <div class="card card-login card-white">
-          <div class="card-header">
-            <img alt="" src="https://demos.creative-tim.com/black-dashboard-pro-angular/assets/img/card-primary.png">
+          <div class="card-header text-center">
+           <img alt="Login Logo" src="assets/img/login-logo.png">
             <h3 class="card-title" style="font-weight: 500;">Log in with phone number</h3>
           </div>
           <div *ngIf="error" class="alert alert-danger" role="alert">
@@ -22,7 +20,7 @@
             <div class="input-group">
               <div class="input-item" style="width: 100%;">
                 <p style="color:#141414;text-align: left;">Phone number</p>
-                <input class="" style="width: 100%;" type="tel" ng2TelInput [(ngModel)]="phone" placeholder="Please enter your phone number"
+                <input class="h-45" style="width: 100%;" type="tel" ng2TelInput [(ngModel)]="phone" placeholder="Please enter your phone number"
                   (countryChange)="onCountryChange($event)" (ng2TelOutput)="getNumber($event)"
                   [ng2TelInputOptions]="{initialCountry: 'in'}" />
 
