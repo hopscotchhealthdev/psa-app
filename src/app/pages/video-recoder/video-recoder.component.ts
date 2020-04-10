@@ -473,7 +473,7 @@ export class VideoRecoderComponent implements OnInit {
         if (me.uploadProgress == 100) {
           me.processText = "Your file is processing. Do not close this window. It will take a few seconds"
           setTimeout(() => {
-            me.processText = "The video is taking a little longer to process than usual. Our servers are crunching bits as fast as it can to get the video ready for you ASAP.";
+            me.processText = "<b>The video is taking a little longer to process than usual. Our servers are crunching bits as fast as it can to get the video ready for you ASAP.</b>";
           }, 1000 * 60);
         }
 

@@ -41,8 +41,8 @@
     </div>
     <div style="text-align: center;" *ngIf="currentStatus==1 && uploadProgress == 100">
       <img height="100" src="assets/img/processing.gif" />
-      <h4>
-        {{processText}}
+      <h4 [innerHTML]="processText">
+       
       </h4>
     </div>
   </div>
