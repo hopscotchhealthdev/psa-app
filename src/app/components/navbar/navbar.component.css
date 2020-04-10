@@ -11,9 +11,13 @@
 .position-fixed{position: fixed;}
 @media only screen and (min-device-width: 480px) and (max-device-width: 767px) {
 .user-display{display:none;}
+.navbar-nav{float: left;}
+.navbar.bg-white:not(.navbar-transparent) .navbar-toggler-bar{background-color: #ffffff;}
 }
 @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
 .user-display{display:none;}
+.navbar-nav{float: left;}
+.navbar.bg-white:not(.navbar-transparent) .navbar-toggler-bar{background-color: #ffffff;}
 }
 .black-button{background-color:#010101; color:#fff;}
 @media only screen and (min-width: 768px) {
