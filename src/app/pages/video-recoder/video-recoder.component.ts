@@ -34,7 +34,8 @@ export class VideoRecoderComponent implements OnInit {
     name: '',
     overlay_videos: '',
     uploadSeconds: 0,
-    data: []
+    data: [],
+    description:''
 
   };
   loading = false;
@@ -78,6 +79,7 @@ export class VideoRecoderComponent implements OnInit {
             me.psaData.name = querySnapshot.data().name;
             me.psaData.overlay_videos = querySnapshot.data().overlay_videos;
             me.psaData.id = querySnapshot.id;
+            me.psaData.description= querySnapshot.data().description;
             me.psaData.uploadSeconds = querySnapshot.data().uploadSeconds;
             me.textDailogService.open("Hit the record button and read out what you see on the screen.", "", "GOT IT");
 
@@ -404,6 +406,7 @@ export class VideoRecoderComponent implements OnInit {
         userId: userId,
         psaId: me.psaData.id,
         psaName: me.psaData.name,
+        description:me.psaData.description,
         outputVideoId: outputVideoId,
         status: 2
       })
