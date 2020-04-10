@@ -50,20 +50,4 @@
     <h4>{{browserFailed}}</h4>
   </div>
 </div>
-
-<ng-template  #template>
-  <div style="height: 42px;" class="modal-header justify-content-center">
-    <button style="z-index:9999; color:#010101;" class="close close-button-position" type="button" (click)="modalRef.close()">
-      <i class="tim-icons icon-simple-remove"> </i>
-    </button>
-  </div>
-  <div class="modal-body padding-10" style="height:auto; background-color: #ffffff;">
-     <div>
-        <p>Hit the record button and read out what you see on the screen.</p>
-        <img src="assets/img/recording-play.png" *ngIf="psaData.id" alt="recording pause icon" width="36" height="36" (click)="verifyRecording()"/>
-        <button class=" btn btn-fill blue-button p-10" type="submit">GOT IT </button>
-      </div>            
-  </div>
-</ng-template>
-
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
