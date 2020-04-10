@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
+import { TextDailogService } from './text-dialog.service';
 
-import { ConfirmationDailogService } from './confirmation-dailog.service';
 
-describe('ConfirmationDailogService', () => {
-  let service: ConfirmationDailogService;
+describe('TextDailogService', () => {
+  let service: TextDailogService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ConfirmationDailogService);
+    service = TestBed.inject(TextDailogService);
   });
 
   it('should be created', () => {

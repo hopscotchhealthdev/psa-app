@@ -15,7 +15,7 @@ export class TextDailogService {
     message: string,
     btnOkText: string = 'Yes',
     dialogSize: 'sm'|'lg' = 'sm'): Promise<boolean> {
-    const modalRef = this.modalService.open(TextDailogComponent, { size: dialogSize,backdrop : 'static',
+    const modalRef = this.modalService.open(TextDailogComponent, {windowClass: 'modal-holder', size: dialogSize,backdrop : 'static',
     keyboard : false });
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.message = message;
