@@ -93,7 +93,10 @@ export class VideoRecoderComponent implements OnInit {
     })
 
   }
-
+  back(){
+    this.router.navigate(["/psa-list"]);
+    
+  }
 
   fetchOutputUrl(url, id, count) {
     const me = this;
@@ -423,7 +426,7 @@ export class VideoRecoderComponent implements OnInit {
     })
       .then(function () {
         if (status == 1) {
-          me.toastr.success('Video File Processed successfully', '', {
+          me.toastr.success('Video file processed successfully', '', {
             timeOut: 2000,
             positionClass: 'toast-top-center',
           });

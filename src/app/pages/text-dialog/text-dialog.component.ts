@@ -13,7 +13,7 @@ export class TextDailogComponent implements OnInit {
     //animation effect
    //https://tobiasahlin.com/moving-letters/
     this.titleText=value;
-    var textWrapper = document.querySelector('.ml2');
+  /*  var textWrapper = document.querySelector('.ml2');
     textWrapper.innerHTML = value.replace(/\S/g, "<span class='letter'>$&</span>");
     anime.timeline({loop: true})
     .add({
@@ -30,7 +30,8 @@ export class TextDailogComponent implements OnInit {
       duration: 500,
       easing: "easeOutExpo",
       delay: 500
-    });    
+    });   
+    */
 }
   @Input() message: string;
   @Input() btnOkText: string;
