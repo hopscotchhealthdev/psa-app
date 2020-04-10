@@ -6,6 +6,7 @@ import { ConfirmationDailogService } from '../confirmation-dailog/confirmation-d
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { TextDailogService } from '../text-dialog/text-dialog.service';
 const apiUrl = "https://psa-backend-server.hopscotchhealth.co/overlay-videos";
 declare var window: any;
 @Component({
@@ -42,7 +43,7 @@ export class VideoRecoderComponent implements OnInit {
   browserFailed: string = '';
   isSafariBrowser: boolean = false;
   processText: string = "";
-  constructor(private http: HttpClient, private route: ActivatedRoute, private confirmationDialogService: ConfirmationDailogService, private router: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService) {
+  constructor(private http: HttpClient, private route: ActivatedRoute, private textDailogService: TextDailogService, private confirmationDialogService: ConfirmationDailogService, private router: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService) {
 
   }
   ngOnInit() {
@@ -78,6 +79,7 @@ export class VideoRecoderComponent implements OnInit {
             me.psaData.overlay_videos = querySnapshot.data().overlay_videos;
             me.psaData.id = querySnapshot.id;
             me.psaData.uploadSeconds = querySnapshot.data().uploadSeconds;
+            me.textDailogService.open("Hit the record button and read out what you see on the screen.", "", "GOT IT");
 
           }
           else {
@@ -120,8 +122,11 @@ export class VideoRecoderComponent implements OnInit {
       clearInterval(this.counter);
     }
     let stream = this.stream;
-    stream.getAudioTracks().forEach(track => track.stop());
-    stream.getVideoTracks().forEach(track => track.stop());
+    if (stream) {
+      stream.getAudioTracks().forEach(track => track.stop());
+      stream.getVideoTracks().forEach(track => track.stop());
+
+    }
     this.recordRTC = null;
   }
 
