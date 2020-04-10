@@ -32,7 +32,7 @@ video {
   color: red;
 }
 .markerText{
-  color:#D3D3D3;
+  color:#ffffff;
   font-family: 'Montserrat', sans-serif;
     font-size: 16px;
     position: absolute;
@@ -50,7 +50,7 @@ video {
 }
 @media screen and (min-width: 320px) and (max-width: 767px) {
 .markerText{
-  color:#D3D3D3;
+  color:#ffffff;
   font-family: 'Montserrat', sans-serif;
     font-size: 16px;
     position: absolute;
@@ -70,7 +70,7 @@ video {
 /*Landscape mode css*/
 @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape)  {
 .markerText{
-  color:#D3D3D3;
+  color:#ffffff;
   font-family: 'Montserrat', sans-serif;
     font-size: 16px;
     position: absolute;

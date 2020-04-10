@@ -1,5 +1,8 @@
 <div class="content">
-  <p *ngIf="psaData.name" class="psa-name">{{psaData.name}} </p>
+  <div>
+    <i class="fas fa-arrow-left" style="font-size: 24px; color: #fff;"></i>
+ <p *ngIf="psaData.name" class="psa-name">{{psaData.name}} </p>
+ </div> 
 
   <br/>
   <div *ngIf="browserFailed == ''">
