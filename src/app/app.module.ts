@@ -13,7 +13,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { ComponentsModule } from "./components/components.module";
 import * as firebase from "firebase";
 import { firebase_config } from 'src/config/config';
-import { NgxLoadingModule } from 'ngx-loading';
+import { NgxLoadingModule,ngxLoadingAnimationTypes } from 'ngx-loading';
 import {APP_BASE_HREF} from '@angular/common';
 import bugsnag from '@bugsnag/js';
 import { BugsnagErrorHandler } from '@bugsnag/plugin-angular';
@@ -33,7 +33,14 @@ export function errorHandlerFactory() {
     AppRoutingModule,
     ReactiveFormsModule,
     ToastrModule.forRoot(),
-    NgxLoadingModule.forRoot({})
+    NgxLoadingModule.forRoot({
+      animationType: ngxLoadingAnimationTypes.wanderingCubes,
+      backdropBackgroundColour: 'rgba(0,0,0,0.1)', 
+      backdropBorderRadius: '4px',
+      primaryColour: '#314dbd', 
+      secondaryColour: '#314dbd', 
+      tertiaryColour: '#314dbd'
+    })
  ],
   declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent],
   providers: [{provide: {APP_BASE_HREF,ErrorHandler}, useValue : '/recorder', useFactory: errorHandlerFactory }],

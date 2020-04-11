@@ -8,6 +8,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TextDailogService } from '../text-dialog/text-dialog.service';
 const apiUrl = "https://psa-backend-server.hopscotchhealth.co/overlay-videos";
+
 declare var window: any;
 @Component({
   selector: 'app-video-recoder',
@@ -73,6 +74,7 @@ export class VideoRecoderComponent implements OnInit {
     this.subscribe = this.route.queryParamMap.subscribe(params => {
       if (params.get("id")) {
         me.loading = true;
+
         firebase.firestore().collection("psa").doc(params.get("id")).get().then(function (querySnapshot) {
           me.loading = false;
           if (querySnapshot.exists) {
@@ -103,12 +105,13 @@ export class VideoRecoderComponent implements OnInit {
 
   fetchOutputUrl(url, id, count) {
     const me = this;
-    var uploadTask = firebase.storage().ref().child("videos/output/" + url);
+    let bucketUrl = "videos/output/" + url;
+    var uploadTask = firebase.storage().ref().child(bucketUrl);
     uploadTask.getDownloadURL().then(function (downloadURL) {
-      me.updateVideoData(id, downloadURL, 1);
+      me.updateVideoData(id, `https://storage.googleapis.com/${firebase.storage().ref().bucket}/${bucketUrl}`, 1);
     }).catch(function (error) {
       setTimeout(() => {
-        if (count > 100) {
+        if (count > 250) {
           me.updateVideoData(id, null, 2);
         } else {
           me.fetchOutputUrl(url, id, count + 1);
@@ -274,9 +277,7 @@ export class VideoRecoderComponent implements OnInit {
             })
           },
           error => {
-            me.addVideoData(video, null, 3).then((uniqueId) => {
-
-            })
+           this.processError(error);
           }
         );
 
@@ -288,6 +289,15 @@ export class VideoRecoderComponent implements OnInit {
       });
     });
   }
+
+processError(error){
+  this.toastr.error('Something went wrong,please try again later', '', {
+    timeOut: 2000,
+    positionClass: 'toast-top-center',
+  });
+  this.router.navigate(['/home']);
+}
+
 
   startCamera() {
     this.upload = false;
@@ -403,22 +413,23 @@ export class VideoRecoderComponent implements OnInit {
     const me = this;
     return new Promise(function (resolve, reject) {
       var userId = firebase.auth().currentUser.uid;
-        firebase.firestore().collection("users").doc(userId).collection('videos').add({
-          url: video.downloadURL,
-          videoId: video.videoId,
-          createdDate: new Date(),
-          userId: userId,
-          psaId: me.psaData.id,
-          psaName: me.psaData.name,
-          description: me.psaData.description,
-          outputVideoId: outputVideoId,
-          status: 2
+      firebase.firestore().collection("users").doc(userId).collection('videos').add({
+        url: video.downloadURL,
+        videoId: video.videoId,
+        createdDate: new Date(),
+        userId: userId,
+        psaId: me.psaData.id,
+        psaName: me.psaData.name,
+        description: me.psaData.description,
+        outputVideoId: outputVideoId,
+        status: 2
+      })
+        .then(function (data) {
+          resolve(data.id);
         })
-          .then(function (data) {
-            resolve(data.id);
-          })
-          .catch(function (error) {
-          });
+        .catch(function (error) {
+          me.processError(error);
+        });
     })
   }
 
@@ -436,13 +447,15 @@ export class VideoRecoderComponent implements OnInit {
             timeOut: 2000,
             positionClass: 'toast-top-center',
           });
+          me.router.navigate(['home'], { queryParams: { videoId: id }, skipLocationChange: true });
+
         } else {
           me.toastr.error('Video is still processing, try after sometime', '', {
             timeOut: 2000,
             positionClass: 'toast-top-center',
           });
-        }      
-        me.router.navigate(['/home'], { queryParams: { videoId: id }, skipLocationChange: true });
+          me.router.navigate(['/home']);
+        }
       })
       .catch(function (error) {
         me.router.navigate(['/home'])

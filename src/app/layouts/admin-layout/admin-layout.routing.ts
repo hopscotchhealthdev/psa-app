@@ -8,7 +8,7 @@ export const AdminLayoutRoutes: Routes = [
   { path: "", component: VideoRecoderComponent },
   { path: "recorder", component: VideoRecoderComponent },
   { path: "psa-list", component: PsaListComponent },      
-  { path: "home", component: DashboardComponent },
+  { path: "home", component: DashboardComponent }, 
   { path: "profile", component: ProfileComponent },
   { path: "video-recorder", component: VideoRecoderComponent }
 

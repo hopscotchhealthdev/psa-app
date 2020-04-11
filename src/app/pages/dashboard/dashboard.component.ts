@@ -32,8 +32,8 @@ export class DashboardComponent implements OnInit {
     let queryUnsubscribe: any;
     let me = this;
     this.subscribe = this.route.queryParamMap.subscribe(params => {
-      if (params.get("id")) {
-        const videoId = params.get("id");
+      if (params.get("videoId")) {
+        const videoId = params.get("videoId");
         firebase
           .firestore()
           .collection("users").doc(firebase.auth().currentUser.uid).collection("videos").doc(videoId).get().then(function (querySnapshot) {
@@ -144,7 +144,6 @@ export class DashboardComponent implements OnInit {
 
   refreshList() {
     let me = this
-    console.log("refresh");
     me.videos.forEach(element => {
       if (element.status == 2) {
         me.fetchUrl(element);
@@ -156,9 +155,11 @@ export class DashboardComponent implements OnInit {
   fetchUrl(item) {
     const me = this;
     item.loading = true;
-    var uploadTask = firebase.storage().ref().child("videos/output/" + item.outputVideoId);
-    uploadTask.getDownloadURL().then(function (downloadURL) {
+    let bucketUrl="videos/output/" + item.outputVideoId;
+    var uploadTask = firebase.storage().ref().child(bucketUrl);
+    uploadTask.getDownloadURL().then(function (downloadLink) {
       item.loading = false;
+      let downloadURL= `https://storage.googleapis.com/${firebase.storage().ref().bucket}/${bucketUrl}`
       firebase
         .firestore()
         .collection("users").doc(firebase.auth().currentUser.uid).collection("videos").doc(item.id).update({ "status": 1, outputUrl: downloadURL }).then(function (res) {
