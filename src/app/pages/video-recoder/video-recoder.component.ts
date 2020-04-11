@@ -441,8 +441,8 @@ export class VideoRecoderComponent implements OnInit {
             timeOut: 2000,
             positionClass: 'toast-top-center',
           });
-        }
-        me.router.navigate(['/home', { queryParams: { videoId: id }, skipLocationChange: true }]);
+        }      
+        me.router.navigate(['/home'], { queryParams: { videoId: id }, skipLocationChange: true });
       })
       .catch(function (error) {
         me.router.navigate(['/home'])
