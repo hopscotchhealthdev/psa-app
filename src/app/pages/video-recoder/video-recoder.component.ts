@@ -45,10 +45,6 @@ export class VideoRecoderComponent implements OnInit {
   isSafariBrowser: boolean = false;
   processText: string = "";
   subscribe: any;
-  updatedVideo = {
-    isUpdated: false,
-    videoId: ''
-  }
   constructor(private http: HttpClient, private route: ActivatedRoute, private textDailogService: TextDailogService, private confirmationDialogService: ConfirmationDailogService, private router: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService) {
 
   }
@@ -93,11 +89,6 @@ export class VideoRecoderComponent implements OnInit {
             me.router.navigate(["/psa-list"]);
           }
         });
-
-        if (params.get("isUpdated")) {
-          this.updatedVideo.isUpdated = true;
-          this.updatedVideo.videoId = params.get("videoId");
-        }
       }
       else {
         me.router.navigate(["/psa-list"]);
@@ -412,7 +403,6 @@ export class VideoRecoderComponent implements OnInit {
     const me = this;
     return new Promise(function (resolve, reject) {
       var userId = firebase.auth().currentUser.uid;
-      if (!me.updatedVideo.isUpdated) {
         firebase.firestore().collection("users").doc(userId).collection('videos').add({
           url: video.downloadURL,
           videoId: video.videoId,
@@ -429,24 +419,6 @@ export class VideoRecoderComponent implements OnInit {
           })
           .catch(function (error) {
           });
-      } else {
-        firebase.firestore().collection("users").doc(userId).collection('videos').doc(me.updatedVideo.videoId).update({
-          url: video.downloadURL,
-          createdDate: new Date(),
-          psaName: me.psaData.name,
-          description: me.psaData.description,
-          outputVideoId: outputVideoId,
-          status: 2
-        })
-          .then(function (data) {
-            resolve(me.updatedVideo.videoId);
-          })
-          .catch(function (error) {
-          });
-
-      }
-
-
     })
   }
 
