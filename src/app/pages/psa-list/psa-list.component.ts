@@ -57,7 +57,6 @@ export class PsaListComponent implements OnInit {
           id: snapItem.id,
           data: snapItem.data()
         })
-        console.log(me.psa)
       });
     });
   }

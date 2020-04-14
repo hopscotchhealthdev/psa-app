@@ -67,12 +67,11 @@ export class VideoRecoderComponent implements OnInit {
       return M.join(' ');
     })();
     if (browser.toLowerCase().indexOf('safari') > -1) {
-      // me.browserFailed = "Use Chrome browser to access this page";
       me.isSafariBrowser = true;
     }
-    me.startCamera();
     this.subscribe = this.route.queryParamMap.subscribe(params => {
       if (params.get("id")) {
+        me.startCamera();
         me.loading = true;
 
         firebase.firestore().collection("psa").doc(params.get("id")).get().then(function (querySnapshot) {
@@ -277,7 +276,7 @@ export class VideoRecoderComponent implements OnInit {
             })
           },
           error => {
-           this.processError(error);
+            this.processError(error);
           }
         );
 
@@ -290,13 +289,13 @@ export class VideoRecoderComponent implements OnInit {
     });
   }
 
-processError(error){
-  this.toastr.error('Something went wrong,please try again later', '', {
-    timeOut: 2000,
-    positionClass: 'toast-top-center',
-  });
-  this.router.navigate(['/home']);
-}
+  processError(error) {
+    this.toastr.error('Something went wrong,please try again later', '', {
+      timeOut: 2000,
+      positionClass: 'toast-top-center',
+    });
+    this.router.navigate(['/home']);
+  }
 
 
   startCamera() {
