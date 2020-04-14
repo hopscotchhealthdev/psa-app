@@ -307,9 +307,22 @@ export class VideoRecoderComponent implements OnInit {
       },
       audio: true,
     };
-    navigator.mediaDevices
-      .getUserMedia(mediaConstraints)
-      .then(this.successCallback.bind(this), this.errorCallback.bind(this));
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    if (!navigator.getUserMedia) {
+      if (/android/i.test(userAgent)) {
+        this.browserFailed = "use latest chrome browser version";
+      }
+      else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        this.browserFailed = "use latest safari browser version";
+      }
+      else {
+        this.browserFailed = "use latest  browser version";
+      }
+    } else {
+      navigator.mediaDevices
+        .getUserMedia(mediaConstraints)
+        .then(this.successCallback.bind(this), this.errorCallback.bind(this));
+    }
   }
 
   stopRecording() {

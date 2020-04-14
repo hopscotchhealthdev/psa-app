@@ -70,9 +70,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
           this.isAnonymous = true;
           me.user.userName = "Anonymous";
         }else{
-          this.isAnonymous = false;          
-        }
-        firebase
+          this.isAnonymous = false;  
+          firebase
           .firestore().collection("users").doc(user.uid).onSnapshot((userRef) => {
             if(userRef.exists){
               me.user.userName = userRef.data().userName;
@@ -81,9 +80,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
             else{
               me.user.image ="assets/img/anime3.png"
             }
-            });
-
+            });        
+        }
       }else{
+      
         me.user.userName = "Anonymous";
         this.isAnonymous = true;                  
       }
