@@ -10,7 +10,8 @@ width: 55px; box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px; margin-top: 15px;}
 .phone-button{color: #fff; background: #09BD7E;}
 .github-button{color: #fff; background: #333333;}
 .apple-button{color: #fff; background: #333333;}
-.signup-button{width:100%; background-color: #1e1e28;height:40px; border-radius: 10px; color: #fff;}
+.title-normal{font-weight: 100}
+.signup-button{width:200px;text-align: center; background-color: #1e1e28;height:40px; border-radius: 10px; color: #fff;}
 .mt-20{margin-top:20px;}
 .pl-20{padding-left:20px;}
 .p-20{padding:10px 20px;}
@@ -29,3 +30,6 @@ top: 11px; right: 8px;}
 background-color: #2A6774;}
 .white-text{color:#fff;}
 .text-center{text-align: center;}
+.social{
+    width:20%
+}

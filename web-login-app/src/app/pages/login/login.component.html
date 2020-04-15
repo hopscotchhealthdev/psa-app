@@ -1,30 +1,33 @@
 <div style="height:850px;" class="card card-login card-white p-20">	
-    <p class="pt-20 dark-grey title text-center">Play your part in tackling the COVID-19 outbreak. Signup for free</p>
-    <button type="button" class="signup-button"  [routerLink]="['/register']" expand="block">
-          <span>SIGN UP USING EMAIL</span>             
-      </button>	
+    <h4 class="pt-20 dark-grey title-normal text-center">Play your part in tackling the COVID-19 outbreak. Signup for free now.</h4>
+    <div class="text-center">
+            <button type="button" class="signup-button"  [routerLink]="['/register']" expand="block">
+                <span>SIGN UP USING EMAIL</span>             
+            </button>	
+    </div>
+   
      <h4 class="mt-20 main-title text-center">Log in through</h4>
     <div class="row">	
-    <div class="col-4 text-center">
+    <div class="social text-center">
       <button type="button" class="google-button" (click)="doGoogleLogin()">
           <img src="assets/img/google.png" width="20" height="20">              
       </button>
       <p class="pt-10 dark-grey fs-12">Google</p>
   </div>
   
-  <div class="col-4 text-center">
+  <div class="social text-center">
       <button class="twitter-button" type="button" (click)="doTwitterLogin()">
           <img src="assets/img/twitter.png" width="20" height="20"> </button>
            <p class="pt-10 dark-grey fs-12">Twitter</p>
        </div>
   
-    <div class="col-4 text-center">
+    <div class="social text-center">
       <button class="email-button" type="button" [routerLink]="['/login-email']">
           <img src="assets/img/email.png" width="20" height="20"></button>
           <p class="pt-10 dark-grey fs-12">Email</p>
       </div>
     
-    <div class="col-4 text-center"> 
+    <div class="social text-center"> 
       <button class="phone-button" type="button" [routerLink]="['/auth-phone']">
           <img src="assets/img/phone.png" width="20" height="20"></button>
           <p class="pt-10 dark-grey fs-12">Phone</p>
@@ -42,18 +45,18 @@
           <p class="pt-10 dark-grey fs-12">Apple</p>
       </div> -->
   
-       <div class="col-4 text-center">
+       <div class="social text-center">
       <button class="facebook-button" type="button" (click)="doFbLogin()">
             <img src="assets/img/facebook.png" width="20" height="20"></button>
              <p class="pt-10 dark-grey fs-12">Facebook</p>
          </div>
     
-  <div class="col-4 text-center">
+  <!-- <div class="col-4 text-center">
       <button class="email-button" type="button" [routerLink]="['/register']">
           <img src="assets/img/email.png" width="20" height="20"></button>  
           <p class="pt-10 dark-grey fs-12">Sign up</p>
-      </div>
-  
+      </div> -->
+
     </div>
   </div>
   <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
