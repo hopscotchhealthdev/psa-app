@@ -209,14 +209,14 @@ export class VideoRecoderComponent implements OnInit {
 
   errorCallback(error) {
     this.loading = false;
-    if (error.message == 'Permission denied') {
+    if (error.name == 'NotAllowedError' || error.name =='PermissionDeniedError') {
       this.browserFailed = "Allow camera and microphone permission  to access this page.";
     }
     else if (this.isSafariBrowser) {
       this.browserFailed = error.message + " Use latest Safari browser to access this page";
     }
     else {
-      this.browserFailed = error.message + " Use latest Chrome browser to access this page";
+      this.browserFailed = error.message;
     }
   }
 
@@ -308,15 +308,12 @@ export class VideoRecoderComponent implements OnInit {
       audio: true,
     };
     var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-    if (!navigator.getUserMedia) {
+    if (!navigator.mediaDevices) {
       if (/android/i.test(userAgent)) {
         this.browserFailed = "use latest chrome browser version";
       }
-      else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-        this.browserFailed = "use latest safari browser version";
-      }
       else {
-        this.browserFailed = "use latest  browser version";
+        this.browserFailed = "This browser does not support the API yet, check in latest version";
       }
     } else {
       navigator.mediaDevices
