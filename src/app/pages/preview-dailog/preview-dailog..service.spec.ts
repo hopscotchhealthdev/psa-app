@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { PreviewDailogService } from './preview-dailog..service';
+import { PreviewDailogService } from './preview-dailog.service';
 
 
 

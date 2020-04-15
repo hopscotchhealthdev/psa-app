@@ -6,7 +6,7 @@ import { ConfirmationDailogService } from '../confirmation-dailog/confirmation-d
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { PreviewDailogComponent } from '../preview-dailog/preview-dailog.component';
-import { PreviewDailogService } from '../preview-dailog/preview-dailog..service';
+import { PreviewDailogService } from '../preview-dailog/preview-dailog.service';
 @Component({
   selector: "app-dashboard",
   templateUrl: "dashboard.component.html",

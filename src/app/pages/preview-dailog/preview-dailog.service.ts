@@ -17,7 +17,8 @@ export class PreviewDailogService {
     dialogSize: 'sm' | 'lg' = 'sm'): Promise<boolean> {
     const modalRef = this.modalService.open(PreviewDailogComponent, {
       size: dialogSize, backdrop: 'static',
-      keyboard: false
+      keyboard: false,
+      centered:true
     });
     modalRef.componentInstance.psaId = psaId;
     modalRef.componentInstance.videoId = videoId;

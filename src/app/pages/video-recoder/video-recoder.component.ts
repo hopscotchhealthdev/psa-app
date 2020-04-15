@@ -83,7 +83,7 @@ export class VideoRecoderComponent implements OnInit {
             me.psaData.id = querySnapshot.id;
             me.psaData.description = querySnapshot.data().description;
             me.psaData.uploadSeconds = querySnapshot.data().uploadSeconds;
-            me.textDailogService.open("Hit the record button and read out what you see on the screen.", "", "GOT IT");
+            me.textDailogService.open("<img  class='hit-img' src='assets/img/play.png'/>Hit the play button and read out what you see on the screen.", "", "GOT IT");
 
           }
           else {
