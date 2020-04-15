@@ -181,7 +181,7 @@ export class DashboardComponent implements OnInit {
     if (!firebase.auth().currentUser.isAnonymous) {
       buttonText = "Re-record";
     } else {
-      buttonText = "Record your own";
+      buttonText = "Record another";
 
     }
     this.previewDailogService.open(item.psaId,item.id, item.url, buttonText)
