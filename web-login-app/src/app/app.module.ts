@@ -11,7 +11,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { ComponentsModule } from "./components/components.module";
 import * as firebase from "firebase";
 import { firebase_config } from 'src/config/config';
-import { NgxLoadingModule } from 'ngx-loading';
+import { NgxLoadingModule,ngxLoadingAnimationTypes} from 'ngx-loading';
 import {APP_BASE_HREF} from '@angular/common';
 import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
 firebase.initializeApp(firebase_config);
@@ -28,7 +28,14 @@ firebase.initializeApp(firebase_config);
     ToastrModule.forRoot(),
     SweetAlert2Module.forRoot(),
   
-    NgxLoadingModule.forRoot({})
+    NgxLoadingModule.forRoot({
+      animationType: ngxLoadingAnimationTypes.wanderingCubes,
+      backdropBackgroundColour: 'rgba(0,0,0,0.1)', 
+      backdropBorderRadius: '4px',
+      primaryColour: '#314dbd', 
+      secondaryColour: '#314dbd', 
+      tertiaryColour: '#314dbd'
+    })
  ],
   declarations: [AppComponent],
   providers: [{provide: APP_BASE_HREF, useValue : '/login' }],
