@@ -310,10 +310,10 @@ export class VideoRecoderComponent implements OnInit {
     var userAgent = navigator.userAgent || navigator.vendor || window.opera;
     if (!navigator.mediaDevices) {
       if (/android/i.test(userAgent)) {
-        this.browserFailed = "use latest chrome browser version";
+        this.browserFailed = "Your browser version does not support CoVideo. To record a video, please update Chrome on your device.";
       }
       else {
-        this.browserFailed = "This browser does not support the API yet, check in latest version";
+        this.browserFailed = "Your Safari browser version does not support CoVideo. To record a video, please update Safari on your device.";
       }
     } else {
       navigator.mediaDevices

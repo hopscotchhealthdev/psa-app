@@ -4,6 +4,7 @@ import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/fo
 import * as firebase from "firebase";
 const email_pattern = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|in|net|org|pro|travel|health|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
 declare var FB: any;
+declare var window:any;
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -18,9 +19,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.queryParamMap.subscribe(params => {
-
-    })
+   // this.route.queryParamMap.subscribe(params => { })
 
   }
 
@@ -245,4 +244,17 @@ export class LoginComponent implements OnInit {
     window.location.href = `${window.location.origin}/recorder/index.html`;
   }
 
+  update(evt) {
+    let src = evt.target.src;
+  let  last = evt.target.src.substring(evt.target.src.lastIndexOf("/") + 1, evt.target.src.length);  
+  if (last != 'virus-play.gif') {
+      evt.target.src = "assets/img/virus-play.gif"
+      evt.disabled = true;
+      setTimeout(() => {
+        evt.target.src = src
+        evt.disabled = false;
+      }, 3300);
+    }
+
+  }
 }

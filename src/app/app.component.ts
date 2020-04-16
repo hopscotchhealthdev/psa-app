@@ -11,7 +11,7 @@ export class AppComponent {
   title = "BrokenColor";
   constructor(public router: Router, private route: ActivatedRoute) {
     var me = this;
-   // firebase.auth().signInWithEmailAndPassword("test@email.com","123456")
+ //  firebase.auth().signInWithEmailAndPassword("tech@hopscotch.health","111111")
    /* this.route.queryParamMap.subscribe(params => {
       console.log(params.get("id"));
       firebase.auth().onAuthStateChanged((user) => {
