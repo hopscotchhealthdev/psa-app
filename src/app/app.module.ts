@@ -1,7 +1,7 @@
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule,ErrorHandler, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule,HttpClient } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 import { ToastrModule } from 'ngx-toastr';
 
@@ -16,12 +16,19 @@ import { firebase_config } from 'src/config/config';
 import { NgxLoadingModule,ngxLoadingAnimationTypes } from 'ngx-loading';
 import {APP_BASE_HREF} from '@angular/common';
 import bugsnag from '@bugsnag/js';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BugsnagErrorHandler } from '@bugsnag/plugin-angular';
+
 firebase.initializeApp(firebase_config);
 const bugsnagClient = bugsnag('922cc307a94bece2a2e39a2ba1704091')
 export function errorHandlerFactory() {
   return new BugsnagErrorHandler(bugsnagClient)
 }
+export function setTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
+}
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -33,6 +40,13 @@ export function errorHandlerFactory() {
     AppRoutingModule,
     ReactiveFormsModule,
     ToastrModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: setTranslateLoader,
+        deps: [HttpClient]
+      }
+    }),
     NgxLoadingModule.forRoot({
       animationType: ngxLoadingAnimationTypes.wanderingCubes,
       backdropBackgroundColour: 'rgba(0,0,0,0.1)', 

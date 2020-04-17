@@ -1,9 +1,12 @@
 import { Component, OnInit, ElementRef, OnDestroy } from "@angular/core";
-import { ROUTES } from "../sidebar/sidebar.component";
+//import { ROUTES } from "../sidebar/sidebar.component";
 import { Location } from "@angular/common";
 import { Router } from "@angular/router";
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import * as firebase from "firebase";
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
+import { TranslateService } from "@ngx-translate/core";
 import { ConfirmationDailogService } from '../../pages/confirmation-dailog/confirmation-dailog.service';
 @Component({
   selector: "app-navbar",
@@ -25,12 +28,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public isCollapsed = true;
   isAnonymous:boolean=true;
   closeResult: string;
-
+  private ngUnsubscribe = new Subject<void>();
   constructor(
     location: Location,
     private element: ElementRef,
     private router: Router,
     private modalService: NgbModal,
+    public translate: TranslateService,
     private confirmationDialogService: ConfirmationDailogService
   ) {
     this.location = location;
@@ -49,7 +53,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   };
   ngOnInit() {
     // window.addEventListener("resize", this.updateColor);
-    this.listTitles = ROUTES.filter(listTitle => listTitle);
+   // this.listTitles = ROUTES.filter(listTitle => listTitle);
     const navbar: HTMLElement = this.element.nativeElement;
     this.toggleButton = navbar.getElementsByClassName("navbar-toggler")[0];
     this.router.events.subscribe(event => {
@@ -106,13 +110,19 @@ profileCollapse(){
   }
 
   goToLogin() {
-    this.confirmationDialogService.confirm("I agree to terms and conditions", "Read more about our <a  href='https://google.com' target='_blank;'><b style='color: #314DBD;font-weight: 700;'>terms and conditions</b></a>", "Accept", "Decline")
+    this.translate
+    .get("terms")
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe((translation: any) => {
+      this.confirmationDialogService.confirm(translation.agree, `${translation.readout} <a  href='https://google.com' target='_blank;'><b style='color: #314DBD;font-weight: 700;'>${translation.terms}</b></a>`,translation.accept ,translation.decline)
       .then((confirmed) => {
         if (confirmed) {
           window.location.href = `${window.location.origin}/login/index.html`
         }
       });
 
+    });
+  
  
   }
 

@@ -40,7 +40,7 @@
     <div *ngIf="currentStatus==1 && uploadProgress != 100">
       <progress-bar [progress]="uploadProgress" [color]="'#70E083'">
       </progress-bar>
-      <h4>Video Uploading...</h4>
+      <h4>{{ "video_recorder.upload_prompt" | translate }}...</h4>
     </div>
     <div style="text-align: center;" *ngIf="currentStatus==1 && uploadProgress == 100">
       <img height="100" src="assets/img/processing.gif" />
@@ -50,7 +50,7 @@
     </div>
   </div>
   <div style="text-align: center;" *ngIf="browserFailed !=''">
-    <h4>{{browserFailed}}</h4>
+    <h4 [innerHTML]="browserFailed"></h4>
   </div>
 </div>
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

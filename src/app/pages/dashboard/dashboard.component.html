@@ -5,7 +5,7 @@
                         <div class="card-header">
                               <div class="row">
                                     <div class="col-sm-6 text-left" style="color:#141414;">
-                                          Home
+                                          {{ "home.title" | translate }} 
                                     </div>
                               </div>
                         </div>
@@ -34,13 +34,13 @@
                                                 <i class="fas fa-sync-alt"></i>
 
                                           </button>
-                                          <button *ngIf="item.status==1" class="btn btn-outline btn-round btn-success1" type="button" shape="round" (click)="open(item)">Preview
+                                          <button *ngIf="item.status==1" class="btn btn-outline btn-round btn-success1" type="button" shape="round" (click)="open(item)"> {{ "home.preview" | translate }}
                                                 <i class="far fa-play-circle"></i>
                                           </button>
-                                          <button class="btn btn-outline btn-round btn-danger1" type="button" shape="round" (click)="delete(item)">Delete
+                                          <button class="btn btn-outline btn-round btn-danger1" type="button" shape="round" (click)="delete(item)"> {{ "home.delete" | translate }}
                                                 <i class="far fa-trash-alt"></i>
                                           </button>
-                                          <button *ngIf="item.status==1" class="btn btn-outline btn-round share-button" type="button" shape="round" (click)="share(item)">Share
+                                          <button *ngIf="item.status==1" class="btn btn-outline btn-round share-button" type="button" shape="round" (click)="share(item)"> {{ "home.share" | translate }}
                                                 <i class="fas fa-share-alt"></i>
                                           </button>
                                     </div>

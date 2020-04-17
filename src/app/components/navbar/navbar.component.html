@@ -43,13 +43,13 @@
   <ul class="" ngbDropdownMenu>
   <li class="nav-link">
   <a class="nav-item" (click)="profileCollapse();" [routerLink]="['/profile']" href="javascript:void(0)" ngbDropdownItem>
-  Profile
+    {{ "navbar.profile" | translate }}
   </a>
   </li>
   <li class="dropdown-divider"></li>
   <li (click)="logout();" class="nav-link">
   <a class="nav-item" href="javascript:void(0)" ngbDropdownItem>
-  Log out
+      {{ "navbar.logout" | translate }}
   </a>
   </li>
   </ul>
@@ -60,7 +60,7 @@
   
   </div>
   <div *ngIf="isAnonymous" class="logo-order" style="border-top: 0.0625rem solid rgba(34, 42, 66, 0.05);">
-  <button (click)="goToLogin()" class="btn btn-block black-button" type="submit" >Login</button>
+  <button (click)="goToLogin()" class="btn btn-block black-button" type="submit" >{{ "navbar.login" | translate }}</button>
   
   </div>
   </div>

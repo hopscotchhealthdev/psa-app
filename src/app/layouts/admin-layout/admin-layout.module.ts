@@ -1,6 +1,6 @@
 import { VideoRecoderComponent } from './../../pages/video-recoder/video-recoder.component';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from "@angular/core";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule,HttpClient } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
@@ -17,6 +17,11 @@ import { MaterialModule } from 'src/app/material.module';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { NgMarqueeModule } from 'ng-marquee';
 import { PsaListComponent } from '../../pages/psa-list/psa-list.component';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader'
+export function setTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
+}
 @NgModule({
   imports: [
     CommonModule,
@@ -26,6 +31,13 @@ import { PsaListComponent } from '../../pages/psa-list/psa-list.component';
     NgbModule,ProgressBarModule,
     NgxPaginationModule,
     NgxAudioPlayerModule,
+    TranslateModule.forChild({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: setTranslateLoader,
+        deps: [HttpClient]
+      }
+    }),
     NgMarqueeModule,
     MaterialModule,
     NgxLoadingModule.forRoot({}),

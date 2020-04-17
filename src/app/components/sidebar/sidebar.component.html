@@ -1,18 +1,26 @@
- <div class="logo">
-  <a  class="simple-text logo-normal">
-    Covid-19 Video Challenge  </a>
+<div class="logo">
+  <a class="simple-text logo-normal">
+    {{"app_name" | translate}} </a>
 </div>
 <div class="sidebar-wrapper">
   <ul class="nav">
-    <li
-      routerLinkActive="active"
-      *ngFor="let menuItem of menuItems"
-      class="{{ menuItem.class }} nav-item"
-    >
-      <a [routerLink]="[menuItem.path]">
-        <img class="tim-icons"  src="{{ menuItem.icon }}" width="24" height="24"/>
-        <p>{{ menuItem.title }}</p>
+    <li routerLinkActive="active" class="nav-item">
+      <a routerLink="/home">
+        <img class="tim-icons" src="assets/img/psa-recorder_mechnanic-64x64.png" width="24" height="24" />
+        <p>{{ "sidebar.video" | translate }} </p>
+      </a>
+    </li>
+    <li routerLinkActive="active" class="nav-item">
+      <a routerLink="/psa-list">
+        <img class="tim-icons" src="assets/img/psa-video_recorder-64x64.png" width="24" height="24" />
+        <p>{{ "sidebar.recorder" | translate }} </p>
+      </a>
+    </li>
+    <li routerLinkActive="active" class="nav-item">
+      <a routerLink="/profile">
+        <img class="tim-icons" src="assets/img/psa-profile-64x64.png" width="24" height="24" />
+        <p>{{ "sidebar.profile" | translate }} </p>
       </a>
     </li>
   </ul>
-</div> 
+</div>

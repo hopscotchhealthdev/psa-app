@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import * as firebase from 'firebase';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: "app-admin-layout",
@@ -11,7 +12,7 @@ export class AdminLayoutComponent implements OnInit {
   user: boolean = false;
 
 
-  constructor() {
+  constructor(private translate:TranslateService) {
    
   }
   changeSidebarColor(color) {
@@ -36,5 +37,16 @@ export class AdminLayoutComponent implements OnInit {
       body.classList.remove('white-content');
     }
   }
-  ngOnInit() { }
+  ngOnInit() {
+    let lang = localStorage.getItem("language");
+    if (lang) {
+      this.translate.setDefaultLang(lang);
+      this.translate.use(lang);
+    } else {
+      localStorage.setItem("language","en");
+      this.translate.setDefaultLang("en");
+      this.translate.use("en");
+
+    }
+  }
 }

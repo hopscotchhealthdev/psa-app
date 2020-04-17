@@ -2,6 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import * as firebase from "firebase";
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { TranslateService } from "@ngx-translate/core";
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
 const email_pattern = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|in|net|org|pro|travel|health|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
 @Component({
   selector: "app-profile",
@@ -20,7 +23,9 @@ export class ProfileComponent implements OnInit {
   uploadProgress: any;
   public loading: boolean = false;
   public isAnonymous = false;
-  constructor(private toastr: ToastrService,private router:Router) { }
+  private ngUnsubscribe = new Subject<void>();
+  lang:string= localStorage.getItem("language")
+  constructor(private toastr: ToastrService,private router:Router,public translate: TranslateService) { }
   ngOnInit() {
     let me = this;
     firebase.auth().onAuthStateChanged((user) => {
@@ -37,6 +42,11 @@ export class ProfileComponent implements OnInit {
       }
     })
 
+  }
+  ngOnDestroy(){
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  
   }
   validateAge(evt) {
     if (parseInt(evt.target.value) < 0) {
@@ -92,16 +102,27 @@ export class ProfileComponent implements OnInit {
 
       }).then(res => {
         me.loading = false;
-        me.toastr.success('Profile  updated successfully', '', {
-          timeOut: 2000,
-          positionClass: 'toast-top-center',
+        me.translate
+        .get("messages")
+        .pipe(takeUntil(me.ngUnsubscribe))
+        .subscribe((translation: any) => {
+          me.toastr.success(translation.profile_update, '', {
+            timeOut: 2000,
+            positionClass: 'toast-top-center',
+          });    
         });
+     
     me.router.navigate(['/home']);
       }).catch(err => {
         me.loading = false;
-        me.toastr.error('Profile error', '', {
-          timeOut: 2000,
-          positionClass: 'toast-top-center',
+        me.translate
+        .get("messages")
+        .pipe(takeUntil(me.ngUnsubscribe))
+        .subscribe((translation: any) => {
+          me.toastr.success(translation.profile_error, '', {
+            timeOut: 2000,
+            positionClass: 'toast-top-center',
+          });    
         });
       })
   }
@@ -168,7 +189,13 @@ export class ProfileComponent implements OnInit {
       });
     }
   }
+
   addPhoto() {
     document.getElementById("file").click();
+  }
+
+  languageChange(evt){
+   this.translate.use(evt.target.value);
+   localStorage.setItem("language",evt.target.value)
   }
 }

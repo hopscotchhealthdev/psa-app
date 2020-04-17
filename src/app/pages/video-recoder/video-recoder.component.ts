@@ -7,6 +7,9 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TextDailogService } from '../text-dialog/text-dialog.service';
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
+import { TranslateService } from "@ngx-translate/core";
 const apiUrl = "https://psa-backend-server.hopscotchhealth.co/overlay-videos";
 
 declare var window: any;
@@ -46,7 +49,8 @@ export class VideoRecoderComponent implements OnInit {
   isSafariBrowser: boolean = false;
   processText: string = "";
   subscribe: any;
-  constructor(private http: HttpClient, private route: ActivatedRoute, private textDailogService: TextDailogService, private confirmationDialogService: ConfirmationDailogService, private router: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService) {
+  private ngUnsubscribe = new Subject<void>();
+  constructor(private translate: TranslateService, private http: HttpClient, private route: ActivatedRoute, private textDailogService: TextDailogService, private confirmationDialogService: ConfirmationDailogService, private router: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService) {
 
   }
   ngOnInit() {
@@ -83,8 +87,13 @@ export class VideoRecoderComponent implements OnInit {
             me.psaData.id = querySnapshot.id;
             me.psaData.description = querySnapshot.data().description;
             me.psaData.uploadSeconds = querySnapshot.data().uploadSeconds;
-            me.textDailogService.open("<img  class='hit-img' src='assets/img/play.png'/>Hit the play button and read out what you see on the screen.", "", "GOT IT");
-
+            me.translate
+            .get("video_recorder")
+            .pipe(takeUntil(me.ngUnsubscribe))
+            .subscribe((translation: any) => {
+              if(!me.browserFailed)
+              me.textDailogService.open(`<img  class='hit-img' src='assets/img/play.png'/>${translation.play_prompt}`, "", translation.got_it);  
+            });
           }
           else {
             me.router.navigate(["/psa-list"]);
@@ -139,6 +148,8 @@ export class VideoRecoderComponent implements OnInit {
       this.subscribe.unsubscribe();
     }
     this.recordRTC = null;
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
 
@@ -209,19 +220,34 @@ export class VideoRecoderComponent implements OnInit {
 
   errorCallback(error) {
     this.loading = false;
-    if (error.name == 'NotAllowedError' || error.name =='PermissionDeniedError') {
-      this.browserFailed = "Allow camera and microphone permission  to access this page.";
-    }
-    else if (this.isSafariBrowser) {
-      this.browserFailed = error.message + " Use latest Safari browser to access this page";
-    }
-    else {
-      this.browserFailed = error.message;
-    }
+    this.translate
+      .get("messages")
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((translation: any) => {
+        this.textDailogService.close();
+        if (error.name == 'NotAllowedError' || error.name == 'PermissionDeniedError') {
+          this.browserFailed = `<p>${translation.permission}</p><img style='margin:10px;' src="assets/img/permission.gif" />`;
+        //  this.router.navigate(["/psa-list"], { queryParams: { instruction: true, type: 'PermissionDeniedError' }, skipLocationChange: true });
+        }
+        else if (this.isSafariBrowser) {
+          this.browserFailed = error.message + translation.safari;
+        }
+        else {
+          this.browserFailed = error.message;
+        }
+      });
+
   }
 
   processVideoPrompt() {
-    this.openConfirmationDialog("Would you like to proceed to upload your video or re-record it?", "", "UPLOAD", "RE-RECORD");
+    this.translate
+      .get("video_recorder")
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((translation: any) => {
+        this.openConfirmationDialog(translation.upload_prompt, "", translation.upload, translation.re_record);
+      });
+
+
 
   }
 
@@ -282,18 +308,30 @@ export class VideoRecoderComponent implements OnInit {
 
     }).catch((err) => {
       me.currentStatus = 0;
-      me.toastr.error('File upload error', '', {
-        timeOut: 2000,
-        positionClass: 'toast-top-center',
+      this.translate
+      .get("messages")
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((translation: any) => {
+        me.toastr.error(translation.file_error, '', {
+          timeOut: 2000,
+          positionClass: 'toast-top-center',
+        });
       });
+     
     });
   }
 
   processError(error) {
-    this.toastr.error('Something went wrong,please try again later', '', {
-      timeOut: 2000,
-      positionClass: 'toast-top-center',
+    this.translate
+    .get("messages")
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe((translation: any) => {
+      this.toastr.error(translation.api_error, '', {
+        timeOut: 2000,
+        positionClass: 'toast-top-center',
+      });
     });
+    
     this.router.navigate(['/home']);
   }
 
@@ -309,12 +347,17 @@ export class VideoRecoderComponent implements OnInit {
     };
     var userAgent = navigator.userAgent || navigator.vendor || window.opera;
     if (!navigator.mediaDevices) {
-      if (/android/i.test(userAgent)) {
-        this.browserFailed = "Your browser version does not support CoVideo. To record a video, please update Chrome on your device.";
-      }
-      else {
-        this.browserFailed = "Your Safari browser version does not support CoVideo. To record a video, please update Safari on your device.";
-      }
+      this.translate
+      .get("messages")
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((translation: any) => {
+        if (/android/i.test(userAgent)) {
+          this.browserFailed = translation.android_browser;
+        }
+        else {
+          this.browserFailed = translation.safari_browser;
+        }
+      });
     } else {
       navigator.mediaDevices
         .getUserMedia(mediaConstraints)
@@ -336,9 +379,14 @@ export class VideoRecoderComponent implements OnInit {
   stopConfirmRecording() {
     if (!this.isSafariBrowser) {
       this.recordRTC.pauseRecording();
-      clearInterval(this.counter);
+      clearInterval(this.counter); 
       const me = this;
-      this.confirmationDialogService.confirm("Attention!", "", "Continue Video", "Reset Video")
+      
+      me.translate
+      .get("video_recorder")
+      .pipe(takeUntil(me.ngUnsubscribe))
+      .subscribe((translation: any) => {
+        this.confirmationDialogService.confirm(`${translation.attention}!`, "", translation.continue,translation.reset )
         .then((confirmed) => {
           if (confirmed) {
             me.recordRTC.resumeRecording();
@@ -348,7 +396,10 @@ export class VideoRecoderComponent implements OnInit {
             me.resetScreen();
           }
         })
-        .catch(() => { });
+        .catch(() => { }); 
+      });
+
+     
     }
   }
 
@@ -452,17 +503,28 @@ export class VideoRecoderComponent implements OnInit {
     })
       .then(function () {
         if (status == 1) {
-          me.toastr.success('Video file processed successfully', '', {
-            timeOut: 2000,
-            positionClass: 'toast-top-center',
+          me.translate
+          .get("messages")
+          .pipe(takeUntil(me.ngUnsubscribe))
+          .subscribe((translation: any) => {
+            me.toastr.success(translation.file_success, '', {
+              timeOut: 2000,
+              positionClass: 'toast-top-center',
+            });
           });
           me.router.navigate(['home'], { queryParams: { videoId: id }, skipLocationChange: true });
 
         } else {
-          me.toastr.error('Video is still processing, try after sometime', '', {
-            timeOut: 2000,
-            positionClass: 'toast-top-center',
+          me.translate
+          .get("messages")
+          .pipe(takeUntil(me.ngUnsubscribe))
+          .subscribe((translation: any) => {
+            me.toastr.error(translation.processing, '', {
+              timeOut: 2000,
+              positionClass: 'toast-top-center',
+            });
           });
+         
           me.router.navigate(['/home']);
         }
       })
@@ -502,10 +564,15 @@ export class VideoRecoderComponent implements OnInit {
       uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, function (snapshot) {
         me.uploadProgress = parseInt((snapshot.bytesTransferred / snapshot.totalBytes * 100).toString());
         if (me.uploadProgress == 100) {
-          me.processText = "Your file is processing. Do not close this window. It will take a few seconds"
-          setTimeout(() => {
-            me.processText = "<b>The video is taking a little longer to process than usual. Our servers are crunching bits as fast as it can to get the video ready for you ASAP.</b>";
-          }, 1000 * 60);
+          me.translate
+            .get("messages")
+            .pipe(takeUntil(me.ngUnsubscribe))
+            .subscribe((translation: any) => {
+              me.processText = translation.processing_prompt
+              setTimeout(() => {
+                me.processText = `<b>${translation.server_prompt}</b>`;
+              }, 1000 * 60);
+            });
         }
 
       }, function (error) {

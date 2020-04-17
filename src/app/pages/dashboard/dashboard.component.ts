@@ -7,6 +7,10 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { PreviewDailogComponent } from '../preview-dailog/preview-dailog.component';
 import { PreviewDailogService } from '../preview-dailog/preview-dailog.service';
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: "app-dashboard",
   templateUrl: "dashboard.component.html",
@@ -21,7 +25,8 @@ export class DashboardComponent implements OnInit {
   interval: any;
   subscribe: any;
   queryUnsubscribe: any;
-  constructor(private toastr: ToastrService, private router: Router, public activeModal: NgbActiveModal, private previewDailogService: PreviewDailogService, private confirmationDialogService: ConfirmationDailogService, public modalService: NgbModal, private route: ActivatedRoute, ) {
+  private ngUnsubscribe = new Subject<void>();
+  constructor(private translate:TranslateService,private toastr: ToastrService, private router: Router, public activeModal: NgbActiveModal, private previewDailogService: PreviewDailogService, private confirmationDialogService: ConfirmationDailogService, public modalService: NgbModal, private route: ActivatedRoute, ) {
 
   }
   share(item) {
@@ -127,6 +132,8 @@ export class DashboardComponent implements OnInit {
     if (this.queryUnsubscribe) {
       this.queryUnsubscribe();
     }
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
   getStatus(status) {
     if (status == 1) {
@@ -178,10 +185,16 @@ export class DashboardComponent implements OnInit {
 
   open(item) {
     let buttonText = "";
+    this.translate
+    .get("home")
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe((translation: any) => {
+      this.shwDeletePrompt(item, translation.del_prompt, "",  translation.yes,  translation.no);     
+    
     if (!firebase.auth().currentUser.isAnonymous) {
-      buttonText = "Re-record";
+      buttonText = translation.re_record;
     } else {
-      buttonText = "Record another";
+      buttonText =  translation.record_another;
 
     }
     this.previewDailogService.open(item.psaId,item.id, item.url, buttonText)
@@ -189,6 +202,8 @@ export class DashboardComponent implements OnInit {
         this.router.navigate(['/video-recorder'], { queryParams: { id: item.psaId,isUpdated:true,videoId:item.videoId },skipLocationChange:true });
       })
       .catch(() => { });
+
+    });
   }
 
   hide(template: TemplateRef<any>) {
@@ -196,7 +211,12 @@ export class DashboardComponent implements OnInit {
 
   }
   delete(item) {
-    this.shwDeletePrompt(item, "Are you sure you want to delete this video?", "", "Yes", "No");
+    this.translate
+    .get("home")
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe((translation: any) => {
+      this.shwDeletePrompt(item, translation.del_prompt, "",  translation.yes,  translation.no);     
+    });
   }
   public shwDeletePrompt(item, title, message, btnOkText, btnCancelText) {
     this.confirmationDialogService.confirm(title, message, btnOkText, btnCancelText)

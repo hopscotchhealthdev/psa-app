@@ -5,27 +5,7 @@ declare interface RouteInfo {
   icon: string;
   class: string;
 }
-export const ROUTES: RouteInfo[] = [
-  {
-    path: "/home",
-    title: "Videos",
-    icon: "assets/img/psa-recorder_mechnanic-64x64.png",
-    class: ""
-  },
-  {
-    path: "/psa-list",
-    title: "Video Recoder",
-    icon: "assets/img/psa-video_recorder-64x64.png",
-    class: ""
-  },
-  {
-    path: "/profile",
-    title: "Profile",
-    icon: "assets/img/psa-profile-64x64.png",
-    class: ""
-  },
-  
-];
+export const ROUTES: RouteInfo[] = [];
 
 @Component({
   selector: "app-sidebar",

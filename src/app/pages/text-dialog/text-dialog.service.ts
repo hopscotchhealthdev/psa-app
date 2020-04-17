@@ -22,4 +22,8 @@ export class TextDailogService {
     modalRef.componentInstance.btnOkText = btnOkText;
     return modalRef.result;
   }
+
+  public close() {
+    this.modalService.dismissAll();
+  }
 }
