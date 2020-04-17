@@ -24,7 +24,6 @@ export class ProfileComponent implements OnInit {
   public loading: boolean = false;
   public isAnonymous = false;
   private ngUnsubscribe = new Subject<void>();
-  lang:string= localStorage.getItem("language")
   constructor(private toastr: ToastrService,private router:Router,public translate: TranslateService) { }
   ngOnInit() {
     let me = this;
@@ -194,8 +193,5 @@ export class ProfileComponent implements OnInit {
     document.getElementById("file").click();
   }
 
-  languageChange(evt){
-   this.translate.use(evt.target.value);
-   localStorage.setItem("language",evt.target.value)
-  }
+  
 }

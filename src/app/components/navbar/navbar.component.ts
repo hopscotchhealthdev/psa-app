@@ -29,6 +29,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   isAnonymous:boolean=true;
   closeResult: string;
   private ngUnsubscribe = new Subject<void>();
+  lang:string= localStorage.getItem("language");
   constructor(
     location: Location,
     private element: ElementRef,
@@ -51,6 +52,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
       navbar.classList.add('navbar-transparent');
     }
   };
+
+  myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+  }
+
   ngOnInit() {
     // window.addEventListener("resize", this.updateColor);
    // this.listTitles = ROUTES.filter(listTitle => listTitle);
@@ -65,6 +71,19 @@ export class NavbarComponent implements OnInit, OnDestroy {
       }
     });
 
+  // Close the dropdown if the user clicks outside of it
+  window.onclick = function(event:any) {
+    if (!event.target.matches('.dropbtn')) {
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
+      }
+    }
+  }
 
     
     firebase.auth().onAuthStateChanged((user) => {
@@ -265,4 +284,8 @@ profileCollapse(){
   ngOnDestroy() {
     window.removeEventListener("resize", this.updateColor);
   }
+  languageChange(value){
+    this.translate.use(value);
+    localStorage.setItem("language",value)
+   }
 }
