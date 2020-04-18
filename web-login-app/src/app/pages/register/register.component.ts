@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from '@angular/router';
 import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import * as firebase from "firebase";
+import { TranslateService } from '@ngx-translate/core';
 const email_pattern = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|in|net|org|pro|travel|health|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
 
 @Component({
@@ -14,7 +15,7 @@ export class RegisterComponent implements OnInit {
   public form: FormGroup;
   public error: string = "";
   public loading: boolean = false;
-  constructor(router: Router, public fb: FormBuilder, ) {
+  constructor(router: Router, public fb: FormBuilder,private translate:TranslateService ) {
     this.router = router;
 
     this.form = fb.group({
@@ -27,8 +28,8 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  ngOnInit() {
-  }
+  ngOnInit(){}
+  
   public matchingPasswords(field_name) {
     return (control: AbstractControl): { [key: string]: any } => {
       let input = control.value;
