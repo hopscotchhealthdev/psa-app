@@ -1,78 +1,78 @@
 {
 	"psa_list": {
-		"title": "Choose Your Video Challenge",
-		"instruction": "Instructions",
-		"guide": "You need to enable MediaRecorder on your device. Here's a video that guides you through it."
+		"title": "आपले व्हिडिओ आव्हान निवडा",
+		"instruction": "सूचना",
+		"guide": "आपल्याला आपल्या डिव्हाइसवर मीडियारेकार्ड सक्षम करण्याची आवश्यकता आहे. येथे एक व्हिडिओ आहे जो आपल्याला त्याद्वारे मार्गदर्शन करतो."
 	},
 	"video_recorder": {
-		"upload_prompt": "Video Uploading",
-		"play_prompt": "Hit the play button and read out what you see on the screen.",
-		"got_it": "GOT IT",
-		"process_prompt": "Would you like to proceed to upload your video or re-record it?",
-		"upload": "UPLOAD",
-		"re_record": "RE-RECORD",
-		"attention": "Attention",
-		"continue": "Continue Video",
-		"reset": "Reset Video"
+		"upload_prompt": "व्हिडिओ अपलोड करत आहे",
+		"play_prompt": "प्ले बटण दाबा आणि आपण स्क्रीनवर काय पहात आहात ते वाचा.",
+		"got_it": "समजले",
+		"process_prompt": "आपण आपला व्हिडिओ अपलोड करण्यास किंवा पुन्हा रेकॉर्ड करण्यास इच्छिता?",
+		"upload": "अपलोड करा",
+		"re_record": "पुन्हा नोंद घ्या",
+		"attention": "लक्ष",
+		"continue": "व्हिडिओ सुरू ठेवा",
+		"reset": "व्हिडिओ रीसेट करा"
 	},
 	"home": {
-		"title": "Home",
-		"del_prompt": "Are you sure you want to delete this video?",
-		"yes": "YES",
-		"no": "NO",
-		"preview":"Preview",
-		"delete":"Delete",
-		"share":"Share",
-		"re_record":"Re-record",
-		"record_another":"Record another"
+		"title": "मुख्यपृष्ठ",
+		"del_prompt": "आपली खात्री आहे की आपण हा व्हिडिओ हटवू इच्छिता?",
+		"yes": "होय",
+		"no": "नाही",
+		"preview":"पूर्वावलोकन",
+		"delete":"हटवा",
+		"share":"सामायिक करा",
+		"re_record":"पुन्हा रेकॉर्ड करा",
+		"record_another":"दुसरे रेकॉर्ड करा"
 	},
-	"app_name":"COVID-19 VIDEO CHALLENGE",
+	"app_name":"COVID-19 व्हिडिओ आव्हान",
 	"profile": {
-		"title": "Edit Profile",
-		"add_photo": "Add Photo",
-		"email": "Email",
-		"user_name": " User Name",
-		"age": "Age",
-		"gender": "Gender",
-		"male": "Male",
-		"female": "Female",
-		"update": "Update",
-		"login_continue": "Log into the app to continue"
+		"title": "प्रोफाईल संपादित करा",
+		"add_photo": "फोटो जोडा",
+		"email": "ईमेल",
+		"user_name": " वापरकर्त्याचे नाव",
+		"age": "वय",
+		"gender": "लिंग",
+		"male": "नर",
+		"female": "स्त्री",
+		"update": "अद्यतनित करा",
+		"login_continue": "सुरू ठेवण्यासाठी अॅपमध्ये लॉग इन करा"
 	},
 	"sidebar": {
-		"video": "Videos",
-		"recorder": "Video Recorder",
-		"profile": "Profile"
+		"video": "व्हिडिओ",
+		"recorder": "व्हिडिओ रेकॉर्डर",
+		"profile": "प्रोफाइल"
 	},
 	"navbar": {
-		"login": "Login",
-		"logout": "log out",
-		"profile": "profile"
+		"login": "लॉगिन",
+		"logout": "बाहेर पडणे",
+		"profile": "प्रोफाइल"
 
 	},
 	"terms": {
-		"agree": "I agree to terms and conditions",
-		"readout": "Read more about our",
-		"terms":" terms and conditions",
-		"accept": "Accept",
-		"decline": "Decline"
+		"agree": "मी अटी व शर्तींशी सहमत आहे",
+		"readout": "आमच्या बद्दल अधिक वाचा",
+		"terms":"नियम आणि अटी",
+		"accept": "स्वीकारा",
+		"decline": "नाकारणे"
 	},
 	"language":{
-	"change_lang":"Change Language"
+	"change_lang":"भाषा बदला"
 	},
 	"messages": {
-		"permission": "Allow camera and microphone permission  to access this page.",
-		"safari": "Use latest Safari browser to access this page",
-		"file_error": "File upload error",
-		"file_success": "Video file processed successfully",
-		"processing": "Video is still processing, try after sometime",
-		"processing_prompt": "Your file is processing. Do not close this window. It will take a few seconds",
-		"server_prompt": "The video is taking a little longer to process than usual. Our servers are crunching bits as fast as it can to get the video ready for you ASAP.",
-		"mac_browser": "Use latest Safari browser to access this page",
-		"api_error": "Something went wrong,please try again later",
-		"android_browser": "Your browser version does not support CoVideo. To record a video, please update Chrome on your device.",
-		"safari_browser": "Your Safari browser version does not support CoVideo. To record a video, please update Safari on your device.",
-		"profile_update": "Profile updated successfully",
-		"profile_error":"Profile update error"
+		"permission": "या पृष्ठात प्रवेश करण्यासाठी कॅमेरा आणि मायक्रोफोन परवानगीस अनुमती द्या.",
+		"safari": "या पृष्ठात प्रवेश करण्यासाठी नवीनतम सफारी ब्राउझर वापरा",
+		"file_error": "फाइल अपलोड त्रुटी",
+		"file_success": "व्हिडिओ फाइलवर यशस्वीरित्या प्रक्रिया केली",
+		"processing": "व्हिडिओ अद्याप प्रक्रिया करीत आहे, काही वेळाने प्रयत्न करा",
+		"processing_prompt": "आपली फाईल प्रक्रिया करीत आहे. ही विंडो बंद करू नका. यास काही सेकंद लागतील",
+		"server_prompt": "व्हिडिओ नेहमीच्या तुलनेत प्रक्रिया होण्यास थोडा वेळ घेत आहे. आमचे सर्व्हर आपल्यासाठी शक्य तितक्या लवकर व्हिडिओ तयार करण्यासाठी शक्य तितक्या वेगाने बिट्स क्रंच करीत आहेत.",
+		"mac_browser": "या पृष्ठात प्रवेश करण्यासाठी नवीनतम सफारी ब्राउझर वापरा",
+		"api_error": "काहीतरी चुकीचे घडले आहे, कृपया थोड्यावेळाने प्रयत्न करा",
+		"android_browser": "आपली ब्राउझर आवृत्ती CoVideo चे समर्थन करत नाही. व्हिडिओ रेकॉर्ड करण्यासाठी, कृपया आपल्या डिव्हाइसवर Chrome अद्यतनित करा.",
+		"safari_browser": "आपली सफारी ब्राउझर आवृत्ती CoVideo चे समर्थन करत नाही. व्हिडिओ रेकॉर्ड करण्यासाठी, कृपया आपल्या डिव्हाइसवर सफारी अद्यतनित करा.",
+		"profile_update": "प्रोफाइल  यशस्वीरित्या अद्यतनित केले",
+		"profile_error":"प्रोफाइल अद्यतन त्रुटी"
 	}
 }

@@ -45,7 +45,6 @@ export class ProfileComponent implements OnInit {
   ngOnDestroy(){
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
-  
   }
   validateAge(evt) {
     if (parseInt(evt.target.value) < 0) {

@@ -53,7 +53,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
   };
 
-  myFunction() {
+  openLang() {
     document.getElementById("myDropdown").classList.toggle("show");
   }
 

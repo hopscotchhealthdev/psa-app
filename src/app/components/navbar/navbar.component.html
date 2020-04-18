@@ -59,26 +59,21 @@
   </ul>
   
   </div>
+    <!--  language button -->
+    <div class="dropdown language-order">
+      <button (click)="openLang()" class="btn btn-block black-button dropbtn">Language</button>
+      <div id="myDropdown" class="dropdown-content">
+        <a (click)="languageChange('en')">English</a>
+        <a  (click)="languageChange('hi')">Hindi</a>
+        <a (click)="languageChange('ma')">Marathi</a>
+      </div>
+    </div> 
+    
   <div *ngIf="isAnonymous" class="logo-order" style="border-top: 0.0625rem solid rgba(34, 42, 66, 0.05);">
   <button (click)="goToLogin()" class="btn btn-block black-button" type="submit" >{{ "navbar.login" | translate }}</button>
  
 </div>
-<!-- <div class="card white-bg">
-    <label>{{ "language.change_lang" | translate }}</label>
-    <select (change)="languageChange($event)">
-      <option value="en">English</option>
-      <option value="hi">Hindi</option>
-    </select>
-</div> -->
-<div class="dropdown logo-order">
-  <button (click)="myFunction()" class="dropbtn">Lanuage</button>
-  <div id="myDropdown" class="dropdown-content">
-    <a (click)="languageChange('en')">English</a>
-    <a  (click)="languageChange('hi')">Hindi</a>
-    <a (click)="languageChange('ma+')">Marathi</a>
-  </div>
-</div>
-  
+
 </div>
   
   </nav>
