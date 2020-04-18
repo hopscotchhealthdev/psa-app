@@ -15,6 +15,7 @@ export class PsaListComponent implements OnInit {
   instruction = false;
   src: string = "";
   subscribe: any;
+  interval:any;
   constructor(private router: Router, private route: ActivatedRoute) {
 
   }
@@ -37,12 +38,23 @@ export class PsaListComponent implements OnInit {
 
       }
     })
-
+    let oldValue = localStorage.getItem("language");
+  this.interval=  setInterval(() => {
+      let newValue = localStorage.getItem("language");
+      if (oldValue != newValue) {
+        this.fetchPsa();
+      }
+      oldValue = newValue
+    }, 1000);
     this.fetchPsa();
   }
-  ngOnDestrpy() {
+
+  ngOnDestroy() {
     if (this.subscribe) {
       this.subscribe.unsubscribe();
+    }
+    if(this.interval){
+      clearInterval(this.interval);
     }
   }
   ngAfterViewInit() { }
@@ -56,8 +68,8 @@ export class PsaListComponent implements OnInit {
     const me = this;
     me.psa = [];
     me.loading = true;
-    let lang=  localStorage.getItem("language");
-    firebase.firestore().collection("psa").where("lang","==",lang).get().then(function (querySnapshot) {
+    let lang = localStorage.getItem("language");
+    firebase.firestore().collection("psa").where("lang", "==", lang).get().then(function (querySnapshot) {
       me.loading = false;
       querySnapshot.forEach(snapItem => {
         me.psa.push({
