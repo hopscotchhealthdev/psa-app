@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import * as firebase from "firebase";
+import { TranslateService } from "@ngx-translate/core";
 const email_pattern = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|in|net|org|pro|travel|health|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
 declare var FB: any;
 declare var window:any;
@@ -13,12 +14,24 @@ declare var window:any;
 export class LoginComponent implements OnInit {
   public error: string = "";
   public loading: boolean = false;
-  constructor(private router: Router, fb: FormBuilder, private route: ActivatedRoute) {
+  constructor(private router: Router, fb: FormBuilder,private translate:TranslateService, private route: ActivatedRoute) {
     this.router = router;
 
   }
 
   ngOnInit() {
+    var me = this;
+    let lang = localStorage.getItem("language");
+    if (lang) {
+      this.translate.setDefaultLang(lang);
+      this.translate.use(lang);
+    } else {
+      localStorage.setItem("language","en");
+      this.translate.setDefaultLang("en");
+      this.translate.use("en");
+    }
+
+      
    // this.route.queryParamMap.subscribe(params => { })
 
   }
@@ -257,4 +270,5 @@ export class LoginComponent implements OnInit {
     }
 
   }
+  
 }

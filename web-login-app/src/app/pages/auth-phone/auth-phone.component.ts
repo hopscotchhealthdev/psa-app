@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import * as firebase from "firebase";
 import { SwalComponent } from "@sweetalert2/ngx-sweetalert2";
+import { TranslateService } from "@ngx-translate/core";
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
 @Component({
   selector: 'app-auth-phone',
   templateUrl: './auth-phone.component.html',
@@ -17,8 +20,9 @@ export class AuthPhoneComponent implements OnInit {
   public swalType = "info";
   confirmationResult: any;
   isAnonymous: boolean = false;
+  private ngUnsubscribe = new Subject<void>();
   public recaptchaVerifier: firebase.auth.RecaptchaVerifier;
-  constructor(private router: Router, fb: FormBuilder) {
+  constructor(private router: Router, fb: FormBuilder,private translate:TranslateService) {
     this.router = router;
     let me = this;
     me.loading = false;
@@ -46,15 +50,23 @@ export class AuthPhoneComponent implements OnInit {
           me.confirmationResult = confirmationResult;
           // SMS sent. Prompt user to type the code from the message, then sign the
           // user in with confirmationResult.confirm(code).
-          me.cntSwal.title = "Enter your OTP";
-          me.cntSwal.text = "OTP will take a few seconds to receive. Please check your phone.";         
-          me.cntSwal.confirmButtonText = "Verify";
-          me.cntSwal.cancelButtonText = "Cancel";
-          me.cntSwal.showConfirmButton = true;
-          me.cntSwal.showCancelButton = true;
-          me.isAnonymous = true;
-          me.cntSwal.show();
-          me.loading = false;
+
+          me.translate
+          .get("phone_auth")
+          .pipe(takeUntil(me.ngUnsubscribe))
+          .subscribe((translation: any) => {
+            me.cntSwal.title = translation.otp_title;
+            me.cntSwal.text = translation.otp_time;                   
+            me.cntSwal.confirmButtonText = translation.verify;
+            me.cntSwal.cancelButtonText = translation.cancel;
+            me.cntSwal.showConfirmButton = true;
+            me.cntSwal.showCancelButton = true;
+            me.isAnonymous = true;
+            me.cntSwal.show();
+            me.loading = false
+          });
+
+        
         })
         .catch((error) => {
           me.loading = false;
@@ -67,15 +79,22 @@ export class AuthPhoneComponent implements OnInit {
           me.confirmationResult = confirmationResult;
           // SMS sent. Prompt user to type the code from the message, then sign the
           // user in with confirmationResult.confirm(code).
-          me.cntSwal.title = "Enter your OTP";
-          me.cntSwal.text = "OTP will take a few seconds to receive. Please check your phone.";                   
-          me.cntSwal.confirmButtonText = "Verify";
-          me.cntSwal.cancelButtonText = "Cancel";
-          me.cntSwal.showConfirmButton = true;
-          me.cntSwal.showCancelButton = true;
-          me.cntSwal.show();
-          me.isAnonymous = false;
-          me.loading = false;
+          me.translate
+          .get("phone_auth")
+          .pipe(takeUntil(me.ngUnsubscribe))
+          .subscribe((translation: any) => {
+            me.cntSwal.title = translation.otp_title;
+            me.cntSwal.text = translation.otp_time;                   
+            me.cntSwal.confirmButtonText = translation.verify;
+            me.cntSwal.cancelButtonText = translation.cancel;
+            me.cntSwal.showConfirmButton = true;
+            me.cntSwal.showCancelButton = true;
+            me.cntSwal.show();
+            me.isAnonymous = false;
+            me.loading = false;
+          });
+
+         
 
         })
         .catch(function (error) {
@@ -169,5 +188,10 @@ export class AuthPhoneComponent implements OnInit {
 
   redirctToRecorderApp() {
     window.location.href = `${window.location.origin}/recorder/index.html`;
+  }
+
+  ngOnDestroy(){
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }

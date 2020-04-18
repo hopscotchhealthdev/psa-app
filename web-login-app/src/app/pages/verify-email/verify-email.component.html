@@ -1,11 +1,11 @@
 <div class="login-page">
   <div class="content">
     <p class="message">
-      Verification link successfully sent to your registered email.
+      {{ "verify.title" | translate }}
     </p>
 
     <div class="logout">
-      <button (click)="logout()" class="btn btn-block" type="submit" expand="block">Logout</button>
+      <button (click)="logout()" class="btn btn-block" type="submit" expand="block">{{ "verify.logout" | translate }}</button>
   </div>
   </div>
 </div>

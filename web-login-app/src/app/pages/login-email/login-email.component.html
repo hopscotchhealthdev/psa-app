@@ -1,9 +1,4 @@
-<nav class="navbar">
 
-  <!-- logo -->
-  <div class="navbar-brand">
-  </div>
-</nav>
 <div class="full-page login-page ">
   <div class="content position-center">
     <div class="container">
@@ -11,7 +6,7 @@
         <div class="card card-login card-white">
           <div class="card-header text-center">
             <img alt="Login Logo" src="assets/img/login-logo.png">
-            <h3 class="card-title" style="font-weight:600;">Login</h3>
+            <h3 class="card-title" style="font-weight:600;">{{ "email_auth.login" | translate }}</h3>
           </div>
           <div *ngIf="error" class="alert alert-danger" role="alert">
             <span>{{error}}</span>
@@ -25,36 +20,36 @@
                     <i class="tim-icons icon-email-85"></i>
                   </div>
                 </div>
-                <input formControlName="email" class="form-control" placeholder="Email" type="text">
+                <input formControlName="email" class="form-control" placeholder='{{ "email_auth.email" | translate }}' type="text">
 
               </div>
-              <small class="text-danger" *ngIf="form.get('email').touched && form.get('email').hasError('required')">Email is required</small>
-              <small class="text-danger" *ngIf="form.get('email').touched && form.get('email').hasError('pattern')">Invalid email address</small>
+              <small class="text-danger" *ngIf="form.get('email').touched && form.get('email').hasError('required')">{{ "email_auth.email_required" | translate }}</small>
+              <small class="text-danger" *ngIf="form.get('email').touched && form.get('email').hasError('pattern')">{{ "email_auth.email_required" | translate }}</small>
               <div class="input-group">
                 <div class="input-group-prepend">
                   <div class="input-group-text">
                     <i class="tim-icons icon-lock-circle"></i>
                   </div>
                 </div>
-                <input formControlName="password" class="form-control" placeholder="Password" type="password">
+                <input formControlName="password" class="form-control" placeholder='{{ "email_auth.password" | translate }}' type="password">
 
               </div>
-              <small class="text-danger" *ngIf="form.get('password').touched && form.get('password').hasError('required')">Password is required
+              <small class="text-danger" *ngIf="form.get('password').touched && form.get('password').hasError('required')">{{ "email_auth.pass_required" | translate }}
               </small>
-              <small class="text-danger" *ngIf="form.get('password').touched && form.get('password').hasError('minlength')">Password isn't long enough, minimum of 6 characters</small>
+              <small class="text-danger" *ngIf="form.get('password').touched && form.get('password').hasError('minlength')">{{ "email_auth.pass_char" | translate }}</small>
             </div>
             <div class="card-footer">
               <button [disabled]="!form.valid" class="btn btn-block" type="submit">
-                Login</button>
+                {{ "email_auth.login" | translate }}</button>
               <div class="pull-left">
                 <h6>
-                  <a [routerLink]="['/register']" class="link footer-link" style="font-weight: 600;"> Create Account
+                  <a [routerLink]="['/register']" class="link footer-link" style="font-weight: 600;"> {{ "email_auth.create_account" | translate }}
                   </a>
                 </h6>
               </div>
               <div class="pull-right">
                 <h6>
-                  <a class="link footer-link" [routerLink]="['/forgot-password']" style="font-weight: 600;"> Forgot Password? </a>
+                  <a class="link footer-link" [routerLink]="['/forgot-password']" style="font-weight: 600;">{{ "email_auth.forgot" | translate }} </a>
                 </h6>
               </div>
             </div>

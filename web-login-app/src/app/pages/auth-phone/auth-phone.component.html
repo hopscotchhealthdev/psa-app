@@ -1,9 +1,4 @@
-<nav class="navbar">
 
-  <!-- logo -->
-  <div class="navbar-brand">
-  </div>
-</nav>
 <div class="full-page login-page ">
   <div class="content position-center">
     <div class="container">
@@ -11,7 +6,7 @@
         <div class="card card-login card-white">
           <div class="card-header text-center">
            <img alt="Login Logo" src="assets/img/login-logo.png">
-            <h3 class="card-title" style="font-weight: 500;">Log in with phone number</h3>
+            <h3 class="card-title" style="font-weight: 500;">{{ "phone_auth.title" | translate }} </h3>
           </div>
           <div *ngIf="error" class="alert alert-danger" role="alert">
             <span>{{error}}</span>
@@ -19,8 +14,8 @@
           <div class="card-body">
             <div class="input-group">
               <div class="input-item" style="width: 100%;">
-                <p style="color:#141414;text-align: left;">Phone number</p>
-                <input class="h-45" style="width: 100%;" type="tel" ng2TelInput [(ngModel)]="phone" placeholder="Please enter your phone number"
+                <p style="color:#141414;text-align: left;">{{ "phone_auth.phone" | translate }}</p>
+                <input class="h-45" style="width: 100%;" type="tel" ng2TelInput [(ngModel)]="phone" placeholder='{{ "phone_auth.enter_phone" | translate }}'
                   (countryChange)="onCountryChange($event)" (ng2TelOutput)="getNumber($event)"
                   [ng2TelInputOptions]="{initialCountry: 'in'}" />
 
@@ -29,11 +24,11 @@
           </div>
           <div class="card-footer">
             <button [disabled]="!phone" (click)="signIn()" class="btn btn-block" type="submit">
-               Send OTP</button>
+              {{ "phone_auth.send_otp" | translate }}</button>
               <div id="recaptcha-container"></div>
             <div class="pull-right">
               <h6>
-                <a [routerLink]="['/login']" class="link footer-link" style="font-weight: 600;"> Back
+                <a [routerLink]="['/login']" class="link footer-link" style="font-weight: 600;"> {{ "phone_auth.back" | translate }}
                 </a>
               </h6>
             </div>

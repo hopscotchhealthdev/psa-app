@@ -1,0 +1,63 @@
+{
+	"login": {
+		"title": "कोविद १९ चा पसर थांबवा, स्वतः. इकडे फ्री मध्ये नोंदणी करा",
+		"sign_up": "ई-मेल नि नोंदणी करा",
+		"login_through": "नोंदणी"
+	},
+	"email_auth": {
+		"login": "लॉगिन ",
+		"email": "ई-मेल",
+		"email_required": "ई-मेल ची गरज आहे",
+		"email_invalid": "हा ई-मेल वापरात नाही",
+		"password": "पासवर्ड ",
+		"pass_required": "पासवर्ड ची गरज आहे",
+		"pass_char": "पासवर्ड छोटं आहे. कमीत कमी ८ अक्षरे",
+		"create_account": "अकाउंट बनवा",
+		"forgot": "पासवर्ड विसरले?",
+		"user_not_found": "नाव वापरात नाही",
+		"invalid": "चुकी च पासवर्ड"
+	},
+	"register": {
+		"title": "नोंदणी करा",
+		"name": "पूर्ण नाव ",
+		"uname_required": "युझरनेम ची गरज आहे ",
+		"uname_invalid": "हा युझरनेम वापरात नाही",
+		"email": "ई-मेल",
+		"email_required": "ई-मेल ची गरज आहे",
+		"email_invalid": "हा ई-मेल वापरात नाही",
+		"password": "पासवर्ड",
+		"password_required": "पासवर्ड ची गरज आहे",
+		"password_invalid": "चुकी च पासवर्ड",
+		"con_password": "पासवर्ड पुष्टी करा ",
+		"con_password_required": "पासवर्ड पुष्टी करायची गरज आहे",
+		"con_password_invalid": "हा पासवर्ड अवैध आहे",
+		"agree": "मी सहमत आहे",
+		"terms": "नियम ला",
+		"sign_up": "साइन अप करा",
+		"go_to_login": "लॉगिन वर जा"
+	},
+	"verify": {
+		"title": "सत्यापन ईमेल पाठविला गेला आहे",
+		"logout": "बाहेर पडणे"
+	},
+	"forgot": {
+		"title": "पासवर्ड विसरले",
+		"email": "ई-मेल",
+		"email_required": "ई-मेल ची गरज आहे",
+		"email_invalid": "हा ई-मेल वापरात नाही",
+		"send": "ई-मेल पाठवा",
+		"link": "आपल्या नोंदणीकृत ईमेलवर रीसेट लिंक पाठवला आहे",
+		"user_not_found": "User अस्तित्वात नाही"
+	},
+	"phone_auth": {
+		"title": "फोने नंबर नि लॉगिन करा",
+		"phone": "नंबर",
+		"send_otp": "OTP पाठवा",
+		"enter_phone": "येथे फोने नंबर घाला",
+		"back": "मागे",
+		"otp_title": "OTP येथे टाईप करा",
+		"otp_time": "OTP ला ५-१० सेकण्ड लागतात. आपला फोने चेक करा.",
+		"verify": "सत्यापन",
+		"cancel": "रद्द करा"
+	}
+}

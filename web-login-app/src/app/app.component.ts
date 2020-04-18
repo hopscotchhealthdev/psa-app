@@ -11,7 +11,7 @@ export class AppComponent {
   title = "BrokenColor";
   
   constructor(public router: Router) {
-    var me = this;
+   
   firebase.auth().onAuthStateChanged((user) => {
   
     })

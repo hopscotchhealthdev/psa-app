@@ -1,76 +1,86 @@
-<div style="height:100vh;margin: 0px;overflow: hidden" class="card card-login card-white p-20">
-        <h4 class="pt-20 dark-grey title-normal text-center">Play your part in tackling the COVID-19 outbreak. Signup for free now.</h4>
-        <div class="text-center">
-            <button type="button" class="signup-button" [routerLink]="['/register']" expand="block">
-                <span>SIGN UP USING EMAIL</span>
-            </button>
+<div style="height:92vh;margin: 0px;overflow: hidden" class="card card-login card-white p-20">
+
+    <!-- <div class="dropdown language-order">
+        <button (click)="openLang()" class="btn btn-block black-button dropbtn">Language</button>
+        <div id="myDropdown" class="dropdown-content">
+            <a (click)="languageChange('en')">English</a>
+            <a (click)="languageChange('hi')">Hindi</a>
+            <a (click)="languageChange('ma')">Marathi</a>
         </div>
+    </div> -->
     
-        <h4 class="mt-20 main-title text-center">Log in through</h4>
-        <div class="row">
-            <div class="social text-center">
-                <button type="button" class="google-button" (click)="doGoogleLogin()">
-                    <img src="assets/img/google.png" width="20" height="20">
-                </button>
-                <p class="pt-10 dark-grey fs-12">Google</p>
-            </div>
-    
-            <div class="social text-center">
-                <button class="twitter-button" type="button" (click)="doTwitterLogin()">
-                    <img src="assets/img/twitter.png" width="20" height="20"> </button>
-                <p class="pt-10 dark-grey fs-12">Twitter</p>
-            </div>
-    
-            <div class="social text-center">
-                <button class="email-button" type="button" [routerLink]="['/login-email']">
-                    <img src="assets/img/email.png" width="20" height="20">
-                </button>
-                <p class="pt-10 dark-grey fs-12">Email</p>
-            </div>
-    
-            <div class="social text-center">
-                <button class="phone-button" type="button" [routerLink]="['/auth-phone']">
-                    <img src="assets/img/phone.png" width="20" height="20">
-                </button>
-                <p class="pt-10 dark-grey fs-12">Phone</p>
-            </div>
-    
-            <!-- <div class="col-3 text-center">
+    <h4 class="pt-20 dark-grey title-normal text-center"> {{ "login.title" | translate }}</h4>
+    <div class="text-center">
+        <button type="button" class="signup-button" [routerLink]="['/register']" expand="block">
+            <span> {{ "login.sign_up" | translate }}</span>
+        </button>
+    </div>
+
+    <h4 class="mt-20 main-title text-center">{{ "login.login_through" | translate }}</h4>
+    <div class="row">
+        <div class="social text-center">
+            <button type="button" class="google-button" (click)="doGoogleLogin()">
+                <img src="assets/img/google.png" width="20" height="20">
+            </button>
+            <p class="pt-10 dark-grey fs-12">Google</p>
+        </div>
+
+        <div class="social text-center">
+            <button class="twitter-button" type="button" (click)="doTwitterLogin()">
+                <img src="assets/img/twitter.png" width="20" height="20"> </button>
+            <p class="pt-10 dark-grey fs-12">Twitter</p>
+        </div>
+
+        <div class="social text-center">
+            <button class="email-button" type="button" [routerLink]="['/login-email']">
+                <img src="assets/img/email.png" width="20" height="20">
+            </button>
+            <p class="pt-10 dark-grey fs-12">Email</p>
+        </div>
+
+        <div class="social text-center">
+            <button class="phone-button" type="button" [routerLink]="['/auth-phone']">
+                <img src="assets/img/phone.png" width="20" height="20">
+            </button>
+            <p class="pt-10 dark-grey fs-12">Phone</p>
+        </div>
+
+        <!-- <div class="col-3 text-center">
           <button class="github-button" type="button" (click)="doGoogleLogin()">
               <img src="assets/img/github.png" width="20" height="20"></button>
               <p class="pt-10 dark-grey fs-12">Github</p>
           </div> -->
-    
-            <!-- <div class="col-3 text-center">
+
+        <!-- <div class="col-3 text-center">
           <button class="apple-button" type="button" (click)="doAppleLogin()">
               <img src="assets/img/apple.png" width="20" height="20"></button>
               <p class="pt-10 dark-grey fs-12">Apple</p>
           </div> -->
-    
-            <div class="social text-center">
-                <button class="facebook-button" type="button" (click)="doFbLogin()">
-                    <img src="assets/img/facebook.png" width="20" height="20">
-                </button>
-                <p class="pt-10 dark-grey fs-12">Facebook</p>
-            </div>
-    
-            <!-- <div class="col-4 text-center">
+
+        <div class="social text-center">
+            <button class="facebook-button" type="button" (click)="doFbLogin()">
+                <img src="assets/img/facebook.png" width="20" height="20">
+            </button>
+            <p class="pt-10 dark-grey fs-12">Facebook</p>
+        </div>
+
+        <!-- <div class="col-4 text-center">
           <button class="email-button" type="button" [routerLink]="['/register']">
               <img src="assets/img/email.png" width="20" height="20"></button>  
               <p class="pt-10 dark-grey fs-12">Sign up</p>
           </div> -->
+    </div>
+
+    <div class="row position-bottom">
+        <div class="col-4 col-lg-4 text-center">
+            <img (click)="update($event)" style="height:100px;" src="assets/img/virus1.gif" />
         </div>
-    
-        <div class="row position-bottom">
-            <div class="col-4 col-lg-4 text-center">
-                <img  (click)="update($event)" style="height:100px;" src="assets/img/virus1.gif" />
-            </div>
-            <div class="col-4 col-lg-4 text-center">
-                <img style="height:100px;" (click)="update($event)" src="assets/img/virus2.gif" />
-            </div>
-            <div class="col-4 col-lg-4 text-center">
-                <img style="height:100px;" (click)="update($event)" src="assets/img/virus3.gif" />
-            </div>
+        <div class="col-4 col-lg-4 text-center">
+            <img style="height:100px;" (click)="update($event)" src="assets/img/virus2.gif" />
+        </div>
+        <div class="col-4 col-lg-4 text-center">
+            <img style="height:100px;" (click)="update($event)" src="assets/img/virus3.gif" />
         </div>
     </div>
-    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+</div>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
