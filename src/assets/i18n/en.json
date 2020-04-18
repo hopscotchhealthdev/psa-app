@@ -37,7 +37,9 @@
 		"male": "Male",
 		"female": "Female",
 		"update": "Update",
-		"login_continue": "Log into the app to continue"
+		"login_continue": "Log into the app to continue",
+		"other":"Other",
+		"prefer_not":"Prefer not to say"
 	},
 	"sidebar": {
 		"video": "Videos",
@@ -48,7 +50,6 @@
 		"login": "Login",
 		"logout": "log out",
 		"profile": "profile"
-
 	},
 	"terms": {
 		"agree": "I agree to terms and conditions",
