@@ -1,0 +1,79 @@
+{
+	"psa_list": {
+		"title": "Choose Your Video Challenge",
+		"instruction": "Instructions",
+		"guide": "You need to enable MediaRecorder on your device. Here's a video that guides you through it."
+	},
+	"video_recorder": {
+		"upload_prompt": "Video Uploading",
+		"play_prompt": "Hit the play button and read out what you see on the screen.",
+		"got_it": "GOT IT",
+		"process_prompt": "Would you like to proceed to upload your video or re-record it?",
+		"upload": "UPLOAD",
+		"re_record": "RE-RECORD",
+		"attention": "Attention",
+		"continue": "Continue Video",
+		"reset": "Reset Video"
+	},
+	"home": {
+		"title": "Home",
+		"del_prompt": "Are you sure you want to delete this video?",
+		"yes": "YES",
+		"no": "NO",
+		"preview":"Preview",
+		"delete":"Delete",
+		"share":"Share",
+		"re_record":"Re-record",
+		"record_another":"Record another"
+	},
+	"app_name":"COVID-19 VIDEO CHALLENGE",
+	"profile": {
+		"title": "Edit Profile",
+		"add_photo": "Add Photo",
+		"email": "Email",
+		"user_name": " User Name",
+		"age": "Age",
+		"gender": "Gender",
+		"male": "Male",
+		"female": "Female",
+		"update": "Update",
+		"login_continue": "Log into the app to continue",
+		"other":"Other",
+		"prefer_not":"Prefer not to say"
+	},
+	"sidebar": {
+		"video": "Videos",
+		"recorder": "Video Recorder",
+		"profile": "Profile"
+	},
+	"navbar": {
+		"login": "Login",
+		"logout": "log out",
+		"profile": "profile"
+	},
+	"terms": {
+		"agree": "I agree to terms and conditions",
+		"readout": "Read more about our",
+		"terms":" terms and conditions",
+		"accept": "Accept",
+		"decline": "Decline"
+	},
+	"language":{
+	"change_lang":"Change Language"
+	},
+	"messages": {
+		"permission": "Allow camera and microphone permission  to access this page.",
+		"safari": "Use latest Safari browser to access this page",
+		"file_error": "File upload error",
+		"file_success": "Video file processed successfully",
+		"processing": "Video is still processing, try after sometime",
+		"processing_prompt": "Your file is processing. Do not close this window. It will take a few seconds",
+		"server_prompt": "The video is taking a little longer to process than usual. Our servers are crunching bits as fast as it can to get the video ready for you ASAP.",
+		"mac_browser": "Use latest Safari browser to access this page",
+		"api_error": "Something went wrong,please try again later",
+		"android_browser": "Your browser version does not support CoVideo. To record a video, please update Chrome on your device.",
+		"safari_browser": "Your Safari browser version does not support CoVideo. To record a video, please update Safari on your device.",
+		"profile_update": "Profile updated successfully",
+		"profile_error":"Profile update error"
+	}
+}

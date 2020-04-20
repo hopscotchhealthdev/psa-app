@@ -1,0 +1,63 @@
+{
+	"login": {
+		"title": "Play your part in tackling the COVID-19 outbreak. Signup for free now.",
+		"sign_up": "SIGN UP USING EMAIL",
+		"login_through": "Log in through"
+	},
+	"email_auth": {
+		"login": "Login",
+		"email": "Email",
+		"email_required": "Email is required",
+		"email_invalid": "Invalid email address",
+		"password": "Password",
+		"pass_required": "Password is required",
+		"pass_char": "Password isn't long enough, minimum of 6 characters",
+		"create_account": "Create Account",
+		"forgot": " Forgot Password?",
+		"user_not_found": "user not found",
+		"invalid": "Invalid  password"
+	},
+	"register": {
+		"title": "Register",
+		"name": "Full Name",
+		"uname_required": "User Name is required",
+		"uname_invalid": "Invalid UserName",
+		"email": "Email",
+		"email_required": "Email is required",
+		"email_invalid": "Invalid email address",
+		"password": "Password",
+		"password_required": "Password is required",
+		"password_invalid": "Invalid password",
+		"con_password": "Confirm Password",
+		"con_password_required": "Confirm password is required",
+		"con_password_invalid": "Invalid confirm password",
+		"agree": " I agree to the",
+		"terms": "terms and conditions",
+		"sign_up": "Sign up",
+		"go_to_login": "Go to Login"
+	},
+	"verify": {
+		"title": "Verification link successfully sent to your registered email.",
+		"logout": "Logout"
+	},
+	"forgot": {
+		"title": "Forgot Password",
+		"email": "Email",
+		"email_required": "Email is required",
+		"email_invalid": "Invalid email address",
+		"send": "Send Email",
+		"link": "Reset link sent successfully to your registered email",
+		"user_not_found": "User does not exist"
+	},
+	"phone_auth": {
+		"title": "Log in with phone number",
+		"phone": "Phone number",
+		"send_otp": "Send OTP",
+		"enter_phone": "Please enter your phone number",
+		"back": "Back",
+		"otp_title": "Enter your OTP",
+		"otp_time": "OTP will take a few seconds to receive. Please check your phone.",
+		"verify": "Verify",
+		"cancel": "Cancel"
+	}
+}
