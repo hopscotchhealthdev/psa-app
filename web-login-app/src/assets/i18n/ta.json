@@ -1,63 +1,63 @@
 {
 	"login": {
-		"title": "Play your part in tackling the COVID-19 outbreak. Signup for free now.",
-		"sign_up": "SIGN UP USING EMAIL",
-		"login_through": "Log in through"
+		"title": "COVID-19 பரவலை கையாள்வதில் உங்கள் பங்கை வகிக்கவும். இப்போது இலவசமாக பதிவுபெறுங்கள்.",
+		"sign_up": "பதிவு செய்வதற்கு உங்கள்  மின்னஞ்சலைப் பயன்படுத்துங்கள்",
+		"login_through": "உள்நுழைவதற்கு"
 	},
 	"email_auth": {
-		"login": "Login",
-		"email": "Email",
-		"email_required": "Email is required",
-		"email_invalid": "Invalid email address",
-		"password": "Password",
-		"pass_required": "Password is required",
-		"pass_char": "Password isn't long enough, minimum of 6 characters",
-		"create_account": "Create Account",
-		"forgot": " Forgot Password?",
-		"user_not_found": "user not found",
-		"invalid": "Invalid  password"
+		"login": "உள்நுழைக ",
+		"email": "மின்னஞ்சல் ",
+		"email_required": "மின்னஞ்சல் கண்டிப்பாக  தேவை",
+		"email_invalid": "தவறான மின்னஞ்சல் முகவரி",
+		"password": "கடவுச்சொல் ",
+		"pass_required": "கடவுச்சொல் கண்டிப்பாக தேவை",
+		"pass_char": " கடவுச்சொல் நீண்டதாக இல்லை, குறைந்தபட்சம் 6 எழுத்துக்கள்",
+		"create_account": "கணக்கை உருவாக்குங்கள்",
+		"forgot": " கடவுச்சொல் மறந்துவிட்டீர்களா?",
+		"user_not_found": "பயனர் கிடைக்கவில்லை",
+		"invalid": "தவறான கடவுச்சொல் "
 	},
 	"register": {
-		"title": "Register",
-		"name": "Full Name",
-		"uname_required": "User Name is required",
-		"uname_invalid": "Invalid UserName",
-		"email": "Email",
-		"email_required": "Email is required",
-		"email_invalid": "Invalid email address",
-		"password": "Password",
-		"password_required": "Password is required",
-		"password_invalid": "Invalid password",
-		"con_password": "Confirm Password",
-		"con_password_required": "Confirm password is required",
-		"con_password_invalid": "Invalid confirm password",
-		"agree": " I agree to the",
-		"terms": "terms and conditions",
-		"sign_up": "Sign up",
-		"go_to_login": "Go to Login"
+		"title": "பதிவு செய்க",
+		"name": "முழு பெயர் ",
+		"uname_required": "பயனர் பெயர் தேவை",
+		"uname_invalid": " தவறான பயனர் பெயர்",
+		"email": "மின்னஞ்சல்",
+		"email_required": "மின்னஞ்சல் கண்டிப்பாக தேவை",
+		"email_invalid": "தவறான மின்னஞ்சல் முகவரி",
+		"password": "கடவுச்சொல்",
+		"password_required": "கடவுச்சொல் கண்டிப்பாக தேவை",
+		"password_invalid": "தவறான கடவுச்சொல்",
+		"con_password": "கடவுச்சொல்லை உறுதிப்படுத்தவும்",
+		"con_password_required": "கடவுச்சொல் தேவை என்பதை உறுதிப்படுத்தவும்",
+		"con_password_invalid": "தவறான கடவுச்சொல்",
+		"agree": " நான் கீழ்ப்படியும",
+		"terms": "விதிமுறைகள் மற்றும் நிபந்தனைகள் ஒப்புக்கொள்கிறேன்",
+		"sign_up": "பதிவுபெறுக",
+		"go_to_login": "உள்நுழைவுக்குச் செல்லவும்"
 	},
 	"verify": {
-		"title": "Verification link successfully sent to your registered email.",
-		"logout": "Logout"
+		"title": "உங்கள் பதிவு செய்யப்பட்ட மின்னஞ்சலுக்கு சரிபார்ப்பு இணைப்பு வெற்றிகரமாக அனுப்பப்பட்டது",
+		"logout": "வெளியேறு"
 	},
 	"forgot": {
-		"title": "Forgot Password",
-		"email": "Email",
-		"email_required": "Email is required",
-		"email_invalid": "Invalid email address",
-		"send": "Send Email",
-		"link": "Reset link sent successfully to your registered email",
-		"user_not_found": "User does not exist"
+		"title": "கடவுச்சொல்லை மறந்துவிட்டீர்களா",
+		"email": "மின்னஞ்சல்",
+		"email_required": "மின்னஞ்சல் கண்டிப்பாக தேவை",
+		"email_invalid": "தவறான மின்னஞ்சல் முகவரி",
+		"send": "மின்னஞ்சல் அனுப்புங்கள்",
+		"link": "மீட்பு இணைப்பு உங்கள் பதிவு செய்யப்பட்ட மின்னஞ்சலுக்கு வெற்றிகரமாக அனுப்பப்பட்டது",
+		"user_not_found": "பயனர் இல்லை"
 	},
 	"phone_auth": {
-		"title": "Log in with phone number",
-		"phone": "Phone number",
-		"send_otp": "Send OTP",
-		"enter_phone": "Please enter your phone number",
-		"back": "Back",
-		"otp_title": "Enter your OTP",
-		"otp_time": "OTP will take a few seconds to receive. Please check your phone.",
-		"verify": "Verify",
-		"cancel": "Cancel"
+		"title": "தொலைபேசி எண்ணுடன் உள்நுழைக",
+		"phone": "தொலைபேசி எண்",
+		"send_otp": "OTP ஐ அனுப்ப கிளிக் செய்க",
+		"enter_phone": ". உங்கள் தொலைபேசி எண்ணை உள்ளிடவும்",
+		"back": "பின்",
+		"otp_title": "​​உங்கள் OTP ஐ உள்ளிடவும்",
+		"otp_time": "OTP பெற சில வினாடிகள் ஆகும். உங்கள் தொலைபேசியை பார்க்கவும்",
+		"verify": " சரிபார்க்கவும்",
+		"cancel": "ரத்துசெய்"
 	}
 }
