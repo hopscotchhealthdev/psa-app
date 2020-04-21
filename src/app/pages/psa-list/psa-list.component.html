@@ -1,60 +1,60 @@
 <div class="content">
 
-  <div *ngIf="!instruction">
-    <div class="row">
-      <div class="col-12">
-        <div class="card card-chart">
-          <div class="card-header">
-            <div class="row">
-              <div class="col-sm-6 text-left" style="color:#141414;"> {{ "psa_list.title" | translate }} </div>
+    <div *ngIf="!instruction && groups.length >0">
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-chart">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-sm-6 text-left" style="color:#141414;"> {{ "psa_list.title" | translate }} </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <div class="psa-list mb-20 p-10">
+        <label>English</label>
+        <ul class="no-margin">
+          <li (click)="choose(item.id)" *ngFor="let item of groups.en" class="white-button">{{item.data.name}}</li>
+        </ul>
+      </div>
+      <br/>    
+      <div class="psa-list mb-20 p-10">
+        <label>Hindi</label>
+        <ul class="no-margin">
+          <li (click)="choose(item.id)" *ngFor="let item of groups.hi" class="white-button">{{item.data.name}}</li>
+        </ul>
+      </div>
+      <br/>
+      <div class="psa-list mb-20 p-10">
+        <label>Marathi</label>
+        <ul class="no-margin">
+          <li (click)="choose(item.id)" *ngFor="let item of groups.ma" class="white-button">{{item.data.name}}</li>
+        </ul>
+      </div>
+      <br/>
+     
+      <div class="psa-list mb-20 p-10">
+        <label>Bengali</label>
+        <ul class="no-margin">
+          <li (click)="choose(item.id)" *ngFor="let item of groups.be" class="white-button">{{item.data.name}}</li>
+        </ul>
+      </div>
+      <br/>
+  
+      <div class="psa-list mb-20 p-10">
+        <label>Tamil</label>
+        <ul class="no-margin">
+          <li (click)="choose(item.id)" *ngFor="let item of groups.ta" class="white-button">{{item.data.name}}</li>
+        </ul>
+      </div>
+      <br/>
     </div>
-    <div class="psa-list mb-20 p-10">
-      <label>English</label>
-      <ul class="no-margin">
-        <li (click)="choose(item.id)" *ngFor="let item of groups.en" class="white-button">{{item.data.name}}</li>
-      </ul>
+    <div *ngIf="instruction" class="psa-list mb-20 p-10">
+      <label>{{ "psa_list.instruction" | translate }}</label>
+      <h4>{{ "psa_list.guide" | translate }}</h4>
+      <video autoplay controls [src]="src" style="width: 100%;height:auto;" class="video"></video>
     </div>
-    <br/>    
-    <div class="psa-list mb-20 p-10">
-      <label>Hindi</label>
-      <ul class="no-margin">
-        <li (click)="choose(item.id)" *ngFor="let item of groups.hi" class="white-button">{{item.data.name}}</li>
-      </ul>
-    </div>
-    <br/>
-    <div class="psa-list mb-20 p-10">
-      <label>Marathi</label>
-      <ul class="no-margin">
-        <li (click)="choose(item.id)" *ngFor="let item of groups.ma" class="white-button">{{item.data.name}}</li>
-      </ul>
-    </div>
-    <br/>
-   
-    <div class="psa-list mb-20 p-10">
-      <label>Bengali</label>
-      <ul class="no-margin">
-        <li (click)="choose(item.id)" *ngFor="let item of groups.be" class="white-button">{{item.data.name}}</li>
-      </ul>
-    </div>
-    <br/>
-
-    <div class="psa-list mb-20 p-10">
-      <label>Tamil</label>
-      <ul class="no-margin">
-        <li (click)="choose(item.id)" *ngFor="let item of groups.ta" class="white-button">{{item.data.name}}</li>
-      </ul>
-    </div>
-    <br/>
   </div>
-  <div *ngIf="instruction" class="psa-list mb-20 p-10">
-    <label>{{ "psa_list.instruction" | translate }}</label>
-    <h4>{{ "psa_list.guide" | translate }}</h4>
-    <video autoplay controls [src]="src" style="width: 100%;height:auto;" class="video"></video>
-  </div>
-</div>
-
-<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+  
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

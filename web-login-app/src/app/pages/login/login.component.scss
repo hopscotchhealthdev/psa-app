@@ -79,3 +79,17 @@ background-color: #2A6774;}
   .dropdown a:hover {background-color: #ddd;}
   
   .show {display: block;}
+
+
+.mt-0{margin-top: 0px;}
+body{background-color: #fff !important;}
+ @media only screen and (max-width: 768px) {
+.display-desktop{
+  display:none;
+}
+}
+@media (min-width: 1024px) {
+.display-mobile{
+  display:none;
+}
+}

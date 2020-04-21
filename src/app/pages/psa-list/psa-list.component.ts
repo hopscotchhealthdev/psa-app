@@ -39,7 +39,8 @@ export class PsaListComponent implements OnInit {
 
       }
     })
-    let oldValue = localStorage.getItem("language");
+ /*  
+ let oldValue = localStorage.getItem("language");
   this.interval=  setInterval(() => {
       let newValue = localStorage.getItem("language");
       if (oldValue != newValue) {
@@ -47,6 +48,7 @@ export class PsaListComponent implements OnInit {
       }
       oldValue = newValue
     }, 1000);
+    */
     this.fetchPsa();
   }
 

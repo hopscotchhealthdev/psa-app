@@ -5,7 +5,7 @@ import * as firebase from "firebase";
 import { TranslateService } from "@ngx-translate/core";
 const email_pattern = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|in|net|org|pro|travel|health|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
 declare var FB: any;
-declare var window:any;
+declare var window: any;
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,7 +14,22 @@ declare var window:any;
 export class LoginComponent implements OnInit {
   public error: string = "";
   public loading: boolean = false;
-  constructor(private router: Router, fb: FormBuilder,private translate:TranslateService, private route: ActivatedRoute) {
+  anim = [{
+    img: "assets/img/virus1.gif",
+    show: true,
+    padding: '0'
+  }, {
+    img: "assets/img/virus2.gif",
+    show: true,
+    padding: '90px'
+
+  }, {
+    img: "assets/img/virus3.gif",
+    show: true,
+    padding: '180px'
+
+  }]
+  constructor(private router: Router, fb: FormBuilder, private translate: TranslateService, private route: ActivatedRoute) {
     this.router = router;
 
   }
@@ -26,13 +41,13 @@ export class LoginComponent implements OnInit {
       this.translate.setDefaultLang(lang);
       this.translate.use(lang);
     } else {
-      localStorage.setItem("language","en");
+      localStorage.setItem("language", "en");
       this.translate.setDefaultLang("en");
       this.translate.use("en");
     }
 
-      
-   // this.route.queryParamMap.subscribe(params => { })
+
+    // this.route.queryParamMap.subscribe(params => { })
 
   }
 
@@ -257,18 +272,16 @@ export class LoginComponent implements OnInit {
     window.location.href = `${window.location.origin}/recorder/index.html`;
   }
 
-  update(evt) {
-    let src = evt.target.src;
-  let  last = evt.target.src.substring(evt.target.src.lastIndexOf("/") + 1, evt.target.src.length);  
-  if (last != 'virus-play.gif') {
-      evt.target.src = "assets/img/virus-play.gif"
-      evt.disabled = true;
+  update(item) {
+    let src = item.img;
+    let last = item.img.substring(item.img.lastIndexOf("/") + 1, item.img.length);
+    if (last != 'virus-play.gif') {
+      item.show = false;
       setTimeout(() => {
-        evt.target.src = src
-        evt.disabled = false;
+        item.show = true;
       }, 3300);
     }
 
   }
-  
+
 }

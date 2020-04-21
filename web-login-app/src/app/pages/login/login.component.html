@@ -1,5 +1,12 @@
-<div style="height:92vh;margin: 0px;overflow: hidden" class="card card-login card-white p-20">
-
+<div  class="p-20">
+ <div class="row display-mobile">
+        <div class="col-12 col-lg-4 text-center"  *ngFor="let item of anim" [ngStyle]="{'padding-left': item.padding }">
+                <img (click)="update(item)" *ngIf="item.show" src="{{item.img}}"  width="60" height="auto"/>
+                <img (click)="update(item)" *ngIf="!item.show" src="assets/img/virus-play.gif"  width="60" height="auto"/>        
+          
+        </div>
+        
+    </div>
     <!-- <div class="dropdown language-order">
         <button (click)="openLang()" class="btn btn-block black-button dropbtn">Language</button>
         <div id="myDropdown" class="dropdown-content">
@@ -15,8 +22,8 @@
             <span> {{ "login.sign_up" | translate }}</span>
         </button>
     </div>
-
-    <h4 class="mt-20 main-title text-center">{{ "login.login_through" | translate }}</h4>
+<p class="text-center" style="color:#141414; padding-top:10px;">OR</p>
+    <h4 class="mt-20 main-title text-center mt-0">{{ "login.login_through" | translate }}</h4>
     <div class="row">
         <div class="social text-center">
             <button type="button" class="google-button" (click)="doGoogleLogin()">
@@ -70,17 +77,12 @@
               <p class="pt-10 dark-grey fs-12">Sign up</p>
           </div> -->
     </div>
-
-    <div class="row position-bottom">
-        <div class="col-4 col-lg-4 text-center">
-            <img (click)="update($event)" style="height:100px;" src="assets/img/virus1.gif" />
+    <div class="row position-bottom display-desktop">
+        <div class="col-12 col-lg-4 text-center" *ngFor="let item of anim">
+            <img (click)="update(item)" *ngIf="item.show" src="{{item.img}}" alt="virus gif image" width="60" height="auto"/>
+            <img (click)="update(item)" *ngIf="!item.show" src="assets/img/virus-play.gif" alt="virus gif image" width="60" height="auto"/>        
         </div>
-        <div class="col-4 col-lg-4 text-center">
-            <img style="height:100px;" (click)="update($event)" src="assets/img/virus2.gif" />
-        </div>
-        <div class="col-4 col-lg-4 text-center">
-            <img style="height:100px;" (click)="update($event)" src="assets/img/virus3.gif" />
-        </div>
-    </div>
+       
+    </div>   
 </div>
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
