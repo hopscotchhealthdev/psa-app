@@ -11,6 +11,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 export class PsaListComponent implements OnInit {
   public loading = false;
   psa = [];
+  groups=[];
   psaSelect: string = '';
   instruction = false;
   src: string = "";
@@ -69,17 +70,28 @@ export class PsaListComponent implements OnInit {
     me.psa = [];
     me.loading = true;
     let lang = localStorage.getItem("language");
-    firebase.firestore().collection("psa").where("lang", "==", lang).get().then(function (querySnapshot) {
+    let count=0;
+    firebase.firestore().collection("psa").get().then(function (querySnapshot) {
       me.loading = false;
       querySnapshot.forEach(snapItem => {
+        count++;
         me.psa.push({
           id: snapItem.id,
           data: snapItem.data()
         })
+        if(count == querySnapshot.docs.length ){
+            me.groupData();
+        }
       });
     });
   }
 
-
+  groupData(){
+   this.groups = this.psa.reduce((r, a) => {
+      r[a.data.lang] = [...r[a.data.lang] || [], a];
+      return r;
+     }, {});
+  
+  }
 
 }

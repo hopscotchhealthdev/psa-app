@@ -39,7 +39,8 @@ export class VideoRecoderComponent implements OnInit {
     overlay_videos: '',
     uploadSeconds: 0,
     data: [],
-    description: ''
+    description: '',
+    percent:0
 
   };
   loading = false;
@@ -396,7 +397,11 @@ export class VideoRecoderComponent implements OnInit {
             me.resetScreen();
           }
         })
-        .catch(() => { }); 
+        .catch(() => { 
+            me.recordRTC.resumeRecording();
+            me.startTimer(me.timerSeconds);
+
+        }); 
       });
 
      
@@ -444,7 +449,7 @@ export class VideoRecoderComponent implements OnInit {
       seconds = 0 + seconds;
     }
     var time = this.pad(minutes) + ':' + this.pad(seconds);
-
+    this.psaData.percent = (count/this.psaData.uploadSeconds)*100;
     let filter = this.psaData.data.filter(o => o.min <= count && o.max >= count)[0];
     if (filter) {
       this.markText = filter.title;
@@ -541,6 +546,7 @@ export class VideoRecoderComponent implements OnInit {
     this.markText = '';
     this.timecount = 0;
     this.processText = "";
+    this.psaData.percent=0;
     if (this.recordRTC) {
       this.recordRTC.stopRecording();
       this.startCamera();

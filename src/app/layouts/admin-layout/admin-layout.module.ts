@@ -18,7 +18,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { NgMarqueeModule } from 'ng-marquee';
 import { PsaListComponent } from '../../pages/psa-list/psa-list.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader'
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 export function setTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 }
@@ -31,6 +31,13 @@ export function setTranslateLoader(http: HttpClient) {
     NgbModule,ProgressBarModule,
     NgxPaginationModule,
     NgxAudioPlayerModule,
+    NgCircleProgressModule.forRoot({
+      radius: 100,
+      outerStrokeWidth: 16,
+      innerStrokeWidth: 8,
+      outerStrokeColor: "#78C000",
+      innerStrokeColor: "#C7E596",
+    }),
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,
