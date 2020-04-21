@@ -188,9 +188,7 @@ export class DashboardComponent implements OnInit {
     this.translate
     .get("home")
     .pipe(takeUntil(this.ngUnsubscribe))
-    .subscribe((translation: any) => {
-      this.shwDeletePrompt(item, translation.del_prompt, "",  translation.yes,  translation.no);     
-    
+    .subscribe((translation: any) => {  
     if (!firebase.auth().currentUser.isAnonymous) {
       buttonText = translation.re_record;
     } else {
