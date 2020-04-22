@@ -222,7 +222,38 @@ video {
     min-height: calc(100vh - 70px);
   }
 }
-
+/*background-image css*/
+.main-background{
+    background: url('/assets/img/web-background.png'); 
+      background-color: #010101; 
+      background-position: center; 
+      background-repeat: no-repeat;
+      background-size: cover;
+     height: 86vh;
+    background-attachment: fixed;
+}
+ @media screen and (min-width: 320px) and (max-width: 767px){
+  .main-background{
+    background: url('/assets/img/video-bg.png'); 
+      background-color: #010101; 
+      background-position: center; 
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 92vh;
+    background-attachment: fixed;
+}
+}
+@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
+  .main-background{
+    background: url('/assets/img/web-background.png'); 
+      background-color: #010101; 
+      background-position: center; 
+      background-repeat: no-repeat;
+      background-size: cover;
+     height: 146vh;
+    background-attachment: fixed;
+}
+}
 .pt-10{padding-top: 10px;}
 .mb-0{margin-bottom: 0px;}
 

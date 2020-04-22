@@ -26,3 +26,8 @@
 button {text-align: center; padding: 6px; border-width: 0px; border-style: none; border-color: transparent; border-image: initial;  
     font-weight: 500; font-size: 15px; font-family: Montserrat; height: 55px; border-radius: 50%; letter-spacing: 0px;
 	width: 55px; box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px; margin-top: 15px;} 
+@media only screen and (max-width: 600px) {
+  .white-button{
+    width:100%;
+  }
+}  
