@@ -275,7 +275,7 @@
           width: 22px;
           height: 1px;
           border-radius: 1px;
-          background: $white;
+          background: #000;
 
           &.navbar-kebab{
             height: 4px;
@@ -299,7 +299,7 @@
       }
 
       &.bg-white:not(.navbar-transparent) .navbar-toggler-bar{
-          background-color: $default;
+          background-color: #000;
       }
 
       & .toggled .navbar-toggler-bar{

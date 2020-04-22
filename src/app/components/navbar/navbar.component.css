@@ -1,5 +1,5 @@
 .navbar-toggler{
-  background:black !important;
+  background:#FFF !important;
 }
 .caret{
   color: black !important;
@@ -7,17 +7,18 @@
 .user-display{
 display:inline-block;
 }
+
 .d-flex{align-items: center; display: flex;}
 .position-fixed{position: fixed;}
 @media only screen and (min-device-width: 480px) and (max-device-width: 767px) {
 .user-display{display:none;}
 .navbar-nav{float: left;}
-.navbar.bg-white:not(.navbar-transparent) .navbar-toggler-bar{background-color: #ffffff;}
+.navbar.bg-white:not(.navbar-transparent) .navbar-toggler-bar{background-color: #000;}
 }
 @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
 .user-display{display:none;}
 .navbar-nav{float: left;}
-.navbar.bg-white:not(.navbar-transparent) .navbar-toggler-bar{background-color: #ffffff;}
+.navbar.bg-white:not(.navbar-transparent) .navbar-toggler-bar{background-color: #000;}
 .toggle-right{order: 3;}
 }
 
