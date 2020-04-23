@@ -53,7 +53,8 @@
   <div *ngIf="instruction" class="psa-list mb-20 p-10">
     <label>{{ "psa_list.instruction" | translate }}</label>
     <h4>{{ "psa_list.guide" | translate }}</h4>
-    <video autoplay controls [src]="src" style="width: 100%;height:auto;" class="video"></video>
+    <img style='margin:10px;'[src]="src"  />
+    <!-- <video autoplay controls [src]="src" style="width: 100%;height:auto;" class="video"></video> -->
   </div>
 </div>
 

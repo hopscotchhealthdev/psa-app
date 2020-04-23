@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import * as firebase from "firebase";
@@ -16,20 +16,17 @@ export class LoginComponent implements OnInit {
   public loading: boolean = false;
   anim = [{
     img: "assets/img/virus1.gif",
-    show: true,
     padding: '0'
   }, {
     img: "assets/img/virus2.gif",
-    show: true,
     padding: '90px'
 
   }, {
     img: "assets/img/virus3.gif",
-    show: true,
     padding: '180px'
 
   }]
-  constructor(private router: Router, fb: FormBuilder, private translate: TranslateService, private route: ActivatedRoute) {
+  constructor(private cd: ChangeDetectorRef, private router: Router, fb: FormBuilder, private translate: TranslateService, private route: ActivatedRoute) {
     this.router = router;
 
   }
@@ -276,10 +273,13 @@ export class LoginComponent implements OnInit {
     let src = item.img;
     let last = item.img.substring(item.img.lastIndexOf("/") + 1, item.img.length);
     if (last != 'virus-play.gif') {
-      item.show = false;
+      item.img = "assets/img/virus-play.gif";
+      this.cd.detectChanges();
+      let me = this;
       setTimeout(() => {
-        item.show = true;
-      }, 3300);
+        item.img = src;
+        me.cd.detectChanges();
+      }, 3200);
     }
 
   }
