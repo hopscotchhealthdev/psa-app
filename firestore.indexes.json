@@ -13,6 +13,20 @@
             "order": "ASCENDING"
           }
         ]
+      },
+      {
+        "collectionGroup": "videochallenge",
+        "queryScope": "COLLECTION",
+        "fields": [
+          {
+            "fieldPath": "lang",
+            "order": "ASCENDING"
+          },
+          {
+            "fieldPath": "video_challenge",
+            "order": "ASCENDING"
+          }
+        ]
       }
      
     ]
