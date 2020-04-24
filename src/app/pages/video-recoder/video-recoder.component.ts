@@ -156,7 +156,7 @@ export class VideoRecoderComponent implements OnInit {
 
   successCallback(stream: MediaStream) {
     var options = {
-      mimeType: 'video/webm',
+      mimeType: 'video/mp4',
     };
     this.stream = stream;
     this.recordRTC = RecordRTC(stream, options);
@@ -408,9 +408,7 @@ export class VideoRecoderComponent implements OnInit {
     }
   }
 
-  download() {
-    this.recordRTC.save('video.webm;codecs=vp9');
-  }
+ 
 
   pauseTimer() {
     if (this.counter) {
@@ -565,8 +563,11 @@ export class VideoRecoderComponent implements OnInit {
     var recordedBlob = this.recordRTC.getBlob();
     me.currentStatus = 1;
     return new Promise(function (resolve, reject) {
-      const videoId = me.Guid();
-      var uploadTask = firebase.storage().ref().child('videos').child(videoId).put(recordedBlob);
+      const videoId = me.Guid();metadata
+        var metadata = {
+        contentType: 'video/mp4',
+        };
+      var uploadTask = firebase.storage().ref().child('videos').child(videoId).put(recordedBlob,metadata);
       uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, function (snapshot) {
         me.uploadProgress = parseInt((snapshot.bytesTransferred / snapshot.totalBytes * 100).toString());
         if (me.uploadProgress == 100) {
