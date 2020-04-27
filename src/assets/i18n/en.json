@@ -20,7 +20,7 @@
 		"del_prompt": "Are you sure you want to delete this video?",
 		"yes": "YES",
 		"no": "NO",
-		"preview":"Preview",
+		"preview":"View",
 		"delete":"Delete",
 		"share":"Share",
 		"re_record":"Re-record",
@@ -43,7 +43,7 @@
 	},
 	"sidebar": {
 		"video": "Videos",
-		"recorder": "Video Recorder",
+		"recorder": "Record a Video",
 		"profile": "Profile"
 	},
 	"navbar": {

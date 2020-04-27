@@ -211,7 +211,12 @@ video {
     background-color: #000000a1;
     padding: 5px 10px;
     transform: translate(-50%, 0);*/
-    display:none;
+ //   display:none;
+ font-size: 12px;
+    background-color: transparent;
+    position: fixed;
+    bottom: 40px;
+    text-align:left;
 }
 /*.main-panel .content {
     padding: 50px 30px 0px 280px !important; 

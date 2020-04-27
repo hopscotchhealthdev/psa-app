@@ -1,18 +1,9 @@
 <div  class="p-20">
- <div class="row display-mobile">
+ <!-- <div class="row display-mobile">
         <div class="col-12 col-lg-4 text-center"  *ngFor="let item of anim" [ngStyle]="{'padding-left': item.padding }">
                 <img (click)="update(item)" src="{{item.img}}"  width="60" height="auto"/>
-                
-        </div>
-        
-    </div>
-    <!-- <div class="dropdown language-order">
-        <button (click)="openLang()" class="btn btn-block black-button dropbtn">Language</button>
-        <div id="myDropdown" class="dropdown-content">
-            <a (click)="languageChange('en')">English</a>
-            <a (click)="languageChange('hi')">Hindi</a>
-            <a (click)="languageChange('ma')">Marathi</a>
-        </div>
+               
+        </div>  
     </div> -->
     
     <h4 class="pt-20 dark-grey title-normal text-center"> {{ "login.title" | translate }}</h4>
@@ -76,11 +67,11 @@
               <p class="pt-10 dark-grey fs-12">Sign up</p>
           </div> -->
     </div>
-    <div class="row position-bottom display-desktop">
+    <!-- <div class="row position-bottom display-desktop">
         <div class="col-12 col-lg-4 text-center" *ngFor="let item of anim">
             <img (click)="update(item)" src="{{item.img}}" alt="virus gif image" width="60" height="auto"/>
            </div>
        
-    </div>   
+    </div>    -->
 </div>
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

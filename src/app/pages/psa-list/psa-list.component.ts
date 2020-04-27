@@ -15,51 +15,17 @@ export class PsaListComponent implements OnInit {
   psaSelect: string = '';
   instruction = false;
   src: string = "";
-  subscribe: any;
   interval:any;
   constructor(private router: Router, private route: ActivatedRoute) {
 
   }
   ngOnInit() {
-    this.subscribe = this.route.queryParamMap.subscribe(params => {
-      if (params.get("instruction")) {
-        /*  if (params.get('type') == 'PermissionDeniedError') {
-  
-          }
-          */
-        var userAgent = window.navigator.userAgent;
-        if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) {
-          // iPad or iPhone 
-          this.src = "assets/img/phone-media/gif";
-        }
-        else {
-          this.src = "assets/img/mac-media.gif"
-        }
-        this.instruction = true;
-
-      }
-    })
- /*  
- let oldValue = localStorage.getItem("language");
-  this.interval=  setInterval(() => {
-      let newValue = localStorage.getItem("language");
-      if (oldValue != newValue) {
-        this.fetchPsa();
-      }
-      oldValue = newValue
-    }, 1000);
-    */
-    this.fetchPsa();
+  //  this.fetchPsa();
+  window.location.href = `${window.location.origin}/home/videochallenges.html`;
   }
 
-  ngOnDestroy() {
-    if (this.subscribe) {
-      this.subscribe.unsubscribe();
-    }
-    if(this.interval){
-      clearInterval(this.interval);
-    }
-  }
+  ngOnDestroy() { }
+
   ngAfterViewInit() { }
 
   choose(value) {

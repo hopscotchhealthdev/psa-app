@@ -203,6 +203,10 @@ export class DashboardComponent implements OnInit {
 
     });
   }
+  reRecord(item){
+    this.router.navigate(['/video-recorder'], { queryParams: { id: item.psaId },skipLocationChange:true });
+
+  }
 
   hide(template: TemplateRef<any>) {
     this.modalService.dismissAll(template);

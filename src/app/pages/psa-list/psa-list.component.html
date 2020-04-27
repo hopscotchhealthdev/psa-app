@@ -1,6 +1,6 @@
 <div class="content main-background">
 
-  <div *ngIf="!instruction && psa.length>0">
+  <div *ngIf="psa.length>0">
     <div class="row">
       <div class="col-12">
         <div class="card card-chart">
@@ -49,12 +49,6 @@
       </ul>
     </div>
     <br/>
-  </div>
-  <div *ngIf="instruction" class="psa-list mb-20 p-10">
-    <label>{{ "psa_list.instruction" | translate }}</label>
-    <h4>{{ "psa_list.guide" | translate }}</h4>
-    <img style='margin:10px;'[src]="src"  />
-    <!-- <video autoplay controls [src]="src" style="width: 100%;height:auto;" class="video"></video> -->
   </div>
 </div>
 
