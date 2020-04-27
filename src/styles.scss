@@ -180,13 +180,13 @@ body{font-family: 'Montserrat', sans-serif;}
 // }
 
 .blue-button{
-        background-color: #5274E6;
+        background-color: #314DBD;
     margin: 0px 10px;
     border-width: 2px;
     border: none;
     position: relative;
     overflow: hidden;
-    border-radius: 0.4285rem;
+    border-radius: 19px;
     cursor: pointer;
     box-shadow: none;
     color: #ffffff;
@@ -196,12 +196,12 @@ body{font-family: 'Montserrat', sans-serif;}
 .p-10{padding: 10px 20px;} 
 
 .btn-primary {
-    background: #5274E6;
+    background: #314DBD;
     background-image: -webkit-gradient(linear, right top, left bottom, from(#4464ce), color-stop(#4464ce), to(#5274E6));
     background-image: linear-gradient(to bottom left, #4464ce, #5274E6, #5274E6);
     background-size: 210% 210%;
     background-position: top right;
-    background-color: #5274E6;
+    background-color: #314DBD;
     -webkit-transition: all 0.15s ease;
     transition: all 0.15s ease;
     box-shadow: none;

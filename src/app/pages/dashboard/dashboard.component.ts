@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
   subscribe: any;
   queryUnsubscribe: any;
   private ngUnsubscribe = new Subject<void>();
-  constructor(private translate:TranslateService,private toastr: ToastrService, private router: Router, public activeModal: NgbActiveModal, private previewDailogService: PreviewDailogService, private confirmationDialogService: ConfirmationDailogService, public modalService: NgbModal, private route: ActivatedRoute, ) {
+  constructor(private translate: TranslateService, private toastr: ToastrService, private router: Router, public activeModal: NgbActiveModal, private previewDailogService: PreviewDailogService, private confirmationDialogService: ConfirmationDailogService, public modalService: NgbModal, private route: ActivatedRoute, ) {
 
   }
   share(item) {
@@ -53,7 +53,7 @@ export class DashboardComponent implements OnInit {
                 psaId: querySnapshot.data().name,
                 date: moment(new Date(data.createdDate.toDate())).format('LLLL')
               }
-            me.open(item);
+              me.open(item);
 
             }
           });
@@ -135,19 +135,6 @@ export class DashboardComponent implements OnInit {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
-  getStatus(status) {
-    if (status == 1) {
-      return "success";
-    }
-    if (status == 2) {
-      return "Retry Again";
-
-    }
-    if (status == 3) {
-      return "Failed";
-
-    }
-  }
 
   refreshList() {
     let me = this
@@ -162,19 +149,35 @@ export class DashboardComponent implements OnInit {
   fetchUrl(item) {
     const me = this;
     item.loading = true;
-    let bucketUrl="videos/output/" + item.outputVideoId;
-    var uploadTask = firebase.storage().ref().child(bucketUrl);
-    uploadTask.getDownloadURL().then(function (downloadLink) {
-      item.loading = false;
-      let downloadURL= `https://storage.googleapis.com/${firebase.storage().ref().bucket}/${bucketUrl}`
+    let diff = (new Date().getTime() - new Date(item.date).getTime()) / 1000;
+    diff /= (60 * 60);
+    let hour = Math.abs(Math.round(diff));
+    if(hour >=5){
       firebase
-        .firestore()
-        .collection("users").doc(firebase.auth().currentUser.uid).collection("videos").doc(item.id).update({ "status": 1, outputUrl: downloadURL }).then(function (res) {
-          item.status = 1;
-          item.outputUrl = downloadURL;
-        })
-      item.url = downloadURL;
-    }).catch(function (error) { })
+      .firestore()
+      .collection("users").doc(firebase.auth().currentUser.uid).collection("videos").doc(item.id).update({ "status": 3 }).then(function (res) {
+        item.status = 3;
+        item.loading=false;
+      })
+
+    }
+    else{
+      let bucketUrl = "videos/output/" + item.outputVideoId;
+      var uploadTask = firebase.storage().ref().child(bucketUrl);
+      uploadTask.getDownloadURL().then(function (downloadLink) {
+        item.loading = false;
+        let downloadURL = `https://storage.googleapis.com/${firebase.storage().ref().bucket}/${bucketUrl}`
+        firebase
+          .firestore()
+          .collection("users").doc(firebase.auth().currentUser.uid).collection("videos").doc(item.id).update({ "status": 1, outputUrl: downloadURL }).then(function (res) {
+            item.status = 1;
+            item.outputUrl = downloadURL;
+          })
+        item.url = downloadURL;
+      }).catch(function (error) { })
+
+    }
+  
   }
 
   retry(item, count) {
@@ -186,25 +189,25 @@ export class DashboardComponent implements OnInit {
   open(item) {
     let buttonText = "";
     this.translate
-    .get("home")
-    .pipe(takeUntil(this.ngUnsubscribe))
-    .subscribe((translation: any) => {  
-    if (!firebase.auth().currentUser.isAnonymous) {
-      buttonText = translation.re_record;
-    } else {
-      buttonText =  translation.record_another;
+      .get("home")
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((translation: any) => {
+        if (!firebase.auth().currentUser.isAnonymous) {
+          buttonText = translation.re_record;
+        } else {
+          buttonText = translation.record_another;
 
-    }
-    this.previewDailogService.open(item.psaId,item.id, item.url, buttonText)
-      .then((item:any) => {
-        this.router.navigate(['/video-recorder'], { queryParams: { id: item.psaId,isUpdated:true,videoId:item.videoId },skipLocationChange:true });
-      })
-      .catch(() => { });
+        }
+        this.previewDailogService.open(item.psaId, item.id, item.url, buttonText)
+          .then((item: any) => {
+            this.router.navigate(['/video-recorder'], { queryParams: { id: item.psaId, isUpdated: true, videoId: item.videoId }, skipLocationChange: true });
+          })
+          .catch(() => { });
 
-    });
+      });
   }
-  reRecord(item){
-    this.router.navigate(['/video-recorder'], { queryParams: { id: item.psaId },skipLocationChange:true });
+  reRecord(item) {
+    this.router.navigate(['/video-recorder'], { queryParams: { id: item.psaId }, skipLocationChange: true });
 
   }
 
@@ -214,11 +217,11 @@ export class DashboardComponent implements OnInit {
   }
   delete(item) {
     this.translate
-    .get("home")
-    .pipe(takeUntil(this.ngUnsubscribe))
-    .subscribe((translation: any) => {
-      this.shwDeletePrompt(item, translation.del_prompt, "",  translation.yes,  translation.no);     
-    });
+      .get("home")
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((translation: any) => {
+        this.shwDeletePrompt(item, translation.del_prompt, "", translation.yes, translation.no);
+      });
   }
   public shwDeletePrompt(item, title, message, btnOkText, btnCancelText) {
     this.confirmationDialogService.confirm(title, message, btnOkText, btnCancelText)
