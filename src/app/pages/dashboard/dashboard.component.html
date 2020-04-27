@@ -31,20 +31,20 @@
                                           </div>
                                     </div>
 
-                                    <div class="col-12">
+                                    <div class="col-12" style="padding-bottom:10px;">
                                           <button [disabled]="item.loading"  (click)="retry(item,0)" *ngIf="item.status==2" class="btn btn-outline btn-round btn-replay"
                                                 type="button" shape="round">
                                                 <i class="fas fa-sync-alt"></i>
 
                                           </button>
-                                          <button *ngIf="item.status==1"  placement="top" ngbTooltip='{{ "home.preview" | translate }}' class="btn btn-outline btn-round btn-success1" type="button" shape="round" (click)="share(item)"> 
+                                          <button *ngIf="item.status==1"  placement="bottom" ngbTooltip='{{ "home.preview" | translate }}' class="btn btn-outline btn-round btn-success1" type="button" shape="round" (click)="share(item)"> 
                                                 <i class="fas fa-eye font-lg"></i>
                                           </button>
-                                          <button class="btn btn-outline btn-round btn-danger1"  placement="top"  ngbTooltip='{{ "home.delete" | translate }}' type="button" shape="round" (click)="delete(item)"> 
+                                          <button class="btn btn-outline btn-round btn-danger1"  placement="bottom"  ngbTooltip='{{ "home.delete" | translate }}' type="button" shape="round" (click)="delete(item)"> 
                                                 <i class="far fa-trash-alt font-lg"></i>
                                           </button>
 
-                                          <button  *ngIf="item.status==1" placement="top" ngbTooltip='{{ "home.re_record" | translate }}' class="btn btn-outline btn-round share-button" type="button" shape="round" (click)="reRecord(item)"> 
+                                          <button  *ngIf="item.status==1" placement="bottom" ngbTooltip='{{ "home.re_record" | translate }}' class="btn btn-outline btn-round share-button" type="button" shape="round" (click)="reRecord(item)"> 
                                                 <i class="fas fa-video font-lg"></i>
                                           </button>
                                           <!-- <button *ngIf="item.status==1" class="btn btn-outline btn-round share-button" type="button" shape="round" (click)="share(item)"> 
@@ -57,7 +57,7 @@
                   </div>
             </div>
       </div>
-
+      
 
       <!-- <div class="row">
             <div class= "pagination" style="padding-right: 15px; padding-left: 15px;">

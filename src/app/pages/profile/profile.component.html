@@ -95,11 +95,19 @@
       </div>
     </div>
 
-    <div *ngIf="isAnonymous" style="border-radius: 19px;" class="col-md-12 white-bg">
-      <div class="login-card" style="border-top: 0.0625rem solid rgba(34, 42, 66, 0.05);">
-        <p style="color:#000"> {{ "profile.login_continue" | translate }}</p>
+    <div *ngIf="isAnonymous"  class="row">
+      <div class="col-12">
+            <div class="card card-chart">
+                  <div class="card-header">
+                        <div class="row">
+                              <div class="col-sm-6 text-left" style="color:#141414;">
+                                {{ "profile.login_continue" | translate }} 
+                              </div>
+                        </div>
+                  </div>
+            </div>
       </div>
-    </div>
+</div>
 
   </div>
 </div>

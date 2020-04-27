@@ -108,8 +108,9 @@
 .tooltip-inner {
   max-width: $tooltip-max-width;
   padding: $tooltip-padding-y $tooltip-padding-x;
-  color: $tooltip-color;
+  color: #fff;
   text-align: center;
-  background-color: $tooltip-bg;
+  background-color: #000;
+  z-index: 9999;
   @include border-radius($tooltip-border-radius);
 }
