@@ -1,32 +1,27 @@
 *{font-family: 'Montserrat', sans-serif;}
 button {text-align: center; padding: 6px; border-width: 0px; border-style: none; border-color: transparent; border-image: initial;
-font-weight: 500; font-size: 15px; font-family: Montserrat; height: 55px; border-radius: 50%; letter-spacing: 0px;
-width: 55px; box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px; margin-top: 15px;}
+font-weight: 500; font-size: 15px; font-family: Montserrat; height: 55px; border-radius: 40px; letter-spacing: 0px;
+width: 100%; box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px; margin-top: 15px;}
 
-.facebook-button{color: #fff;outline: none; background: #3A5997;}
-.google-button{ color: #141414;outline: none; background: #ffffff;}
+.facebook-button{color: #fff;outline: none; background: #4267B2;}
+.google-button{ color: #ffffff;outline: none; background: #F8ABCF;}
 .twitter-button{color: #fff;outline: none; background: #56ABEE;}
-.email-button{ color: #fff;outline: none; background: #DB4437;}
-.phone-button{color: #fff; outline: none;background: #09BD7E;}
+.email-button{ color: #fff;outline: none; background: #D44638;}
+.phone-button{color: #fff; outline: none;background: #00CA72;}
 .github-button{color: #fff; outline: none;background: #333333;}
 .apple-button{color: #fff;outline: none; background: #333333;}
 .title-normal{font-weight: 100}
-.signup-button{width: auto;
-  text-align: center;
-  background-color: #314DBD;
-  background-image: none;
-  height: 45px;
-  padding: 10px;
-  border-radius: 19px;
-  outline: none;
-  color: #fff;}
+.signup-button{width: 100%; text-align: center; background-color: #f17020;  background-image: none;
+  height: 55px;  padding: 10px;  border-radius: 40px;  outline: none;  color: #fff;}
 .mt-20{margin-top:20px;}
+.mt-12{margin-top:12px;}
+.mb-10{margin-bottom: 10px;}
 .pl-20{padding-left:20px;}
 .p-20{padding:10px 20px;}
 .pt-10{padding-top:10px;}
 .pt-20{padding-top:20px;}
 .dark-grey{color:#141414;}
-.main-title{color:#141414;font-weight: 600;}
+.main-title{color:#6d6d6d;font-weight: 400;text-align: center;}
 .yellow-title{color:#FBD54B;font-size: 22px; font-weight: 600; margin-bottom: 0;}
 .round-grey-border{border-radius: 50%; border: solid 1px #e5e5e5; padding: 40px 20px 20px 41px; position: relative; text-align:left;}
 .d-flex{display: flex; justify-content: space-around;}
@@ -88,16 +83,52 @@ background-color: #2A6774;}
   
   .show {display: block;}
 
-
+.main-white-bg{background-color: #fff;  border-radius: 10px;   box-shadow: 1px 1px 5px 2px #e8e8e8;
+   margin: 50px; padding: 10px 10px 20px;}
 .mt-0{margin-top: 0px;}
 body{background-color: #fff !important;}
- @media only screen and (max-width: 768px) {
+.play-title{color: #141414;padding-top: 20px; margin-bottom: 10px; font-weight: 600; text-align:center;}
+
+ @media only screen and (max-width: 600px) {
 .display-desktop{
   display:none;
 }
+.main-white-bg{
+    background-color: transparent;
+    border-radius: 10px;
+    box-shadow: none; margin: 10px; padding: 10px;
 }
-@media (min-width: 1024px) {
+.play-title{color: #141414;padding-top: 20px; margin-bottom: 10px; font-weight: 600; text-align:left;}
+.main-title{color:#6d6d6d;font-weight: 400;text-align: left;}
+button {text-align: center; padding: 6px; border-width: 0px; border-style: none; border-color: transparent; border-image: initial;
+font-weight: 500; font-size: 15px; font-family: Montserrat; height: 55px; border-radius: 50%; letter-spacing: 0px;
+width: 55px; box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px; margin-top: 15px;}
+.facebook-button{color: #fff;outline: none; background: #4167B0;}
+.google-button{ color: #ffffff;outline: none; background:#F3F3EF;}
+.twitter-button{color: #fff;outline: none; background: #16A2F4;}
+.email-button{ color: #fff;outline: none; background: #3898EC;}
+.phone-button{color: #fff; outline: none;background: #3898EC;}
+}
+.TTU{text-transform: uppercase;font-weight: 500;}
+@media (min-width: 768px) {
+.display-mobile{
+  display:none;
+}
+.TTL{text-transform: lowercase;}
+}
+
+@media only screen and (orientation: landscape) {
+ .main-white-bg{
+  background-color: #fff;  border-radius: 10px;   box-shadow: 1px 1px 5px 2px #e8e8e8;
+  margin: 50px; padding: 10px 10px 20px;
+}
 .display-mobile{
   display:none;
 }
 }
+
+.display-center{justify-content: center; align-items: center; display: flex;}
+.TU{text-transform: uppercase;}
+.fw-600{font-weight: 600;}
+
+

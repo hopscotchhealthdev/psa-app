@@ -1,16 +1,21 @@
 <div class="content main-background">
-  <div class="row pt-10 mb-0">
-    <!-- <div [hidden]="currentStatus==1" class="col-3">
+  <!-- <div class="row pt-10 mb-0">
+    <div [hidden]="currentStatus==1" class="col-3">
       <i class="fas fa-arrow-left" (click)="back()" style="font-size: 24px; color: #fff;"></i>
-    </div> -->
+    </div>
     <div class="col-12">
       <p *ngIf="psaData.name" class="psa-name">{{psaData.name}} </p>
     </div>
-  </div>
+  </div> -->
 
   <br/>
-  <div *ngIf="browserFailed == ''">
+  <div *ngIf="browserFailed == ''" class="white-bg-box">    
     <div *ngIf="currentStatus ==0" style="position:relative;">
+      <div class="row mb-0">
+    <div class="col-8 video-title-position">
+      <p *ngIf="psaData.name" class="psa-name">Challenge: {{psaData.name}} </p>
+    </div>
+  </div>
       <div class="row">
         <div class="col-xs-12 div-center">
           <div style="position: relative;">
@@ -34,7 +39,7 @@
           </div>
           <div *ngIf="recording">
             <div class="timer red-bg" *ngIf="timecount !=0">{{timecount}}</div>
-            <div  class="icon-position"(click)="stopConfirmRecording()">
+            <div  class="icon-position" (click)="stopConfirmRecording()">
               <circle-progress
               [percent]="psaData.percent"
               [radius]="22"
@@ -44,11 +49,11 @@
               [outerStrokeColor]="'#F03032'"
               [innerStrokeWidth]="5"
               [innerStrokeColor]="'#FFFFFF'"
-              [animation]="true" [imageHeight]="20"
-              [imageWidth]=20 
+              [animation]="true" [imageHeight]="30"
+              [imageWidth]="30" 
               [showImage]="true" 
               [animation]="false"
-              [imageSrc]="'assets/img/pause.svg'"></circle-progress>
+              [imageSrc]="'assets/img/recording-pause.png'"></circle-progress>
             </div>
            
             <!-- <img src="assets/img/recording-pause.png" alt="recording pause icon" width="36" height="36"  (click)="stopConfirmRecording()" -->
@@ -70,7 +75,6 @@
   </div>
   <div style="text-align: center;" *ngIf="browserFailed !=''">
     <h4 [innerHTML]="browserFailed"></h4>
-  </div>
-  
+  </div>  
 </div>
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

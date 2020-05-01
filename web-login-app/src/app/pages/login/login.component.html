@@ -1,77 +1,121 @@
-<div  class="p-20">
- <!-- <div class="row display-mobile">
-        <div class="col-12 col-lg-4 text-center"  *ngFor="let item of anim" [ngStyle]="{'padding-left': item.padding }">
-                <img (click)="update(item)" src="{{item.img}}"  width="60" height="auto"/>
-               
-        </div>  
-    </div> -->
-    
-    <h4 class="pt-20 dark-grey title-normal text-center"> {{ "login.title" | translate }}</h4>
-    <div class="text-center">
-        <button type="button" class="signup-button" [routerLink]="['/register']">
-          {{ "login.sign_up" | translate }}
-        </button>
-    </div>
-<p class="text-center" style="color:#141414; padding-top:10px;">OR</p>
-    <h4 class="mt-20 main-title text-center mt-0">{{ "login.login_through" | translate }}</h4>
-    <div class="row">
+<div class="row display-center"> 
+    <div class="main-white-bg"> 
+  <div class="p-20">
+   <!-- <div class="row display-mobile">
+          <div class="col-12 col-lg-4 text-center"  *ngFor="let item of anim" [ngStyle]="{'padding-left': item.padding }">
+                  <img (click)="update(item)" src="{{item.img}}"  width="60" height="auto"/>
+                 
+          </div>  
+      </div> -->
+      <h3 class="play-title">{{ "login.title" | translate }}</h3>
+    <h4 class="mt-0 main-title">{{ "login.signup_title" | translate }}</h4>
+
+      <div class="text-center">
+          <button type="button" class="signup-button" [routerLink]="['/register']">
+            {{ "login.sign_up" | translate }}
+          </button>
+      </div>
+      <h4 class="mt-12 main-title text-center TTU TTL">or {{ "login.login_through" | translate }}</h4>
+      <div class="display-desktop">
+          <div class="text-center">
+              <button type="button" class="google-button" (click)="doGoogleLogin()">
+                  <img src="assets/img/google.png" width="20" height="20">
+                  <span class="pl-20 TU">{{ "login.login_google" | translate }}</span>
+              </button>            
+          </div>
+  
+          <div class="text-center">
+              <button class="twitter-button" type="button" (click)="doTwitterLogin()">
+                  <img src="assets/img/twitter-white-bird.svg" width="20" height="20"> 
+                <span class="pl-20 TU">{{ "login.login_twitter" | translate }}</span>
+              </button>            
+          </div>
+  
+          <div class="text-center">
+              <button class="email-button" type="button" [routerLink]="['/login-email']">
+                  <img src="assets/img/email.png" width="20" height="20">
+                   <span class="pl-20 TU">{{ "login.login_email" | translate }}</span>
+              </button>           
+          </div>
+  
+          <div class="text-center">
+              <button class="phone-button" type="button" [routerLink]="['/auth-phone']">
+                  <img src="assets/img/phone.png" width="20" height="20">
+                  <span class="pl-20 TU">{{ "login.login_phone" | translate }}</span>
+              </button>            
+          </div>
+  
+          <!-- <div class="col-3 text-center">
+            <button class="github-button" type="button" (click)="doGoogleLogin()">
+                <img src="assets/img/github.png" width="20" height="20"></button>
+                <p class="pt-10 dark-grey fs-12">Github</p>
+            </div> -->
+  
+          <!-- <div class="col-3 text-center">
+            <button class="apple-button" type="button" (click)="doAppleLogin()">
+                <img src="assets/img/apple.png" width="20" height="20"></button>
+                <p class="pt-10 dark-grey fs-12">Apple</p>
+            </div> -->
+  
+          <div class="text-center">
+              <button class="facebook-button" type="button" (click)="doFbLogin()">
+                  <img src="assets/img/facebook-f-brands-2.svg" width="20" height="20">
+                   <span class="pl-20 TU">{{ "login.login_facebook" | translate }}</span>
+              </button>
+             
+          </div>
+  
+          <!-- <div class="col-4 text-center">
+            <button class="email-button" type="button" [routerLink]="['/register']">
+                <img src="assets/img/email.png" width="20" height="20"></button>  
+                <p class="pt-10 dark-grey fs-12">Sign up</p>
+            </div> -->
+      </div>
+      <!-- <div class="row position-bottom display-desktop">
+          <div class="col-12 col-lg-4 text-center" *ngFor="let item of anim">
+              <img (click)="update(item)" src="{{item.img}}" alt="virus gif image" width="60" height="auto"/>
+             </div>
+         
+      </div>    -->
+      <div class="row display-mobile">
+          <div class="social text-center">
+              <button type="button" class="google-button" (click)="doGoogleLogin()">
+                  <img src="assets/img/google.png" width="20" height="20">                
+              </button>            
+          </div>
+  
+          <div class="social text-center">
+              <button class="twitter-button" type="button" (click)="doTwitterLogin()">
+                  <img src="assets/img/twitter.png" width="20" height="20">              
+              </button>            
+          </div>
+  
+          <div class="social text-center">
+              <button class="email-button" type="button" [routerLink]="['/login-email']">
+                  <img src="assets/img/email.png" width="20" height="20">                 
+              </button>           
+          </div>
+  
+          <div class="social text-center">
+              <button class="phone-button" type="button" [routerLink]="['/auth-phone']">
+                  <img src="assets/img/phone.png" width="20" height="20">               
+              </button>            
+          </div>
+  
         <div class="social text-center">
-            <button type="button" class="google-button" (click)="doGoogleLogin()">
-                <img src="assets/img/google.png" width="20" height="20">
-            </button>
-            <p class="pt-10 dark-grey fs-12">Google</p>
-        </div>
-
-        <div class="social text-center">
-            <button class="twitter-button" type="button" (click)="doTwitterLogin()">
-                <img src="assets/img/twitter.png" width="20" height="20"> </button>
-            <p class="pt-10 dark-grey fs-12">Twitter</p>
-        </div>
-
-        <div class="social text-center">
-            <button class="email-button" type="button" [routerLink]="['/login-email']">
-                <img src="assets/img/email.png" width="20" height="20">
-            </button>
-            <p class="pt-10 dark-grey fs-12">Email</p>
-        </div>
-
-        <div class="social text-center">
-            <button class="phone-button" type="button" [routerLink]="['/auth-phone']">
-                <img src="assets/img/phone.png" width="20" height="20">
-            </button>
-            <p class="pt-10 dark-grey fs-12">Phone</p>
-        </div>
-
-        <!-- <div class="col-3 text-center">
-          <button class="github-button" type="button" (click)="doGoogleLogin()">
-              <img src="assets/img/github.png" width="20" height="20"></button>
-              <p class="pt-10 dark-grey fs-12">Github</p>
-          </div> -->
-
-        <!-- <div class="col-3 text-center">
-          <button class="apple-button" type="button" (click)="doAppleLogin()">
-              <img src="assets/img/apple.png" width="20" height="20"></button>
-              <p class="pt-10 dark-grey fs-12">Apple</p>
-          </div> -->
-
-        <div class="social text-center">
-            <button class="facebook-button" type="button" (click)="doFbLogin()">
-                <img src="assets/img/facebook.png" width="20" height="20">
-            </button>
-            <p class="pt-10 dark-grey fs-12">Facebook</p>
-        </div>
-
-        <!-- <div class="col-4 text-center">
-          <button class="email-button" type="button" [routerLink]="['/register']">
-              <img src="assets/img/email.png" width="20" height="20"></button>  
-              <p class="pt-10 dark-grey fs-12">Sign up</p>
-          </div> -->
-    </div>
-    <!-- <div class="row position-bottom display-desktop">
-        <div class="col-12 col-lg-4 text-center" *ngFor="let item of anim">
-            <img (click)="update(item)" src="{{item.img}}" alt="virus gif image" width="60" height="auto"/>
-           </div>
-       
-    </div>    -->
-</div>
-<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+              <button class="facebook-button" type="button" (click)="doFbLogin()">
+                  <img src="assets/img/facebook.png" width="20" height="20">                
+              </button>           
+          </div>
+  
+          <!-- <div class="col-4 text-center">
+            <button class="email-button" type="button" [routerLink]="['/register']">
+                <img src="assets/img/email.png" width="20" height="20"></button>  
+                <p class="pt-10 dark-grey fs-12">Sign up</p>
+            </div> -->
+      </div>
+  </div>
+  </div>
+  </div>
+  <!--  <div class="col-2"></div> -->
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

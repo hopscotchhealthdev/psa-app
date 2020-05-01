@@ -1,8 +1,22 @@
 {
+	"header":{
+		"home": "HOME",
+        "video_challenge": "VIDEO CHALLENGES",
+        "video_library": "VIDEO LIBRARY",
+        "faq": "FAQS",
+        "login": "LOGIN"
+	},
+	
 	"login": {
-		"title": "Play your part in tackling the COVID-19 outbreak. Signup for free now.",
+		"title": "Play your part in tackling the COVID-19 outbreak.",
+		"signup_title":" Signup for free now.",	
 		"sign_up": "Sign up using email",
-		"login_through": "Log in through"
+		"login_through": "Log in through",
+		"login_google":"Log in with Google",
+		"login_twitter":"Log in with twitter",	
+		"login_email":"Log in with email",	
+		"login_phone":"Log in with phone",	
+		"login_facebook":"Log in with facebook"	
 	},
 	"email_auth": {
 		"login": "Login",

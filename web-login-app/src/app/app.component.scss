@@ -1,29 +1,33 @@
 .main-background{
-    background-image: url('../assets/img/web-background.png'); 
-      background-color: #fff; 
-      background-position: center; 
-      background-repeat: no-repeat;
-      background-size: cover;
-      height:100vh;
-    }
+  background-image: url('../assets/img/login.svg'); 
+    background-color: #fff; 
+    background-position: center; 
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    background-attachment: fixed;
+  }
 
- @media only screen and (max-width: 600px) {
+@media only screen and (max-width: 600px) {
+.main-background{
+  background-image: url('../assets/img/HS_COM_desktop-sun.svg'); 
+    background-color: #fff; 
+    background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: contain;
+ height: 100vh;
+    
+  }
+}   
+@media only screen and (max-width: 768px) and (orientation: landscape) {
  .main-background{
-    background-image: url('../assets/img/login-bg.png'); 
-      background-color: #fff; 
-      background-position: center; 
-      background-repeat: no-repeat;
-      background-size: cover;
-      height:100vh;
-    }
- }   
- @media only screen and (orientation: landscape) {
- 	.main-background{
-    background-image: url('../assets/img/web-background.png'); 
-      background-color: #fff; 
-      background-position: center; 
-      background-repeat: no-repeat;
-      background-size: cover;
-      
-    }
- }
+  background-image: url('../assets/img/login.svg'); 
+    background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+    background-attachment: fixed;
+    
+  }
+}
+h4{color:#141414; margin: 10px;}

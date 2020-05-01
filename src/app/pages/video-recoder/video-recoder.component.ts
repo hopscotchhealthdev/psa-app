@@ -83,7 +83,9 @@ export class VideoRecoderComponent implements OnInit {
       if (params.get("id")) {
         me.loading = true;
         firebase.firestore().collection("psa").doc(params.get("id")).get().then(function (querySnapshot) {
+          setTimeout(() => {
           me.loading = false;
+          },2000)
           if (querySnapshot.exists) {
             me.psaData.data = querySnapshot.data().time;
             me.psaData.name = querySnapshot.data().name;
