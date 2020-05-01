@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
 
   }
   share(item) {
-    window.location.href = `https://psanodeapp1.appspot.com/${firebase.auth().currentUser.uid}/videos/${item.id}`
+    window.location.href = `https://psanodeapp1.appspot.com/${firebase.auth().currentUser.uid}/videos/${item.id}?lang=${localStorage.getItem("language")}`
     //  window.location.href = `${window.location.origin}/share/index.html#/${firebase.auth().currentUser.uid}/videos/${item.id}`
   }
   ngOnInit() {

@@ -579,7 +579,7 @@ export class VideoRecoderComponent implements OnInit {
               });
             });
           //  me.router.navigate(['home'], { queryParams: { videoId: id }, skipLocationChange: true });
-          window.location.href = `https://psanodeapp1.appspot.com/${userId}/videos/${id}`;
+          window.location.href = `https://psanodeapp1.appspot.com/${userId}/videos/${id}?lang=${localStorage.getItem("language")}`;
         } else {
           me.translate
             .get("messages")
