@@ -61,13 +61,14 @@
         </div>
       </div>
     </div>
-    <div *ngIf="currentStatus==1 && uploadProgress != 100">
+    <div *ngIf="currentStatus==1 && uploadProgress != 100" class="">
       <progress-bar [progress]="uploadProgress" [color]="'#70E083'">
       </progress-bar>
-      <h4>{{ "video_recorder.upload_prompt" | translate }}...</h4>
+      <h4 class="progress-text">{{ "video_recorder.upload_prompt" | translate }}...</h4>
     </div>
     <div style="text-align: center;" *ngIf="currentStatus==1 && uploadProgress == 100">
-      <img height="100" src="assets/img/processing.gif" />
+      <!-- <img height="100" src="assets/img/processing.gif" /> -->
+      <img height="250" src="assets/img/3J1l.gif" />
       <h4 [innerHTML]="processText">
 
       </h4>
