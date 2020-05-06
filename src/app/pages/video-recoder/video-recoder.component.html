@@ -69,13 +69,13 @@
     <div style="text-align: center;" *ngIf="currentStatus==1 && uploadProgress == 100">
       <!-- <img height="100" src="assets/img/processing.gif" /> -->
       <img height="250" src="assets/img/3J1l.gif" />
-      <h4 [innerHTML]="processText">
+      <h4 class="progress-text" [innerHTML]="processText">
 
       </h4>
     </div>
   </div>
   <div style="text-align: center;" *ngIf="browserFailed !=''">
-    <h4 [innerHTML]="browserFailed"></h4>
+    <h4 class="progress-text" [innerHTML]="browserFailed"></h4>
   </div>  
 </div>
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
