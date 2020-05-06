@@ -1865,7 +1865,7 @@ p {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  height: 100vh;
+  /*height: 100vh;*/
   padding-top: 5%;
   -webkit-box-align: center;
   -webkit-align-items: center;

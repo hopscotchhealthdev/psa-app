@@ -230,6 +230,9 @@ $ npm run start
 $ npm run build --prod
 ```
 
+#### Remove all the leading `/` for `static` folder from `build/index.html`
+For example `/static/js/2.7bd4f46e.chunk.js` to `static/js/2.7bd4f46e.chunk.js`
+
 #### Build
 copy dist in build
 ```
