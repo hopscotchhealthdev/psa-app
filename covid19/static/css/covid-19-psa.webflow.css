@@ -5,6 +5,21 @@
   margin-left: 0px;
 }
 
+.footer {
+    padding-top: 60px;
+    padding-bottom: 40px;
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    text-align: center;
+}
+
+.text-block-31 {
+    font-family: Montserrat, sans-serif;
+    color: #000;
+}
+
 .w-commerce-commerceaddtocartquantityinput {
   background-color: #fafafa;
   border-top-style: solid;
