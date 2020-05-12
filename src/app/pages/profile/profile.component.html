@@ -16,7 +16,8 @@
                     <input accept="image/*" (change)="fileInput($event)" id="file" class="display-none" type="file">
                     <div class="thumbnail img-circle">
                       <img src="{{user.image}}">
-                      <button (click)="renoveImage();" *ngIf="user.isProfile" class="btn btn-outline btn-round btn-success1 closeicon-position" type="button" shape="round">
+                      <button (click)="renoveImage();" *ngIf="user.isProfile" class="btn btn-outline btn-round btn-success1 closeicon-position"
+                        type="button" shape="round">
                         <img src="assets/img/close.png" width="12" height="12">
                       </button>
                     </div>
@@ -27,7 +28,7 @@
                   </div>
                 </div>
               </div>
-              <div class="white-bg">
+              <div class="white-bg black-txt">
 
                 <label> {{ "profile.email" | translate }} </label>
                 <div class=" form-group">
@@ -94,19 +95,19 @@
       </div>
     </div>
 
-    <div *ngIf="isAnonymous"  class="row">
+    <div *ngIf="isAnonymous" class="row">
       <div class="col-12">
-            <div class="card card-chart">
-                  <div class="card-header">
-                        <div class="row">
-                              <div class="col-sm-6 text-left dark-grey-text">
-                                {{ "profile.login_continue" | translate }} 
-                              </div>
-                        </div>
-                  </div>
+        <div class="card card-chart">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-sm-6 text-left dark-grey-text">
+                {{ "profile.login_continue" | translate }}
+              </div>
             </div>
+          </div>
+        </div>
       </div>
-</div>
+    </div>
 
   </div>
 </div>

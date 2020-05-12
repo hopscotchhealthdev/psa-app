@@ -8,15 +8,14 @@
   <span class="navbar-toggler-bar bar3"> </span>
   </button>
   </div>
-  <!-- <a class="navbar-brand" href="javascript:void(0)"> {{ getTitle() }} </a> -->
   </div>
-  <button *ngIf="!isAnonymous" aria-label="Toggle navigation" class="navbar-toggler toggle-right" (click)="collapse()" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample" id="navigation" type="button">
+  <!-- <button *ngIf="!isAnonymous" aria-label="Toggle navigation" class="navbar-toggler toggle-right" (click)="collapse()" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample" id="navigation" type="button">
   <span class="navbar-toggler-bar navbar-kebab"> </span>
   <span class="navbar-toggler-bar navbar-kebab"> </span>
   <span class="navbar-toggler-bar navbar-kebab"> </span>
-  </button>
+  </button> -->
   
-  <div class="navbar-collapse toggle-right pl-20" [ngbCollapse]="isCollapsed" id="navigation"> 
+  <!-- <div class="navbar-collapse toggle-right pl-20" [ngbCollapse]="isCollapsed" id="navigation"> 
 
   <ul class= " navbar-nav ml-auto d-flex" >
   <li *ngIf="!isAnonymous" class="nav-item" ngbDropdown>
@@ -47,7 +46,7 @@
   </ul>
   
   </div>
-
+ -->
   <!--  language button -->
   <div class="dropdown language-order">
       <button (click)="openLang()" class="btn btn-block black-button dropbtn">Language</button>
@@ -60,10 +59,10 @@
       </div>
     </div> 
 
-  <div *ngIf="isAnonymous" class="logo-order" style="border-top: 0.0625rem solid rgba(34, 42, 66, 0.05);">
+  <!-- <div *ngIf="isAnonymous" class="logo-order" style="border-top: 0.0625rem solid rgba(34, 42, 66, 0.05);">
   <button (click)="goToLogin()" class="btn btn-block black-button" type="submit" >{{ "navbar.login" | translate }}</button>
  
-</div>
+</div> -->
 <!-- <div class="card white-bg">
     <label>{{ "language.change_lang" | translate }}</label>
     <select (change)="languageChange($event)">

@@ -4,21 +4,55 @@
 </div>
 <div class="sidebar-wrapper">
   <ul class="nav">
+    <li  routerLinkActive="active" class="nav-item">
+      <a *ngIf="!isAnonymous">
+        <div class="default-bg">
+          <img class="tim-icons" src="{{user.image}}" width="24" height="24" />
+        </div>
+        <p class="dropdown-btn" (click)="showHide()">{{user.userName}}
+          <i style="    color: black"class="fa fa-caret-down"></i>
+        </p>
+        <div class="dropdown-container" *ngIf="toggleOn">
+
+          <!-- <a class="nav-item" [routerLink]="['/profile']" href="javascript:void(0)" ngbDropdownItem>
+            {{ "navbar.profile" | translate }}
+          </a> -->
+
+          <a class="nav-item" (click)="logout()" href="javascript:void(0)" ngbDropdownItem>
+            {{ "navbar.logout" | translate }}
+          </a>
+        </div>
+      </a>
+      <a *ngIf="isAnonymous" (click)="goToLogin()">
+        <div class="default-bg">
+          <img class="tim-icons" src="{{user.image}}" width="24" height="24" />
+        </div>
+        <p> {{ "navbar.login" | translate }}</p>
+
+
+      </a>
+    </li>
     <li routerLinkActive="active" class="nav-item">
       <a routerLink="/home">
-        <div class="green-bg"><img class="tim-icons" src="assets/img/education-whte.svg" width="24" height="24" /></div>
+        <div class="green-bg">
+          <img class="tim-icons" src="assets/img/education-whte.svg" width="24" height="24" />
+        </div>
         <p>{{ "sidebar.video" | translate }} </p>
       </a>
     </li>
     <li routerLinkActive="active" class="nav-item">
       <a routerLink="/psa-list">
-        <div class="pink-bg"><img class="tim-icons" src="assets/img/video-white.svg" width="24" height="24" /></div>
+        <div class="pink-bg">
+          <img class="tim-icons" src="assets/img/video-white.svg" width="24" height="24" />
+        </div>
         <p>{{ "sidebar.recorder" | translate }} </p>
       </a>
     </li>
     <li routerLinkActive="active" class="nav-item">
       <a routerLink="/profile">
-        <div class="blue-bg"><img class="tim-icons" src="assets/img/profile-white.svg" width="24" height="24" /></div>
+        <div class="blue-bg">
+          <img class="tim-icons" src="assets/img/profile-white.svg" width="24" height="24" />
+        </div>
         <p>{{ "sidebar.profile" | translate }} </p>
       </a>
     </li>

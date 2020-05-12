@@ -116,6 +116,12 @@ body{font-family: 'Montserrat', sans-serif;}
 .white-bg{
   background-color: #ffffff !important;
 }
+.black-txt{
+    label{
+        color: #000 !important;
+
+    }
+  }
 .padding-10{
     padding: 10px 0px 0px 0px !important;
 }
@@ -290,6 +296,7 @@ body{font-family: 'Montserrat', sans-serif;}
 }
 .mb-0{margin-bottom: 0px;}
 .ml-30{margin-left:30px;}
+.sidebar{margin-top: 64px !important;  margin-left: 0px !important;}
  @media screen and (min-width: 320px) and (max-width: 767px){
   .ml-30{margin-left:0px;}
     }
@@ -327,11 +334,16 @@ body{font-family: 'Montserrat', sans-serif;}
 .video-card{
   height: auto;
     margin-right: 0px;
-    padding: 5px 5px 22px 5px;     
+    margin-bottom: 0px;
+   padding: 5px 5px 20px 5px;     
     border-radius: 10px !important;
     text-align: left; 
     margin: 2px;   
-}  
+} 
+.sidebar {
+    margin-top: 0px !important;
+    margin-left: 0px !important;
+} 
 }
 @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
   .main-background{
@@ -342,6 +354,10 @@ body{font-family: 'Montserrat', sans-serif;}
       background-size: cover;
      height: 100%;
     background-attachment: fixed;
+}
+.sidebar {
+    margin-top: 0px !important;
+    margin-left: 0px !important;
 }
 
 }
@@ -399,9 +415,6 @@ input:focus{
 }   
 
 .sidebar .nav{margin-top: 8px!important;}
-
-.sidebar{margin-top: 64px !important;  margin-left: 0px !important;}
-
 .orange{background: #F17020 !important; border:none;}
 .green{background:#00CA72 !important; border:none;}
 .pink{background: #F8ABCF !important; border:none;}

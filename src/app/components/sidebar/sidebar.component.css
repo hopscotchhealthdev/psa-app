@@ -16,6 +16,50 @@
 .blue-bg{
 	background-color: #05A4FB; padding: 10px; border-radius: 50%; display: inline-block;
 }
+.default-bg{
+	 padding: 10px; border-radius: 50%; display: inline-block;
+}
 .main-logo{color: #010101 !important; padding-bottom: 14px; border-bottom: 1px solid #e5e5e5;}
 
 .sidebar .nav{margin-top: 8px!important;}
+
+.dropdown-btn {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  color: #818181;
+  display: block;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+
+.dropdown-container {
+  background-color: #fff;
+    padding-left: 8px;
+    border-radius: 6px;
+}
+.sidebar .nav i{
+    font-size: 20px;
+    float: right !important;
+    margin-right: 12px;
+    line-height: 30px;
+    width: 34px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+    position: relative;
+}
+.dropdown-container a{
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  /*font-size: 20px;*/
+  color: #818181;
+  display: block;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
