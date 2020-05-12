@@ -7,3 +7,15 @@
     white-space: nowrap;
     padding-left: 10px !important;
 }
+.green-bg{
+	background-color: #00CA72; padding: 10px; border-radius: 50%; display: inline-block;
+}
+.pink-bg{
+	background-color: #F8ABCF; padding: 10px; border-radius: 50%; display: inline-block;
+}
+.blue-bg{
+	background-color: #05A4FB; padding: 10px; border-radius: 50%; display: inline-block;
+}
+.main-logo{color: #010101 !important; padding-bottom: 14px; border-bottom: 1px solid #e5e5e5;}
+
+.sidebar .nav{margin-top: 8px!important;}

@@ -8,7 +8,8 @@
 		"upload_prompt": "Video Uploading",
 		"play_prompt": "Hit the play button and read out what you see on the screen.",
 		"got_it": "GOT IT",
-		"process_prompt": "Would you like to proceed to upload your video or re-record it?",
+		"process_prompt": "Are you happy with your video challenge?",
+		"re_record_prompt": "Thank you can do a better job?",		
 		"upload": "UPLOAD",
 		"re_record": "RE-RECORD",
 		"attention": "Attention",
@@ -16,7 +17,7 @@
 		"reset": "Reset Video"
 	},
 	"home": {
-		"title": "Home",
+		"title": "Recorded videos",
 		"del_prompt": "Are you sure you want to delete this video?",
 		"yes": "YES",
 		"no": "NO",
@@ -26,7 +27,7 @@
 		"re_record":"Re-record",
 		"record_another":"Record another"
 	},
-	"app_name":"CoVideo",
+	"app_name":"Record KaroNa",
 	"profile": {
 		"title": "Edit Profile",
 		"add_photo": "Add Photo",

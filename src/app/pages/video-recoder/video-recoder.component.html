@@ -1,29 +1,17 @@
 <div class="content main-background">
-  <!-- <div class="row pt-10 mb-0">
-    <div [hidden]="currentStatus==1" class="col-3">
-      <i class="fas fa-arrow-left" (click)="back()" style="font-size: 24px; color: #fff;"></i>
-    </div>
-    <div class="col-12">
-      <p *ngIf="psaData.name" class="psa-name">{{psaData.name}} </p>
-    </div>
-  </div> -->
-
-  <br/>
   <div *ngIf="browserFailed == ''" class="white-bg-box">    
-    <div *ngIf="currentStatus ==0" style="position:relative;">
+    <div *ngIf="currentStatus ==0" class="position-relative">
       <div class="row mb-0">
-    <div class="col-8 video-title-position">
-      <p *ngIf="psaData.name" class="psa-name">Challenge: {{psaData.name}} </p>
+    <div class="col-10 video-title-position">
+      <p *ngIf="psaData.name" class="psa-name">{{psaData.name}} </p>
     </div>
   </div>
       <div class="row">
-        <div class="col-xs-12 div-center">
-          <div style="position: relative;">
-            <div *ngIf="markText" class="markerText">{{markText}}</div>
-            <video type="video/webm" #video class="video"></video>
-          </div>
-
+        <div class="col-xs-12 div-center position-relative">          
+          <div *ngIf="markText" class="markerText">{{markText}}</div>
+          <video type="video/webm" #video class="video"></video>
         </div>
+    
       </div>
       <div class="row mr-0">
         <div class="col-xs-12 div-center">
@@ -55,26 +43,24 @@
               [animation]="false"
               [imageSrc]="'assets/img/recording-pause.png'"></circle-progress>
             </div>
-           
-            <!-- <img src="assets/img/recording-pause.png" alt="recording pause icon" width="36" height="36"  (click)="stopConfirmRecording()" -->
-          </div>
+            </div>
         </div>
       </div>
     </div>
     <div *ngIf="currentStatus==1 && uploadProgress != 100">
       <progress-bar [progress]="uploadProgress" [color]="'#70E083'">
       </progress-bar>
-      <h4>{{ "video_recorder.upload_prompt" | translate }}...</h4>
+      <h4 class="gray">{{ "video_recorder.upload_prompt" | translate }}...</h4>
     </div>
     <div style="text-align: center;" *ngIf="currentStatus==1 && uploadProgress == 100">
       <img height="100" src="assets/img/processing.gif" />
-      <h4 [innerHTML]="processText">
+      <h4 class="gray" [innerHTML]="processText">
 
       </h4>
     </div>
   </div>
   <div style="text-align: center;" *ngIf="browserFailed !=''">
-    <h4 [innerHTML]="browserFailed"></h4>
+    <h4 class="gray" [innerHTML]="browserFailed"></h4>
   </div>  
 </div>
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

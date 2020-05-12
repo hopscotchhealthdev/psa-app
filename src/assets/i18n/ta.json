@@ -10,7 +10,8 @@
 		"upload_prompt": " வீடியோ பதிவேற்றம்",
 		"play_prompt": "பிளே பொத்தானை அழுத்தி, திரையில் நீங்கள் காண்பதைப் படியுங்கள்",
 		"got_it": "கிடைத்தது",
-		"process_prompt": "உங்கள் வீடியோவைப் பதிவேற்ற தொடர விரும்புகிறீர்களா அல்லது மீண்டும் பதிவு செய்ய விரும்புகிறீர்களா? ",
+		"process_prompt": "Are you happy with your video challenge?",
+		"re_record_prompt": "Thank you can do a better job?",		
 		"upload": "பதிவேற்று",
 		"re_record": "மீண்டும் பதிவுசெய்க",
 		"attention": "கவனம்",
@@ -28,7 +29,7 @@
 		"re_record": "மறு பதிவு",
 		"record_another": "இன்னொன்றைப் பதிவுசெய்க"
 	},
-	"app_name": "CoVideo",
+	"app_name": "Record KaroNa",
 	"profile": {
 		"title": "சுயவிவரத்தைத் திருத்துக",
 		"add_photo": "புகைப்படம் சேர்க்கவும்",

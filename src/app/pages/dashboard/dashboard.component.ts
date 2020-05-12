@@ -20,12 +20,14 @@ export class DashboardComponent implements OnInit {
   @ViewChild('videoPlay') videoPlay;
   p: number = 1;
   videos: any = [];
+  filter: any = [];
   public modalRef: any;
   loading: boolean = false;
   interval: any;
   subscribe: any;
   queryUnsubscribe: any;
   private ngUnsubscribe = new Subject<void>();
+  background = ['orange', 'green', 'pink', 'purple', 'blue', 'yellow'];
   constructor(private translate: TranslateService, private toastr: ToastrService, private router: Router, public activeModal: NgbActiveModal, private previewDailogService: PreviewDailogService, private confirmationDialogService: ConfirmationDailogService, public modalService: NgbModal, private route: ActivatedRoute, ) {
 
   }
@@ -69,12 +71,14 @@ export class DashboardComponent implements OnInit {
             if (sessionSnap.docs.length == 0) {
               me.loading = false;
             }
+
             sessionSnap.docChanges().forEach(change => {
               if (change.type === "added") {
                 count++;
                 if (count == sessionSnap.docs.length) {
                   me.loading = false;
                 }
+
                 var data = change.doc.data();
                 me.videos.push({
                   date: moment(new Date(data.createdDate.toDate())).format('LLLL'),
@@ -89,6 +93,7 @@ export class DashboardComponent implements OnInit {
                   me.videos.sort(function (x, y) {
                     return new Date(y.date).getTime() - new Date(x.date).getTime();
                   })
+                  me.filter = me.videos;
                 }
                 /* firebase.firestore().collection("psa").doc(data.psaId).get().then(function (querySnapshot) {
                    if (querySnapshot.exists) {
@@ -112,6 +117,10 @@ export class DashboardComponent implements OnInit {
                 if (index > -1) {
                   this.videos.splice(index, 1);
                 }
+                let filterIndex = this.filter.findIndex(o => o.id == change.doc.id);
+                if (filterIndex > -1) {
+                  this.filter.splice(filterIndex, 1);
+                }
               }
             })
           });
@@ -120,6 +129,34 @@ export class DashboardComponent implements OnInit {
     me.interval = setInterval(() => {
       me.refreshList();
     }, 3000);
+  }
+
+  getColor(index) {
+    if (this.background[index]) {
+      return this.background[index];
+    } else {
+      return this.background[index % this.background.length];
+
+    }
+  }
+
+
+
+  filterList(evt) {
+    const searchTerm = evt.target.value;
+    if (!searchTerm) {
+      return;
+    }
+
+    this.filter = this.videos.filter(item => {
+      if (searchTerm) {
+        if (item.psaName.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+          item.date.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
+          return true;
+        }
+        return false;
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -152,16 +189,16 @@ export class DashboardComponent implements OnInit {
     let diff = (new Date().getTime() - new Date(item.date).getTime()) / 1000;
     diff /= (60 * 60);
     let hour = Math.abs(Math.round(diff));
-    if(hour >=5){
+    if (hour >= 5) {
       firebase
-      .firestore()
-      .collection("users").doc(firebase.auth().currentUser.uid).collection("videos").doc(item.id).update({ "status": 3 }).then(function (res) {
-        item.status = 3;
-        item.loading=false;
-      })
+        .firestore()
+        .collection("users").doc(firebase.auth().currentUser.uid).collection("videos").doc(item.id).update({ "status": 3 }).then(function (res) {
+          item.status = 3;
+          item.loading = false;
+        })
 
     }
-    else{
+    else {
       let bucketUrl = "videos/output/" + item.outputVideoId;
       var uploadTask = firebase.storage().ref().child(bucketUrl);
       uploadTask.getDownloadURL().then(function (downloadLink) {
@@ -177,7 +214,7 @@ export class DashboardComponent implements OnInit {
       }).catch(function (error) { })
 
     }
-  
+
   }
 
   retry(item, count) {
@@ -207,7 +244,7 @@ export class DashboardComponent implements OnInit {
       });
   }
   reRecord(item) {
-    this.router.navigate(['/video-recorder'], { queryParams: { id: item.psaId }, skipLocationChange: true });
+    this.router.navigate(['/video-recorder'], { queryParams: { id: item.psaId } });
 
   }
 

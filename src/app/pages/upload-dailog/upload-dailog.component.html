@@ -1,0 +1,21 @@
+<div class="modal-body">
+  <!-- <button type="button" class="close" aria-label="Close" (click)="dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button> -->
+  <div class="row">
+    <h4 class="title" [innerHTML]="title"></h4>
+    <div class="card-div">
+      <button type="button" class="btn blue-button" (click)="accept()">{{ btnOkText }}</button>
+    </div>
+  </div>
+  <br/>
+ 
+  <div class="row">
+    <h4 class="title" [innerHTML]="message"></h4>
+    <div class="card-div">
+      <button type="button" class="btn blue-button" (click)="decline()">{{ btnCancelText }}</button>
+    </div>
+
+  </div>
+
+</div>

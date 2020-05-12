@@ -10,6 +10,8 @@ import { TextDailogService } from '../text-dialog/text-dialog.service';
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { TranslateService } from "@ngx-translate/core";
+import { UploadDailogComponent } from '../upload-dailog/upload-dailog.component';
+import { UploadDailogService } from '../upload-dailog/upload-dailog.service';
 const apiUrl = "https://psa-backend-server.hopscotchhealth.co/overlay-videos";
 
 declare var window: any;
@@ -56,7 +58,7 @@ export class VideoRecoderComponent implements OnInit {
     height: 480
   }
   myListenerWithContext:any;
-  constructor(private translate: TranslateService, private http: HttpClient, private route: ActivatedRoute, private textDailogService: TextDailogService, private confirmationDialogService: ConfirmationDailogService, private router: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService) {
+  constructor(private translate: TranslateService, private http: HttpClient, private route: ActivatedRoute, private textDailogService: TextDailogService,private uploadDailogService: UploadDailogService, private confirmationDialogService: ConfirmationDailogService, private router: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService) {
 
   }
   ngOnInit() {
@@ -79,13 +81,16 @@ export class VideoRecoderComponent implements OnInit {
     if (browser.toLowerCase().indexOf('safari') > -1) {
       me.isSafariBrowser = true;
     }
+
+
     this.subscribe = this.route.queryParamMap.subscribe(params => {
+    this.browserFailed="";
       if (params.get("id")) {
         me.loading = true;
         firebase.firestore().collection("psa").doc(params.get("id")).get().then(function (querySnapshot) {
           setTimeout(() => {
-          me.loading = false;
-          },2000)
+            me.loading = false;
+          }, 2000);
           if (querySnapshot.exists) {
             me.psaData.data = querySnapshot.data().time;
             me.psaData.name = querySnapshot.data().name;
@@ -113,7 +118,6 @@ export class VideoRecoderComponent implements OnInit {
                     }
                   }
                   me.startCamera();
-
                 }
               });
           }
@@ -320,11 +324,8 @@ export class VideoRecoderComponent implements OnInit {
       .get("video_recorder")
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((translation: any) => {
-        this.openConfirmationDialog(translation.upload_prompt, "", translation.upload, translation.re_record);
+        this.openConfirmationDialog(translation.process_prompt, translation.re_record_prompt, translation.upload, translation.re_record);
       });
-
-
-
   }
 
   processVideo() {
@@ -610,6 +611,7 @@ export class VideoRecoderComponent implements OnInit {
     this.timecount = 0;
     this.processText = "";
     this.psaData.percent = 0;
+    this.browserFailed="";
     if (this.recordRTC) {
       this.recordRTC.stopRecording();
       this.startCamera();
@@ -678,7 +680,7 @@ export class VideoRecoderComponent implements OnInit {
 
   public openConfirmationDialog(title, message, btnOkText, btnCancelText) {
     let me = this;
-    this.confirmationDialogService.confirm(title, message, btnOkText, btnCancelText)
+    this.uploadDailogService.confirm(title, message, btnOkText, btnCancelText)
       .then((confirmed) => {
         if (confirmed) {
           me.processVideo();

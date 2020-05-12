@@ -1,71 +1,67 @@
 <div class="content main-background">
-      <div class="row">
-            <div class="col-12">
-                  <div class="card card-chart">
-                        <div class="card-header">
-                              <div class="row">
-                                    <div class="col-sm-6 text-left" style="color:#141414;">
-                                          {{ "home.title" | translate }} 
-                                    </div>
-                              </div>
-                        </div>
+            <!-- <div class="row">
+                  <div class="col-12">
+                        <h2 class="home-title">
+                              {{ "home.title" | translate }}
+                        </h2>
+      
                   </div>
+            </div> -->
+            <h3 class="title">   {{ "home.title" | translate }}</h3>
+            <form>
+            <div class="row">    
+                  <div class="col-lg-6 col-sm-10 col-10 search-bg"> 
+                        <button type="submit" class="search-button-bg"><i class="fa fa-search"></i></button>  
+                        <input type="text" (input)="filterList($event)" placeholder="Search for challenges.." name="search" class="search-input"> 
+                  </div> 
             </div>
-      </div>
-
-      <div class="row" *ngFor="let item of videos">
-            <div class="col-12">
-                  <div class="card card-chart">
-                        <div class="card-header">
-                              <div class="row">
-                                    <div class="col-12 text-left">
-                                          <!-- <h4 class="card-title">{{item.video}} </h4> -->
-                                          <h5 class="card-category">{{item.date}}</h5>
-                                          <h6 style="display:flex;">{{item.psaName}}</h6>
-
+            </form>
+            <div class="row">
+                        <div  class="col-lg-4 col-sm-12 col-md-6" *ngFor="let item of filter;let i=index">
+                              <div  [ngClass]="getColor(i)"  class="card card-chart video-card">
+                                    <div class="card-header">
+                                    <!-- <h4 class="card-title">{{item.video}} </h4> -->
+                                    <h4 class="fw-600">{{item.psaName}}</h4>
+                                    <h5 class="card-category">{{item.date}}</h5>
+                                          
+            
                                           <div *ngIf="item.loading" class="processing">
                                                 <img height="20" src="assets/img/processing.gif" /> Processing
                                           </div>
-                                          <div *ngIf="item.status ==3" class="processing">
-                                                Your video failed to load. Please try again.
-                                          </div>
+                                          <div *ngIf="item.status ==3" class="processing">Your video failed to load. Please try again.</div>
                                     </div>
-
-                                    <div class="col-12" style="padding-bottom:10px;">
-                                          <button [disabled]="item.loading"  (click)="retry(item,0)" *ngIf="item.status==2" class="btn btn-outline btn-round btn-replay"
-                                                type="button" shape="round">
-                                                <i class="fas fa-sync-alt"></i>
-
-                                          </button>
-                                          <button *ngIf="item.status==1"  placement="bottom" ngbTooltip='{{ "home.preview" | translate }}' class="btn btn-outline btn-round btn-success1" type="button" shape="round" (click)="share(item)"> 
-                                                <i class="fas fa-eye font-lg"></i>
-                                          </button>
-                                          <button class="btn btn-outline btn-round btn-danger1"  placement="bottom"  ngbTooltip='{{ "home.delete" | translate }}' type="button" shape="round" (click)="delete(item)"> 
-                                                <i class="far fa-trash-alt font-lg"></i>
-                                          </button>
-
-                                          <button  *ngIf="item.status==1" placement="bottom" ngbTooltip='{{ "home.re_record" | translate }}' class="btn btn-outline btn-round share-button" type="button" shape="round" (click)="reRecord(item)"> 
-                                                <i class="fas fa-video font-lg"></i>
-                                          </button>
-                                          <!-- <button *ngIf="item.status==1" class="btn btn-outline btn-round share-button" type="button" shape="round" (click)="share(item)"> 
-                                                <i class="fas fa-share-alt font-lg"></i>
-                                          </button> -->
+            
+                                    <div class="col-12 mb-0">
+                                          <button [disabled]="item.loading"  (click)="retry(item,0)" *ngIf="item.status==2" class="btn btn-outline btn-round btn-white1 mx-10" type="button" shape="round"><i class="fas fa-sync-alt"></i></button>
+      
+                                          <button *ngIf="item.status==1"  placement="bottom" ngbTooltip='{{ "home.preview" | translate }}' class="btn btn-outline btn-round btn-white1 mx-10" type="button" shape="round" (click)="share(item)"> 
+                                          <i class="fas fa-eye font-lg"></i></button>
+      
+                                          <button class="btn btn-outline btn-round btn-white1 mx-10"  placement="bottom"  ngbTooltip='{{ "home.delete" | translate }}' type="button" shape="round" (click)="delete(item)"> 
+                                                            <i class="far fa-trash-alt font-lg"></i>
+                                                      </button>
+            
+                                          <button *ngIf="item.status==1" placement="bottom" ngbTooltip='{{ "home.re_record" | translate }}' class="btn btn-outline btn-round btn-white1 mx-10" type="button" shape="round" (click)="reRecord(item)"> 
+                                                            <i class="fas fa-video font-lg"></i>
+                                                      </button>
+                                                      <!-- <button *ngIf="item.status==1" class="btn btn-outline btn-round share-button" type="button" shape="round" (click)="share(item)"> 
+                                                            <i class="fas fa-share-alt font-lg"></i>
+                                                      </button> -->
                                     </div>
-
+            
+                                          
+                                    
                               </div>
                         </div>
                   </div>
-            </div>
-      </div>
       
-
-      <!-- <div class="row">
-            <div class= "pagination" style="padding-right: 15px; padding-left: 15px;">
-                <div>
-                  <pagination-controls (pageChange)="p=$event"></pagination-controls>
-              </div> 
-            </div>
-          </div>
-     -->
-  
-      <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+            <!-- <div class="row">
+                        <div class= "pagination" style="padding-right: 15px; padding-left: 15px;">
+                            <div>
+                              <pagination-controls (pageChange)="p=$event"></pagination-controls>
+                          </div> 
+                        </div>
+                      </div>
+                 -->
+      
+            <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

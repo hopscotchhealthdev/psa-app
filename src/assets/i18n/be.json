@@ -8,7 +8,8 @@
 		"upload_prompt": "ভিডিও আপলো ড হচ্ ছে",
 		"play_prompt": "প্ লে বাটনটি টিপুন এবং স্ ক্ রিনে যা দেখছেন তা বলতে থাকুন",
 		"got_it": "বুঝেছি",
-		"process_prompt": "আপনি কি আপনার ভিডিওটি আপলো ড করতে চান,না আরেকবার রেকর্ ড করতে চান ?",
+		"process_prompt": "Are you happy with your video challenge?",
+		"re_record_prompt": "Thank you can do a better job?",		
 		"upload": "আপলো ড করতে চাই",
 		"re_record": "আবার রেকর্ ড করতে চাই",
 		"attention": "মনো যো গ দিন",
@@ -27,7 +28,7 @@
 		"re_record": "আবার রেকর্ ড করুন",
 		"record_another": "আরেকটা ভিডিও রেকর্ ড করুন"
 	},
-	"app_name": "CoVideo",
+	"app_name": "Record KaroNa",
 	"profile": {
 		"title": "প্ রো ফাইল এডিট করুন",
 		"add_photo": "ফটো যো গ করুন",

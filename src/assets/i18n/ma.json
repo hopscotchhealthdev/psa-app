@@ -8,7 +8,8 @@
 		"upload_prompt": "विडीयो अपलोड होत आहे",
 		"play_prompt": "प्ले बुटून दाबा आणि स्क्रीन वर जे दिस्त्रे, ते बोला",
 		"got_it": "कळलं",
-		"process_prompt": "हा विडिओ परत रेकॉर्ड करायचा आहे कि अपलोड करायचा आहे?",
+		"process_prompt": "Are you happy with your video challenge?",
+		"re_record_prompt": "Thank you can do a better job?",		
 		"upload": "अपलोड",
 		"re_record": "परत रेकॉर्ड",
 		"attention": "लक्ष",
@@ -26,7 +27,7 @@
 		"re_record":"परत रेकॉर्ड",
 		"record_another":"अजून एक रेकॉर्ड करा"
 	},
-	"app_name":"CoVideo",
+	"app_name":"Record KaroNa",
 	"profile": {
 		"title": "प्रोफिले सुधारणे",
 		"add_photo": "फोटो जोडा",

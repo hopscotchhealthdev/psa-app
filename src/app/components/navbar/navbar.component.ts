@@ -23,13 +23,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
     userName: "",
     image: "",
     gender: "",
-  
+
   };
   public isCollapsed = true;
-  isAnonymous:boolean=true;
+  isAnonymous: boolean = true;
   closeResult: string;
   private ngUnsubscribe = new Subject<void>();
-  lang:string= localStorage.getItem("language");
+  lang: string = localStorage.getItem("language");
   constructor(
     location: Location,
     private element: ElementRef,
@@ -45,8 +45,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   updateColor = () => {
     var navbar = document.getElementsByClassName('navbar')[0];
     if (window.innerWidth < 993 && !this.isCollapsed) {
-     // navbar.classList.add('bg-white');
-     // navbar.classList.remove('navbar-transparent');
+      // navbar.classList.add('bg-white');
+      // navbar.classList.remove('navbar-transparent');
     } else {
       navbar.classList.remove('bg-white');
       navbar.classList.add('navbar-transparent');
@@ -59,7 +59,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // window.addEventListener("resize", this.updateColor);
-   // this.listTitles = ROUTES.filter(listTitle => listTitle);
+    // this.listTitles = ROUTES.filter(listTitle => listTitle);
     const navbar: HTMLElement = this.element.nativeElement;
     this.toggleButton = navbar.getElementsByClassName("navbar-toggler")[0];
     this.router.events.subscribe(event => {
@@ -71,56 +71,56 @@ export class NavbarComponent implements OnInit, OnDestroy {
       }
     });
 
-  // Close the dropdown if the user clicks outside of it
-  window.onclick = function(event:any) {
-    if (!event.target.matches('.dropbtn')) {
-      var dropdowns = document.getElementsByClassName("dropdown-content");
-      var i;
-      for (i = 0; i < dropdowns.length; i++) {
-        var openDropdown = dropdowns[i];
-        if (openDropdown.classList.contains('show')) {
-          openDropdown.classList.remove('show');
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function (event: any) {
+      if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
         }
       }
     }
-  }
 
-    
+
     firebase.auth().onAuthStateChanged((user) => {
       let me = this;
       if (user) {
         if (user.isAnonymous) {
           this.isAnonymous = true;
           me.user.userName = "Anonymous";
-        }else{
-          this.isAnonymous = false;  
+        } else {
+          this.isAnonymous = false;
           firebase
-          .firestore().collection("users").doc(user.uid).onSnapshot((userRef) => {
-            if(userRef.exists){
-              me.user.userName = userRef.data().userName;
-              me.user.image = userRef.data().image ? userRef.data().image : "assets/img/anime3.png"
-            }
-            else{
-              me.user.image ="assets/img/anime3.png"
-            }
-            });        
+            .firestore().collection("users").doc(user.uid).onSnapshot((userRef) => {
+              if (userRef.exists) {
+                me.user.userName = userRef.data().userName;
+                me.user.image = userRef.data().image ? userRef.data().image : "assets/img/anime3.png"
+              }
+              else {
+                me.user.image = "assets/img/anime3.png"
+              }
+            });
         }
-      }else{
-      
+      } else {
+
         me.user.userName = "Anonymous";
-        this.isAnonymous = true;                  
+        this.isAnonymous = true;
       }
     })
 
   }
-profileCollapse(){
-  if (window.innerWidth < 993){
-    this.collapse();
+  profileCollapse() {
+    if (window.innerWidth < 993) {
+      this.collapse();
+    }
   }
-}
 
-  logout(){
-    if (window.innerWidth < 993){
+  logout() {
+    if (window.innerWidth < 993) {
       this.collapse();
     }
     firebase.auth().signOut().then((userRef) => {
@@ -130,30 +130,30 @@ profileCollapse(){
 
   goToLogin() {
     this.translate
-    .get("terms")
-    .pipe(takeUntil(this.ngUnsubscribe))
-    .subscribe((translation: any) => {
-      this.confirmationDialogService.confirm(translation.agree, `${translation.readout} <a  href='https://google.com' target='_blank;'><b style='color: #314DBD;font-weight: 700;'>${translation.terms}</b></a>`,translation.accept ,translation.decline)
-      .then((confirmed) => {
-        if (confirmed) {
-          window.location.href = `${window.location.origin}/login/index.html`
-        }
+      .get("terms")
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((translation: any) => {
+        this.confirmationDialogService.confirm(translation.agree, `${translation.readout} <a  href='../home/terms-and-conditions.html' target='_blank;'><b style='color: #314DBD;font-weight: 700;'>${translation.terms}</b></a>`, translation.accept, translation.decline)
+          .then((confirmed) => {
+            if (confirmed) {
+              window.location.href = `${window.location.origin}/login/index.html`
+            }
+          });
+
       });
 
-    });
-  
- 
+
   }
 
-  
+
   collapse() {
     this.isCollapsed = !this.isCollapsed;
     const navbar = document.getElementsByTagName("nav")[0];
     if (!this.isCollapsed) {
-   //  navbar.classList.remove("navbar-transparent");
-  navbar.classList.add("bg-white");
+      //  navbar.classList.remove("navbar-transparent");
+      navbar.classList.add("bg-white");
     } else {
-  //   navbar.classList.add("navbar-transparent");
+      //   navbar.classList.add("navbar-transparent");
       navbar.classList.remove("bg-white");
     }
   }
@@ -165,7 +165,7 @@ profileCollapse(){
     );
     const html = document.getElementsByTagName("html")[0];
     if (window.innerWidth < 991) {
-     // mainPanel.style.position = "fixed";
+      // mainPanel.style.position = "fixed";
     }
 
     setTimeout(function () {
@@ -185,7 +185,7 @@ profileCollapse(){
 
     if (window.innerWidth < 991) {
       setTimeout(function () {
-     //   mainPanel.style.position = "";
+        //   mainPanel.style.position = "";
       }, 500);
     }
     this.sidebarVisible = false;
@@ -284,8 +284,31 @@ profileCollapse(){
   ngOnDestroy() {
     window.removeEventListener("resize", this.updateColor);
   }
-  languageChange(value){
+
+  languageChange(value) {
     this.translate.use(value);
-    localStorage.setItem("language",value)
-   }
+    localStorage.setItem("language", value);
+    let path = this.location.path();
+    if (path.indexOf("recorder") > -1) {
+      let id = this.getParameterByName("id", path);
+      firebase.firestore().collection("psa").doc(id).get().then(function (querySnapshot) {
+        let challenge_number = querySnapshot.data().video_number;
+        firebase.firestore().collection("psa").where("lang", "==", value).where("video_number", "==", challenge_number).get().then(function (queryUp) {
+          if (queryUp.docs[0].id) {
+            window.location.href = `${window.location.origin}/#/recorder/?id=${queryUp.docs[0].id}`;
+          }
+        });
+      })
+    }
+  }
+
+  getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+      results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+  }
 }

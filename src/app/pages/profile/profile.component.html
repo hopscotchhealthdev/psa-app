@@ -1,23 +1,22 @@
 <div class="content main-background">
   <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
-  <div class="container" style="padding:0px;">
+  <div class="container p-0">
     <div class="col-md-12" *ngIf="!isAnonymous">
       <div class="card white-bg">
         <!-- <div class="card-header"></div> -->
         <div class="card-body white-bg">
           <div class=" col-md-12">
             <div>
-              <div class="card-header" style="text-align: center;">
-                <h5 class="title" style="color:#141414;">{{ "profile.title" | translate }}</h5>
+              <div class="card-header text-center">
+                <h5 class="title dark-grey-text">{{ "profile.title" | translate }}</h5>
               </div>
               <div class="white-bg">
-                <div style="text-align: center;">
-                  <div class="fileinput text-center" style="position: relative;">
-                    <input accept="image/*" (change)="fileInput($event)" id="file" style="display:none" type="file">
+                <div class="text-center">
+                  <div class="fileinput text-center position-relative">
+                    <input accept="image/*" (change)="fileInput($event)" id="file" class="display-none" type="file">
                     <div class="thumbnail img-circle">
                       <img src="{{user.image}}">
-                      <button (click)="renoveImage();" *ngIf="user.isProfile" class="btn btn-outline btn-round btn-success1" type="button" shape="round"
-                        style="position: absolute; top: 0; right: 0;">
+                      <button (click)="renoveImage();" *ngIf="user.isProfile" class="btn btn-outline btn-round btn-success1 closeicon-position" type="button" shape="round">
                         <img src="assets/img/close.png" width="12" height="12">
                       </button>
                     </div>
@@ -49,29 +48,29 @@
 
                 <div class=" row">
                   <label class=" col-sm-auto col-form-label"> {{ "profile.gender" | translate }} </label>
-                  <div radio-group class=" col-sm-10 checkbox-radios" style="display: flex; flex-wrap: wrap;">
-                    <div class=" form-check form-check-radio" style="margin-right:20px;">
+                  <div radio-group class=" col-sm-10 checkbox-radios dflex-wrap">
+                    <div class=" form-check form-check-radio mr-20">
                       <label class=" form-check-label">
                         <input class=" form-check-input" type="radio" (ngModelChange)="user.gender = $event" [ngModel]="user.gender" name="gender"
                           value="male">
                         <span class=" form-check-sign"></span>
                         {{ "profile.male" | translate }} </label>
                     </div>
-                    <div class="form-check form-check-radio" style="margin-right:20px;">
+                    <div class="form-check form-check-radio mr-20">
                       <label class=" form-check-label">
                         <input class=" form-check-input" type="radio" (ngModelChange)="user.gender = $event" [ngModel]="user.gender" name="gender"
                           value="female">
                         <span class=" form-check-sign"></span>
                         {{ "profile.female" | translate }} </label>
                     </div>
-                    <div class="form-check form-check-radio" style="margin-right:20px;">
+                    <div class="form-check form-check-radio mr-20">
                       <label class=" form-check-label">
                         <input class=" form-check-input" type="radio" (ngModelChange)="user.gender = $event" [ngModel]="user.gender" name="gender"
                           value="other">
                         <span class=" form-check-sign"></span>
                         {{ "profile.other" | translate }} </label>
                     </div>
-                    <div class="form-check form-check-radio" style="margin-right:0px;">
+                    <div class="form-check form-check-radio mr-20">
                       <label class=" form-check-label">
                         <input class=" form-check-input" type="radio" (ngModelChange)="user.gender = $event" [ngModel]="user.gender" name="gender"
                           value="prefer">
@@ -82,7 +81,7 @@
                 </div>
 
               </div>
-              <div class="" style="text-align: center;">
+              <div class="text-center">
                 <button [disabled]="!user.email || !user.userName ||  !user.age || !user.validEmail" (click)="update()" class=" btn btn-fill blue-button p-10"
                   type="submit">
                   {{ "profile.update" | translate }} </button>
@@ -100,7 +99,7 @@
             <div class="card card-chart">
                   <div class="card-header">
                         <div class="row">
-                              <div class="col-sm-6 text-left" style="color:#141414;">
+                              <div class="col-sm-6 text-left dark-grey-text">
                                 {{ "profile.login_continue" | translate }} 
                               </div>
                         </div>
