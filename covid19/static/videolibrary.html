@@ -1,109 +1,242 @@
 <!DOCTYPE html>
-<!--  This site was created in Webflow. http://www.webflow.com  -->
-<!--  Last Published: Mon Mar 30 2020 12:49:27 GMT+0000 (Coordinated Universal Time)  -->
-<html data-wf-page="5e7b2778382980f3563c8c55" data-wf-site="5e7b277866961175c2624628">
+<!--  Last Published: Mon May 11 2020 08:03:18 GMT+0000 (Coordinated Universal Time)  -->
+<html data-wf-page="5eaa8d8db688d33618aea413" data-wf-site="5e7b277866961175c2624628">
+
 <head>
-  
   <meta charset="utf-8">
-  <title>COVID-19 Video Challenge</title>
-  <meta content="The Coronavirus Challenge is an app designed to record and share public service announcements with your friends and family. Complete the video challenges and raise awareness by telling everyone what needs to be done to stay away from coronavirus!" name="description">
-  <meta content="COVID-19 Video Challenge" property="og:title">
-  <meta content="Tell us what you’re doing and what it takes to stay coronavirus-free! Let’s spread the word and #flattenthecurve together! Record public service announcements created by public health experts on how to navigate the crisis." property="og:description">
-  <meta content="summary" name="twitter:card">
+  <title>Video library</title>
+  <meta content="Video library" property="og:title">
+  <meta content="Video library" property="twitter:title">
   <meta content="width=device-width, initial-scale=1" name="viewport">
-  <meta content="Webflow" name="generator">
+  <!-- add custom css -->
+  <link href="css/custom.css" rel="stylesheet" type="text/css">
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
-  <link href="css/webflow.css" rel="stylesheet" type="text/css">
-  <link href="css/covid-19-psa.webflow.css" rel="stylesheet" type="text/css">
+  <link href="css/components.css" rel="stylesheet" type="text/css">
+  <link href="css/covid-19-videochallenge.css" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
-  <script type="text/javascript">WebFont.load({  google: {    families: ["Lato:100,100italic,300,300italic,400,400italic,700,700italic,900,900italic","Montserrat:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic","Libre Franklin:200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic","Pacifico:regular","Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic","Playfair Display:regular,italic,700,700italic,900,900italic:cyrillic,latin"]  }});</script>
+  <script
+    type="text/javascript">WebFont.load({ google: { families: ["Lato:100,100italic,300,300italic,400,400italic,700,700italic,900,900italic", "Montserrat:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic", "Libre Franklin:200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic", "Pacifico:regular", "Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic", "Playfair Display:regular,italic,700,700italic,900,900italic:cyrillic,latin", "Roboto:100,100italic,300,300italic,regular,italic,500,500italic,700,700italic,900,900italic"] } });</script>
   <!-- [if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif] -->
-  <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162682780-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'UA-162682780-1');
-  </script>
+  <script
+    type="text/javascript">!function (o, c) { var n = c.documentElement, t = " w-mod-"; n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch") }(window, document);</script>
   <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon">
   <link href="images/webclip.png" rel="apple-touch-icon">
+  <style>
+    body {
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+  </style>
 </head>
+
 <body>
-  <div class="wrapper-pages">
-    <div data-collapse="medium" data-animation="default" data-duration="400" class="sticky-navbar w-nav">
-      <div class="container-3 w-container">
-        <div class="nav-flex">
-          <div><img src="images/New-Hopscotch-Logo_Black.png" width="66" srcset="images/New-Hopscotch-Logo_Black-p-500.png 500w, images/New-Hopscotch-Logo_Black-p-800.png 800w, images/New-Hopscotch-Logo_Black-p-1080.png 1080w, images/New-Hopscotch-Logo_Black-p-1600.png 1600w, images/New-Hopscotch-Logo_Black-p-2000.png 2000w, images/New-Hopscotch-Logo_Black-p-2600.png 2600w, images/New-Hopscotch-Logo_Black.png 2925w" sizes="66px" alt=""></div>
-          <div class="link-block-flex">
-            <nav role="navigation" class="nav-menu w-nav-menu"><a href="index.html" class="nav-link w-nav-link">Home</a><a href="videochallenges.html" class="nav-link w-nav-link">video challengeS</a><a href="videolibrary.html" aria-current="page" class="nav-link w-nav-link w--current">video library</a><a href="../login/index.html" aria-current="page" class="nav-link w-nav-link w--current">LOGIN</a></nav>
-            <div class="nav-menu">
-              <div class="menu-button w-nav-button">
-                <div class="icon-2 w-icon-nav-menu"></div>
-              </div>
+  <div data-collapse="small" data-animation="over-right" data-duration="400" data-doc-height="1" role="banner"
+    class="sticky-navbar w-nav">
+    <div class="container-3 w-container">
+      <div class="nav-flex"><a href="#" class="branding--desktop w-inline-block"><img
+            src="images/output-onlinejpgtools-5.png" width="70" alt="">
+          <div class="login-label-heading hidden">RECORD KARONA</div>
+        </a>
+        <div class="link-block-flex">
+          <div class="nav-menu">
+            <div class="menu-button w-nav-button">
+              <div class="icon-2 w-icon-nav-menu"></div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-btns-flex">
+          <div class="nav_for_other"></div>
+          <div class="dropdown">
+            <button onclick="openLangDesktop()" class="lng-btn w-button dropbtn">Language</button>
+            <div id="myDropdownDesktop" class="dropdown-content lang-dropdown">
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="text-block-10">VIDEO LIBRARY </div>
-  <div class="w-dyn-list">
-      <div class="w-dyn-items w-row firebaseData">
-    
+  <div class="header-mobile">
+    <div class="ham" " id=" nav" onclick="openNav();">
+      <div class="hamburger-line bottom-padding-2px"></div>
+      <div class="hamburger-line bottom-padding-2px"></div>
+      <div class="hamburger-line"></div>
+    </div>
+    <div class="nav_mobile nav_for_other" id="nav-mobile">
+    </div>
+    <div class="header_btns">
+      <div class="dropdown">
+        <button onclick="openLang()" class="simple_btn w-button dropbtn">Language</button>
+        <div id="myDropdown" class="dropdown-content lang-dropdown">
+        </div>
       </div>
-      <div hidden class="w-dyn-empty">
-        <div>No items found.</div>
+      <!-- <a href="#" class="simple_btn w-button">Language</a> -->
+      <a href="#" class="login_btn w-button">login</a>
+    </div>
+  </div>
+  <div class="video-library-section--desktop">
+    <div class="dashboard-ui-bg-layout">
+      <div class="side-nav-bg">
+        <div class="side-nav-content">
+          <div class="nav-label">Record KoroNa</div>
+          <div class="share-nav-border--desktop"></div>
+          <div class="side-nav-wrapper--desktop">
+            <div class="share-btn--desktop current">
+              <a href="video-library.html" aria-current="page"
+                class="share-btn-bg--desktop no-padding w-inline-block w--current">
+                <div class="btn_logo--desktop">
+                  <div class="color-elipse green"><img src="images/education-whte.svg" width="18" height="18" alt=""
+                      class="share-btn-icon--desktop small"></div>
+                </div>
+                <div class="body-text share-nav">Videos</div>
+              </a>
+            </div>
+            <div class="share-btn--desktop">
+              <a href="#" class="share-btn-bg--desktop no-padding w-inline-block">
+                <div class="btn_logo--desktop">
+                  <div class="color-elipse orange"><img src="images/video-white.svg" width="18" height="18" alt=""
+                      class="share-btn-icon--desktop small"></div>
+                </div>
+                <div class="body-text share-nav">Record a video</div>
+              </a>
+            </div>
+            <div class="share-btn--desktop">
+              <a href="#" class="share-btn-bg--desktop no-padding w-inline-block">
+                <div class="btn_logo--desktop">
+                  <div class="color-elipse blue"><img src="images/profile-white.svg" width="18" height="18" alt=""
+                      class="share-btn-icon--desktop small"></div>
+                </div>
+                <div class="body-text share-nav">Profile</div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="category_nav">
+        <div class="cat_nav_content">
+          <div class="cat_label">Categories</div>
+          <div class="category_list">
+            <div class="category_list_flex current">
+              <a href="#" id="cat_health" onclick="filtercat('health')" class="cat-nav-option w-inline-block">
+                <div class="option_label grey">health</div>
+              </a>
+              <a href="#" id="cat_sports" onclick="filtercat('sports')" class="cat-nav-option w-inline-block">
+                <div class="option_label grey">sports</div>
+              </a>
+              <a href="#" id="cat_workforce" onclick="filtercat('workforce')" class="cat-nav-option w-inline-block">
+                <div class="option_label grey">workforce</div>
+              </a>
+              <a href="#" id="cat_industry" onclick="filtercat('industry')" class="cat-nav-option w-inline-block">
+                <div class="option_label grey">industry</div>
+              </a>
+              <a href="#" id="cat_creative" onclick="filtercat('creative')" class="cat-nav-option w-inline-block">
+                <div class="option_label grey">creative</div>
+              </a>
+              <a href="#" id="cat_markets" onclick="filtercat('markets')" class="cat-nav-option w-inline-block">
+                <div class="option_label grey">markets</div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <div class="content-ui">
+        <div class="content-wrap">
+          <div class="search-bar-wrap">
+            <h1 class="title" id="page_title">Video Library</h1>
+            <div class="search-nav">
+              <div class="search-bar">
+                <img src="images/search.svg" width="18" height="18" alt="" class="looking-glass-svg">
+                <input type="text" class="search-input" placeholder="Search challanges..."
+                  onKeyUp="return search(event)" />
+              </div>
+              <!-- <div class="categories_btn_mobile">
+                <div class="cat_btn_label">Filter</div>
+              </div> -->
+            </div>
+          </div>
+          <div class="content-container_browse">
+            <div class="firebaseData"></div>
+            <!-- <div id="w-node-e949c9510b5e-18aea413" class="video_card green">
+              <div class="video_prev _2">
+                <div class="play_btn"><img src="images/video-button-filled.svg" alt="" class="play_svg"></div>
+                <div class="video-bg-overlay no-borders"></div>
+              </div>
+              <div class="challange_meta">
+                <h4 class="challange_label">Challange name</h4>
+                <h1 class="card-title white">Video Description</h1>
+                <div class="challange-info white-80">Wed, April 8 2020 10:09 PM</div>
+                <div class="card-btns-flex centered">
+                  <div class="card-btn"><a href="#" class="btn-elipse light-grey w-inline-block"><img
+                        src="images/share-icon-white.svg" width="18" height="18" alt="" class="card-btn-logo"></a></div>
+                  <div class="btn_label">43 shares</div>
+                </div>
+              </div>
+            </div>
+            <div id="w-node-0b4a9c309ea8-18aea413" class="video_card pink">
+              <div class="video_prev _3">
+                <div class="play_btn"><img src="images/video-button-filled.svg" alt="" class="play_svg"></div>
+                <div class="video-bg-overlay no-borders"></div>
+              </div>
+              <div class="challange_meta">
+                <h4 class="challange_label">Challange name</h4>
+                <h1 class="card-title white">Video Description</h1>
+                <div class="challange-info white-80">Wed, April 8 2020 10:09 PM</div>
+                <div class="card-btns-flex centered">
+                  <div class="card-btn"><a href="#" class="btn-elipse light-grey w-inline-block"><img
+                        src="images/share-icon-white.svg" width="18" height="18" alt="" class="card-btn-logo"></a></div>
+                  <div class="btn_label">43 shares</div>
+                </div>
+              </div>
+            </div>
+            <div id="w-node-1ca0e7ce4658-18aea413" class="video_card purple">
+              <div class="video_prev _4">
+                <div class="play_btn"><img src="images/video-button-filled.svg" alt="" class="play_svg"></div>
+                <div class="video-bg-overlay no-borders"></div>
+              </div>
+              <div class="challange_meta">
+                <h4 class="challange_label">Challange name</h4>
+                <h1 class="card-title white">Video Description</h1>
+                <div class="challange-info white-80">Wed, April 8 2020 10:09 PM</div>
+                <div class="card-btns-flex centered">
+                  <div class="card-btn"><a href="#" class="btn-elipse light-grey w-inline-block"><img
+                        src="images/share-icon-white.svg" width="18" height="18" alt="" class="card-btn-logo"></a></div>
+                  <div class="btn_label">43 shares</div>
+                </div>
+              </div>
+            </div>
+            <div id="w-node-a609dc997a1f-18aea413" class="video_card orange">
+              <div class="video_prev">
+                <div class="play_btn"><img src="images/video-button-filled.svg" alt="" class="play_svg"></div>
+                <div class="video-bg-overlay no-borders"></div>
+              </div>
+              <div class="challange_meta">
+                <h4 class="challange_label">Challange name</h4>
+                <h1 class="card-title white">Video Description</h1>
+                <div class="challange-info white-80">Wed, April 8 2020 10:09 PM</div>
+                <div class="card-btns-flex centered">
+                  <div class="card-btn"><a href="#" class="btn-elipse light-grey w-inline-block"><img
+                        src="images/share-icon-white.svg" width="18" height="18" alt="" class="card-btn-logo"></a></div>
+                  <div class="btn_label">43 shares</div>
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
       </div>
     </div>
-  <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js?site=5e7b277866961175c2624628" type="text/javascript" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-  <script src="js/webflow.js" type="text/javascript"></script>
+  </div>
+  <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js?site=5e7b277866961175c2624628"
+    type="text/javascript" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+  <script src="js/covid-19-videochallenge.js" type="text/javascript"></script>
   <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
-  <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js?site=5e7b277866961175c2624628" type="text/javascript" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-  <script src="js/webflow.js" type="text/javascript"></script>
-  <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
-
-  <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase.js"></script>
-  <script src="js/config.js"></script>
-  <script>
-   var userLogin=false;
-	$(document).ready(function () {
-	var me =this;
-	 firebase.auth().onAuthStateChanged((user) => {
-	 
-        if (user) {
-		userLogin=true;
-		   }else{
-		 userLogin=false;
-		   }  
-		 firebase.firestore().collection("videolibrary").get().then(function (querySnapshot) {
-        if (querySnapshot.docs.length == 0) {
-          $('.w-dyn-empty').show();
-        }
-        querySnapshot.forEach(snapItem => {
-          if (snapItem.exists) {
-            const element = snapItem.data();
-              $('.firebaseData').append('<div class="collection-item-2 w-dyn-item w-col w-col-4"><div class="w-container"><div style="padding-top:56.17021276595745%" class="w-video w-embed"><iframe class="embedly-embed" src="'+element.video_url+'" scrolling="no" title="'+element.video_dec+'" frameborder="0" allow="autoplay; fullscreen" allowfullscreen="true"></iframe></div><div class="text-block-11">'+element.video_text+'</div><h3 class="heading-15">'+element.video_title+'</h3><div  onclick="goToShareApp(\'' + snapItem.id + '\')" class="button-11 w-button">Share</div></div></div>'
-            );
-         
-          }
-        });	  
-	  })
-	      
-        });
-      });
-	 function goToShareApp(id){
-	if(!userLogin){
-	if (confirm('Login into the app')) {
-	 window.location.href = `../login/index.html`;
-    // Save it!
-	}
-	}
-	else{
-	 window.location.href = `../share/index.html#/videolibrary/${id}`;
-	 }
-		}
-  </script>
 </body>
+
+<!-- add custom scripts -->
+<script src="https://www.gstatic.com/firebasejs/7.8.1/firebase.js"></script>
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<!-- js file for index page -->
+<script src="js/videolibrary.js"></script>
+
+
 </html>
