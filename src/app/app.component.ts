@@ -8,9 +8,10 @@ import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent {
-  title = "BrokenColor";
   constructor(public router: Router, private route: ActivatedRoute) {
     var me = this;
+
+    /// testing codes
   // firebase.auth().signInWithEmailAndPassword("tech@hopscotch.health","111111")
    /* this.route.queryParamMap.subscribe(params => {
       console.log(params.get("id"));

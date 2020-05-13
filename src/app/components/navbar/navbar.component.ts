@@ -294,8 +294,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
       firebase.firestore().collection("psa").doc(id).get().then(function (querySnapshot) {
         let challenge_number = querySnapshot.data().video_number;
         firebase.firestore().collection("psa").where("lang", "==", value).where("video_number", "==", challenge_number).get().then(function (queryUp) {
-          if (queryUp.docs[0].id) {
-            window.location.href = `${window.location.origin}${window.location.pathname}/#/recorder/?id=${queryUp.docs[0].id}`;
+          if (queryUp.docs.length > 0) {
+            window.location.href = `${window.location.origin}${window.location.pathname}#/recorder/?id=${queryUp.docs[0].id}`;
           }
         });
       })

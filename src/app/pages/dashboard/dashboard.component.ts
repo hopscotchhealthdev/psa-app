@@ -124,6 +124,9 @@ export class DashboardComponent implements OnInit {
               }
             })
           });
+      } else {
+        me.filter = [];
+        me.videos = [];
       }
     })
     me.interval = setInterval(() => {
