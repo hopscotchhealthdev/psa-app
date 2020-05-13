@@ -11,6 +11,12 @@ $(document).ready(function () {
                 }
             }
         }
+        if (!(event.target.matches('.hamburger-line') || event.target.matches('#nav'))) {
+            var el = document.getElementById("nav-mobile");
+            if (el.classList.contains("show-nav")) {
+                el.classList.remove('show-nav');
+            }
+        }
     }
 
     if (localStorage.getItem("language")) {
