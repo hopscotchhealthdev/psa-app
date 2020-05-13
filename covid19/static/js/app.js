@@ -150,3 +150,14 @@ function trimSentence(txt) {
     return firstLine;
 }
 
+function searchInString(target, key) {
+    if (key) {
+        var str = target.toLowerCase();
+        key = key.toLowerCase();
+        var n = str.search(key);
+        return n > -1;
+    } else {
+        return true;
+    }
+}
+
