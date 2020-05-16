@@ -1,282 +1,288 @@
 .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #ffffff;
-    min-width: 160px;
-    overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 9998;
-  }
-  
-  .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    cursor: pointer;
-  }
-
-.show {
-    display: block !important;
+  position: relative;
+  display: inline-block;
 }
 
-.show_flex {
-  height: auto !important;
-  opacity: 1 !important;
-  padding-top: 24px !important;
-}
-
-.footer_section {
-    width: 100%;
-}
-
-.show-nav {
-  display: block !important;
-}
-
-.nav_mobile {
-  z-index: 9999;
-  position: fixed;
+.dropdown-content {
   display: none;
-  text-align: center;
-  left: 0;
-  right: 0;
-  top: 75px;
-  background: white;
-  padding-left: 5px;
+  position: absolute;
+  background-color: #ffffff;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 9998;
 }
 
-.nav_mobile a {
-  line-height: 22px;
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
   text-decoration: none;
   display: block;
   cursor: pointer;
-  font-size: 12px;
-  border-top: 1px solid #cccccc;
+}
+
+.show {
+  display: block !important;
+}
+
+.show_flex {
+height: auto !important;
+opacity: 1 !important;
+padding-top: 24px !important;
+}
+
+.footer_section {
+  width: 100%;
+}
+
+.show-nav {
+display: block !important;
+}
+
+.nav_mobile {
+z-index: 9999;
+position: fixed;
+display: none;
+text-align: center;
+left: 0;
+right: 0;
+top: 75px;
+background: white;
+padding-left: 5px;
+}
+
+.nav_mobile a {
+line-height: 22px;
+text-decoration: none;
+display: block;
+cursor: pointer;
+font-size: 12px;
+border-top: 1px solid #cccccc;
 }
 
 #challenge_btn {
-  text-transform: none !important;
+text-transform: none !important;
 }
 
 @media (min-width: 1025px){ 
-  .h6_new {
-    font-size: 16px !important;
-  }
+.h6_new {
+  font-size: 16px !important;
+}
 
-  .btn-responsive {
-    font-size: 14px !important;
-  }
+.btn-responsive {
+  font-size: 14px !important;
+}
 
-  .h3_new {
-    font-size: 22px !important;
-  }
+.h3_new {
+  font-size: 22px !important;
+}
 
-  .container-3 {
-    max-width: 100% !important;
-  }
+.container-3 {
+  max-width: 100% !important;
+}
 }
 
 .dashboard-ui-bg-layout {
-  height: auto !important;
+height: auto !important;
 }
 
 .challange_module_wrap {
+max-height: none !important;
+height: auto !important;
+}
+
+.challange_btn {
+float: left !important;
+margin-right: 2px;
+margin-top: 2px;
+min-width: 120px !important;
+justify-content: center;
+}
+
+.challange_visual_wrap {
+padding: 5px;
+}
+
+.challange_illustration_desktop {
+  position: absolute;
+  max-height: 90%;
+}
+
+.video_iframe {
+position: relative;
+min-width: 350px;
+min-height: 200px;
+flex: 1;
+border-radius: 4px;
+background-color: #000;
+background-position: 50% 50%;
+background-size: cover;
+}
+
+.video_iframe .iframe_wrap {
+position: absolute;
+left: 0%;
+top: 0%;
+right: 0%;
+bottom: 0%;
+z-index: 2;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.video_iframe .iframe_wrap iframe {
+max-width: 100%;
+}
+
+.search-input {
+background: transparent;
+border: 0px solid #dbdbdb;
+margin-left: 5px;
+line-height: 30px;
+width: 90%;
+}
+
+.search-input:hover, .search-input:focus {
+border: none;
+box-shadow: none;
+outline: none;
+}
+
+.video_card {
+margin-bottom: 24px !important;
+}
+
+.challange_meta {
+margin-bottom: 10px;
+width: 75%;
+}
+
+.challange_meta .challange_label {
+font-size: 16px;
+letter-spacing: 1.3px;
+text-transform: none;
+}
+
+.challange_meta .card-title {
+font-size: 14px !important;
+}
+
+.challange_meta .challange-info {
+font-size: 13px;
+}
+
+.challange_meta .btn_label {
+font-size: 13px;
+letter-spacing: 1px;
+text-transform: none;
+}
+
+
+.section {
+position: relative;
+height: 100%;
+/* margin-top: 75px; */
+}
+
+
+@media screen and (max-width: 479px) {
+.hero_content {
+  flex-wrap: wrap !important;
   max-height: none !important;
+}
+.hero_illustration_mobile {
+  margin: 0 auto !important;
+  margin-top: 24px !important;
+  position: relative !important;
+  max-width: none !important;
+  margin-right: auto;
+  margin-left: auto;
+}
+.nav-link.w--current {
+  line-height: 22px !important;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+  font-size: 12px !important;
+  border-top: 1px solid #cccccc !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+.challange_illustration {
+  width: -webkit-calc(100% - 220px);
+  width:    -moz-calc(100% - 220px);
+  width:         calc(100% - 220px);
   height: auto !important;
+  margin-top: 24px !important;
+}
+
+.challange_btns_wrap {
+  margin-top: 0px !important;
+  padding-top: 0px;
+  height: 0px;
+  opacity: 0;
 }
 
 .challange_btn {
   float: left !important;
   margin-right: 2px;
-  margin-top: 2px;
-  min-width: 190px !important;
-}
-
-.challange_visual_wrap {
-  padding: 5px;
+  min-width: 150px !important;
+  font-size: 10px !important;
+  padding: 2px 0px !important;
+  margin-bottom: 2px;
+  letter-spacing: 1.2px !important;
 }
 
 .play_btn {
-  padding: 24px !important;
-}
-
-.video_iframe {
-  position: relative;
-  min-width: 350px;
-  min-height: 200px;
-  flex: 1;
-  border-radius: 4px;
-  background-color: #000;
-  background-position: 50% 50%;
-  background-size: cover;
-}
-
-.video_iframe .iframe_wrap {
-  position: absolute;
-  left: 0%;
-  top: 0%;
-  right: 0%;
-  bottom: 0%;
-  z-index: 2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.video_iframe .iframe_wrap iframe {
-  max-width: 100%;
-}
-
-.search-input {
-  background: transparent;
-  border: 0px solid #dbdbdb;
-  margin-left: 5px;
-  line-height: 30px;
-  width: 90%;
-}
-
-.search-input:hover, .search-input:focus {
-  border: none;
-  box-shadow: none;
-  outline: none;
+  position: initial !important;
 }
 
 .video_card {
-  margin-bottom: 24px !important;
+  -webkit-align-items: stretch !important;
+  -ms-flex-align: stretch !important;
+  align-items: stretch !important;
 }
 
-.challange_meta {
-  margin-bottom: 10px;
-  width: 75%;
+.video_iframe {
+  min-width: 160px;
+  flex: none;
 }
 
 .challange_meta .challange_label {
-  font-size: 16px;
-  letter-spacing: 1.3px;
+  font-size: 12px;
+  letter-spacing: 1.1px;
   text-transform: none;
 }
 
 .challange_meta .card-title {
-  font-size: 14px !important;
+  font-size: 11px !important;
 }
 
 .challange_meta .challange-info {
-  font-size: 13px;
+  font-size: 10px;
 }
 
 .challange_meta .btn_label {
-  font-size: 13px;
+  font-size: 10px;
   letter-spacing: 1px;
   text-transform: none;
 }
-
-
-.section {
-  position: relative;
-  height: 100%;
-  /* margin-top: 75px; */
-}
-
-
-@media screen and (max-width: 479px) {
-  .hero_content {
-    flex-wrap: wrap !important;
-    max-height: none !important;
-  }
-  .hero_illustration_mobile {
-    margin: 0 auto !important;
-    margin-top: 24px !important;
-    position: relative !important;
-    max-width: none !important;
-    margin-right: auto;
-    margin-left: auto;
-  }
-  .nav-link.w--current {
-    line-height: 22px !important;
-    text-decoration: none;
-    display: block;
-    cursor: pointer;
-    font-size: 12px !important;
-    border-top: 1px solid #cccccc !important;
-    padding-left: 10px !important;
-    padding-right: 10px !important;
-  }
-  .challange_illustration {
-    width: -webkit-calc(100% - 220px);
-    width:    -moz-calc(100% - 220px);
-    width:         calc(100% - 220px);
-    height: auto !important;
-    margin-top: 24px !important;
-  }
-  
-  .challange_btns_wrap {
-    margin-top: 0px !important;
-    padding-top: 0px;
-    height: 0px;
-    opacity: 0;
-  }
-
-  .challange_btn {
-    float: left !important;
-    margin-right: 2px;
-    min-width: 150px !important;
-    font-size: 10px !important;
-    padding: 2px 0px !important;
-    margin-bottom: 2px;
-    letter-spacing: 1.2px !important;
-  }
-
-  .video_card {
-    -webkit-align-items: stretch !important;
-    -ms-flex-align: stretch !important;
-    align-items: stretch !important;
-}
-
-  .video_iframe {
-    min-width: 160px;
-    flex: none;
-  }
-  
-  .challange_meta .challange_label {
-    font-size: 12px;
-    letter-spacing: 1.1px;
-    text-transform: none;
-  }
-  
-  .challange_meta .card-title {
-    font-size: 11px !important;
-  }
-  
-  .challange_meta .challange-info {
-    font-size: 10px;
-  }
-  
-  .challange_meta .btn_label {
-    font-size: 10px;
-    letter-spacing: 1px;
-    text-transform: none;
-  }
 }
 
 @media screen and (max-width: 360px) { 
-  .challange_btn {
-    float: left !important;
-    margin-right: 2px;
-    min-width: 125px !important;
-    font-size: 9px !important;
-    padding: 2px 0px !important;
-    margin-bottom: 2px;
-    letter-spacing: 1.1px !important;
-  }
+.challange_btn {
+  float: left !important;
+  margin-right: 2px;
+  min-width: 100px !important;
+  font-size: 12px !important;
+  padding: 2px 0px !important;
+  margin-bottom: 2px;
+  letter-spacing: 1.1px !important;
+}
 
-  .video_iframe {
-    min-width: 150px;
-    flex: none;
-  }
+.video_iframe {
+  min-width: 150px;
+  flex: none;
+}
 }

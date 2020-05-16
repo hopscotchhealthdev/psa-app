@@ -1,3 +1,6 @@
+var recordHardcode = true;
+var englishPsaId = 'hJWBa9iEcubRwIeZihYO';
+
 function refreshContent() {
     if (localStorage.getItem("language")) {
         updateContent(localStorage.getItem("language"));
@@ -41,14 +44,16 @@ function challengeData(lang) {
                 const data = snapItem.data();
                 let buttons = "";
                 if (data.buttons) {
-                    data.buttons.forEach(item => {
-                        // buttons = buttons + `
-                        // <div style="padding-bottom: 5px;" onclick="goToRecorderApp('${item.psaId}')" class="w-col-32 w-col-4 width-32">
-                        // <div class="button-9 w-button p-4">${item.text}</div></div>`;
-                        buttons = buttons +
-                            `<a class="challange_btn w-button" href="#" 
-                            onclick="goToRecorderApp('${item.psaId}');return false;">${item.text}</a>`;
-                    })
+                    if (!recordHardcode) {
+                        data.buttons.forEach(item => {
+                            buttons = buttons +
+                                `<a class="challange_btn w-button" href="#" 
+                            onclick="goToRecorderApp('${item.psaId}');return false;">Record</a>`;
+                        })
+                    } else {
+                        buttons = `<a class="challange_btn w-button" href="#" 
+                        onclick="goToRecorderApp('${englishPsaId}');return false;">Record</a>`;
+                    }
                 }
                 if (lang == "en") {
                     buttons = `<div class="display-flex">${buttons}</div>`;
@@ -79,8 +84,7 @@ function challengeData(lang) {
                 var vis_wrap = `<div class="challange_visual_wrap">
                 <div>
                 <div class="play_btn">
-                <img src="images/video-button-filled.svg" alt="" class="play_svg">
-                <img src="${data.image_url}" alt="" />
+                    <img src="${data.image_url}" alt=""  class="challange_illustration_desktop" />
                 </div>
                 <div class="video-bg-overlay no-borders"></div>
                 </div>

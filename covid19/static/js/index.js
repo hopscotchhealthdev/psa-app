@@ -9,7 +9,7 @@ function updateContent(lang) {
             "challenge_button": "Take a video challenge",
             "about": "ABOUT",
             "text1": "Use your platform to make a difference",
-            "text1_description": "Record public service announcements created by public health experts upload it to our Video Library.",
+            "text1_description": "Record public service announcements created by public health experts and upload it.",
             "text2": "Share your Public Service Announcement",
             "text2_description": "Share your videos to your various social media accounts to spread the word! Droplets make an ocean.",
             "text3": "Drive healthy behaviours",

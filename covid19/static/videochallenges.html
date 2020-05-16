@@ -70,12 +70,12 @@
         </div>
       </div>
       <!-- <a href="#" class="simple_btn w-button">Language</a> -->
-      <a href="#" class="login_btn w-button">login</a>
+      <a href="../login/index.html" class="login_btn w-button">login</a>
     </div>
   </div>
   <div class="challanges-section">
     <div class="dashboard-ui-bg-layout">
-      <div class="side-nav-bg">
+      <!-- <div class="side-nav-bg">
         <div class="side-nav-content">
           <div class="nav-label">Record KaroNa</div>
           <div class="share-nav-border--desktop"></div>
@@ -109,18 +109,20 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="content-ui">
         <h1 class="title" id="page_title">Video challenges</h1>
         <div class="challange_modules_wrap">
           <div class="challanges_hero">
             <div class="challanges_hero_content">
               <h1 class="hero_heading">Take a COVID video challenge today!</h1>
-              <p class="hero_p">Simply choose one that fits you and hit record. Easy as that!</p><a href="#"
-                class="cta_btn centered w-button" onclick="refreshContent();">See available challenges</a>
+              <p class="hero_p">Simply choose one that fits you and hit record. Easy as that!</p>
+              <a class="cta_btn centered w-button" href="#challenges_content_desktop" onclick="refreshContent();">See
+                available
+                challenges</a>
             </div>
           </div>
-          <div class="firebaseDataDesktop">
+          <div class="firebaseDataDesktop" id="challenges_content_desktop">
 
           </div>
         </div>
