@@ -32,7 +32,9 @@ padding-top: 24px !important;
 }
 
 .footer_section {
-  width: 100%;
+  width: 97%;
+  margin: 0 auto;
+  display: block;
 }
 
 .show-nav {
