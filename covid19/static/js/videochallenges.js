@@ -1,5 +1,4 @@
-var recordHardcode = true;
-var englishPsaId = 'hJWBa9iEcubRwIeZihYO';
+var enButtons = {};
 
 function refreshContent() {
     if (localStorage.getItem("language")) {
@@ -23,7 +22,31 @@ function languageChange(value) {
 function updateContent(lang) {
     updateMenu(lang);
     $('#page_title').html(selectLangMenu.menu.video_challenge);
+    getEnglishData();
     challengeData(lang);
+}
+
+function isBtnEnglish(txt) {
+    if (txt.toLowerCase().indexOf("english") >= 0) {
+        return true;
+    }
+    return false;
+}
+
+function getEnglishData() {
+    enButtons = [];
+    firebase.firestore().collection("videochallenge").where("lang", "==", "en").orderBy("video_challenge", "asc").get().then(function (querySnapshot) {
+        querySnapshot.forEach(snapItem => {
+            const data = snapItem.data();
+            if (data.buttons) {
+                data.buttons.forEach(item => {
+                    if (isBtnEnglish(item.text)) {
+                        enButtons[data.video_challenge] = item;
+                    }
+                });
+            };
+        })
+    });
 }
 
 function challengeData(lang) {
@@ -43,23 +66,25 @@ function challengeData(lang) {
                 $('.w-dyn-empty').hide();
                 const data = snapItem.data();
                 let buttons = "";
-                if (data.buttons) {
-                    if (!recordHardcode) {
-                        data.buttons.forEach(item => {
-                            buttons = buttons +
-                                `<a class="challange_btn w-button" href="#" 
-                            onclick="goToRecorderApp('${item.psaId}');return false;">Record</a>`;
-                        })
-                    } else {
+                Object.keys(enButtons).forEach(key => {
+                    if (key == data.video_challenge) {
                         buttons = `<a class="challange_btn w-button" href="#" 
-                        onclick="goToRecorderApp('${englishPsaId}');return false;">Record</a>`;
+                            onclick="goToRecorderApp('${enButtons[key].psaId}');return false;">Record</a>`;
                     }
-                }
-                if (lang == "en") {
-                    buttons = `<div class="display-flex">${buttons}</div>`;
-                } else {
-                    buttons = `<div class="display-center">${buttons}</div>`;
-                }
+                });
+                buttons = `<div class="display-center">${buttons}</div>`;
+                // if (data.buttons) {
+                //     data.buttons.forEach(item => {
+                //         buttons = buttons +
+                //             `<a class="challange_btn w-button" href="#" 
+                //         onclick="goToRecorderApp('${item.psaId}');return false;">Record</a>`;
+                //     });
+                // }
+                // if (lang == "en") {
+                //     buttons = `<div class="display-flex">${buttons}</div>`;
+                // } else {
+                //     buttons = `<div class="display-center">${buttons}</div>`;
+                // }
                 var border = borders[Math.abs((borders.length - (i - 1)) % 4)];
                 var contentMobile = `
                 <div class="challange_card ${border}" onclick="showHiddenFlex('${data.video_challenge}')">
