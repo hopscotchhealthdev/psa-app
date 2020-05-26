@@ -32,10 +32,16 @@ padding-top: 24px !important;
 }
 
 .footer_section {
-  width: 97%;
-  padding-top: 24px;
+  width: 90%;
+  padding-top: 60px;
+  padding-bottom: 24px;
   margin: 0 auto;
+  height: auto !important;
   display: block !important;
+}
+
+.featured_section {
+  margin-top: 128px;
 }
 
 .show-nav {
@@ -271,6 +277,40 @@ height: 100%;
   letter-spacing: 1px;
   text-transform: none;
 }
+
+.hero_content {
+  padding-bottom: 48px !important;
+}
+
+.intro_content {
+  margin-top: 0 !important;
+  padding-top: 0px !important;
+}
+
+.paragraph-16 {
+  height: auto !important;
+}
+
+.heading-27 {
+  margin: 0 !important;
+  padding-right: 0 !important;
+  text-align: center !important;
+}
+
+.section-6 {
+  height: auto !important;
+}
+
+.footer_content {
+  padding-top: 50px;
+}
+
+.footer_text {
+  font-size: 9px !important;
+}
+
+
+
 }
 
 @media screen and (max-width: 360px) { 
