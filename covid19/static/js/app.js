@@ -106,18 +106,18 @@ function updateMenu(lang) {
 
     var m = selectLangMenu.menu;
 
-    $('.nav_for_index').html(`<a href="videolibrary.html" class="nav-link w-nav-link" id="nav_challenge">${m.video_library}</a>
+    $('.nav_for_index').html(`<div class='nav-content'><a href="videolibrary.html" class="nav-link w-nav-link" id="nav_challenge">${m.video_library}</a>
     <a href="videochallenges.html" class="nav-link w-nav-link" id="nav_library">${m.video_challenge}</a>
     <a href="faqs.html" class="nav-link w-nav-link" id="nav_faq">${m.faq}</a>
     <a href="terms-and-conditions.html" class="nav-link w-nav-link" id="nav_privacypolicy">Privacy Policy</a>
-    <a href="../login/index.html" class="nav-link w-nav-link" id="nav_login">${m.login}</a>`);
+    <a href="../login/index.html" class="nav-link w-nav-link" id="nav_login">${m.login}</a></div>`);
 
-    $('.nav_for_other').html(`<a href="index.html" class="nav-link w-nav-link" id="nav_home">${m.home}</a>
+    $('.nav_for_other').html(`<div class='nav-content'><a href="index.html" class="nav-link w-nav-link" id="nav_home">${m.home}</a>
     <a href="videolibrary.html" class="nav-link w-nav-link" id="nav_challenge">${m.video_library}</a>
     <a href="videochallenges.html" class="nav-link w-nav-link" id="nav_library">${m.video_challenge}</a>
     <a href="faqs.html" class="nav-link w-nav-link" id="nav_faq">${m.faq}</a>
     <a href="terms-and-conditions.html" class="nav-link w-nav-link" id="nav_privacypolicy">Privacy Policy</a>
-    <a href="../login/index.html" class="nav-link w-nav-link" id="nav_login">${m.login}</a>`);
+    <a href="../login/index.html" class="nav-link w-nav-link" id="nav_login">${m.login}</a></div>`);
 }
 
 function showHiddenFlex(id) {

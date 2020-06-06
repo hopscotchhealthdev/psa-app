@@ -49,15 +49,23 @@ display: block !important;
 }
 
 .nav_mobile {
-z-index: 9999;
-position: fixed;
-display: none;
-text-align: center;
-left: 0;
-right: 0;
-top: 75px;
-background: white;
-padding-left: 5px;
+  z-index: 9999;
+  position: fixed;
+  display: none;
+  text-align: center;
+  left: 0;
+  right: 0;
+  top: 75px;
+  background: transparent;
+  padding-left: 5px;
+  overflow-y: scroll;
+  bottom: 0;
+  overflow-x: hidden;
+}
+
+.nav_mobile .nav-content {
+  background: white;
+  height: auto;
 }
 
 .nav_mobile a {
@@ -194,8 +202,139 @@ height: 100%;
 /* margin-top: 75px; */
 }
 
-
 @media screen and (max-width: 479px) {
+.h6_new {
+  margin-top: 20px !important;
+}
+}
+
+@media screen and (max-width: 1050px) {
+  .nav-link {
+    font-size: 10px !important;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .challanges_hero_content {
+    height: auto !important;
+    padding-top: 50px !important;
+    padding-bottom: 50px !important;
+  }
+  .challange_btns_wrap__desktop {
+    position: relative !important;
+    bottom: 0px !important;
+  }
+  .nav_for_index {
+    display: none;
+  }
+  .sticky-navbar {
+    display: none !important;
+  }
+  .video_card {
+    width: 100% !important;
+    height: auto !important;
+    margin-bottom: 16px !important;
+    -webkit-box-align: start !important;
+    -webkit-align-items: flex-start !important;
+    -ms-flex-align: start !important;
+    align-items: flex-start !important;
+}
+
+.video_iframe {
+  min-width: 240px;
+  flex: none;
+}
+  .header-mobile {
+    display: -webkit-box  !important;
+    display: -webkit-flex  !important;
+    display: -ms-flexbox  !important;
+    display: flex  !important;
+    height: 75px  !important;
+    padding-right: 24px  !important;
+    padding-left: 24px  !important;
+    -webkit-box-pack: justify  !important;
+    -webkit-justify-content: space-between  !important;
+    -ms-flex-pack: justify  !important;
+    justify-content: space-between  !important;
+    -webkit-box-align: center  !important;
+    -webkit-align-items: center  !important;
+    -ms-flex-align: center  !important;
+    align-items: center  !important;
+  }
+  .simple_btn {
+    border-radius: 40px !important;
+    background-color: transparent !important;
+    color: #010101 !important;
+    font-size: 11px !important;
+    line-height: 100% !important;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+  }
+  .header_btns {
+      display: flex;
+      align-items: center;
+  }
+  .login_btn.right-margin {
+    margin-right: 16px;
+    margin-left: 0px;
+  }
+  .challange_info {
+    display: -webkit-box  !important;
+    display: -webkit-flex  !important;
+    display: -ms-flexbox  !important;
+    display: flex  !important;
+    width: 100%  !important;
+    height: 100%  !important;
+    padding: 24px  !important;
+}
+
+@media screen and (max-width: 768px) {
+
+.challange_card {
+  position: relative  !important;
+  width: 100%  !important;
+  height: auto  !important;
+  margin-bottom: 16px  !important;
+  padding-top: 18px  !important;
+  -webkit-box-orient: horizontal  !important;
+  -webkit-box-direction: normal  !important;
+  -webkit-flex-direction: row  !important;
+  -ms-flex-direction: row  !important;
+  flex-direction: row  !important;
+  -webkit-box-pack: start  !important;
+  -webkit-justify-content: flex-start  !important;
+  -ms-flex-pack: start  !important;
+  justify-content: flex-start  !important;
+  -webkit-box-align: start  !important;
+  -webkit-align-items: flex-start  !important;
+  -ms-flex-align: start  !important;
+  align-items: flex-start  !important;
+}
+
+.challange_info__label {
+  margin-bottom: 0px !important;
+}
+
+.challange_card.green-border {
+  border: 3px solid #00ca72 !important;
+  background-color: transparent !important;
+}
+
+.challange_title_label {
+  max-width: 80% !important;
+}
+
+.challange_sub__label {
+  max-width: 80% !important;
+}
+
+.content_wrap {
+  margin-top: 0px !important;
+}
+.hero_section {
+  margin-top: 0px !important;
+}
 .hero_content {
   flex-wrap: wrap !important;
   max-height: none !important;
@@ -219,11 +358,10 @@ height: 100%;
   padding-right: 10px !important;
 }
 .challange_illustration {
-  width: -webkit-calc(100% - 220px);
-  width:    -moz-calc(100% - 220px);
-  width:         calc(100% - 220px);
+  max-width: 20%;
   height: auto !important;
   margin-top: 24px !important;
+  padding-right: 16px !important;
 }
 
 .challange_btns_wrap {
@@ -309,6 +447,27 @@ height: 100%;
   font-size: 9px !important;
 }
 
+.challange_card {
+  position: relative  !important  !important;
+  width: 100%  !important  !important;
+  height: auto  !important  !important;
+  margin-bottom: 16px  !important  !important;
+  padding-top: 18px  !important  !important;
+  -webkit-box-orient: horizontal  !important  !important;
+  -webkit-box-direction: normal  !important  !important;
+  -webkit-flex-direction: row  !important  !important;
+  -ms-flex-direction: row  !important  !important;
+  flex-direction: row  !important  !important;
+  -webkit-box-pack: start  !important  !important;
+  -webkit-justify-content: flex-start  !important  !important;
+  -ms-flex-pack: start  !important  !important;
+  justify-content: flex-start  !important  !important;
+  -webkit-box-align: start  !important  !important;
+  -webkit-align-items: flex-start  !important  !important;
+  -ms-flex-align: start  !important  !important;
+  align-items: flex-start  !important  !important;
+  border: 3px solid #000  !important  !important;
+}
 
 
 }
