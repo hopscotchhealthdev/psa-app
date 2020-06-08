@@ -50,6 +50,7 @@ function getEnglishData() {
 }
 
 function challengeData(lang) {
+    var ignore = [1, 2, 3, 6];
     var borders = ["green-border", "blue-border", "orange-border", "pink"];
     var borders_desktop = ["orange-outline", "blue-outline", "green-outline", "pink-outline"];
     firebase.firestore().collection("videochallenge").where("lang", "==", lang).orderBy("video_challenge", "asc").get().then(function (querySnapshot) {
@@ -65,28 +66,29 @@ function challengeData(lang) {
             if (snapItem.exists) {
                 $('.w-dyn-empty').hide();
                 const data = snapItem.data();
-                let buttons = "";
-                Object.keys(enButtons).forEach(key => {
-                    if (key == data.video_challenge) {
-                        buttons = `<a class="challange_btn w-button" href="#" 
+                if (!ignore.includes(data.video_challenge)) {
+                    let buttons = "";
+                    Object.keys(enButtons).forEach(key => {
+                        if (key == data.video_challenge) {
+                            buttons = `<a class="challange_btn w-button" href="#" 
                             onclick="goToRecorderApp('${enButtons[key].psaId}');return false;">Record</a>`;
-                    }
-                });
-                buttons = `<div class="display-center">${buttons}</div>`;
-                // if (data.buttons) {
-                //     data.buttons.forEach(item => {
-                //         buttons = buttons +
-                //             `<a class="challange_btn w-button" href="#" 
-                //         onclick="goToRecorderApp('${item.psaId}');return false;">Record</a>`;
-                //     });
-                // }
-                // if (lang == "en") {
-                //     buttons = `<div class="display-flex">${buttons}</div>`;
-                // } else {
-                //     buttons = `<div class="display-center">${buttons}</div>`;
-                // }
-                var border = borders[Math.abs((borders.length - (i - 1)) % 4)];
-                var contentMobile = `
+                        }
+                    });
+                    buttons = `<div class="display-center">${buttons}</div>`;
+                    // if (data.buttons) {
+                    //     data.buttons.forEach(item => {
+                    //         buttons = buttons +
+                    //             `<a class="challange_btn w-button" href="#" 
+                    //         onclick="goToRecorderApp('${item.psaId}');return false;">Record</a>`;
+                    //     });
+                    // }
+                    // if (lang == "en") {
+                    //     buttons = `<div class="display-flex">${buttons}</div>`;
+                    // } else {
+                    //     buttons = `<div class="display-center">${buttons}</div>`;
+                    // }
+                    var border = borders[Math.abs((borders.length - (i - 1)) % 4)];
+                    var contentMobile = `
                 <div class="challange_card ${border}" onclick="showHiddenFlex('${data.video_challenge}')">
                     <div class="challange_text_block">
                         <h1 class="challange_title_label">${data.title}</h1>
@@ -103,10 +105,10 @@ function challengeData(lang) {
                         <img src="${data.image_url}" alt="" class="challange_illustration">
                     </div>
                 </div>`;
-                $('.firebaseData').append(contentMobile);
+                    $('.firebaseData').append(contentMobile);
 
-                border = borders_desktop[Math.abs((borders_desktop.length - (i - 1)) % 4)];
-                var vis_wrap = `<div class="challange_visual_wrap">
+                    border = borders_desktop[Math.abs((borders_desktop.length - (i - 1)) % 4)];
+                    var vis_wrap = `<div class="challange_visual_wrap">
                 <div>
                 <div class="play_btn">
                     <img src="${data.image_url}" alt=""  class="challange_illustration_desktop" />
@@ -114,7 +116,7 @@ function challengeData(lang) {
                 <div class="video-bg-overlay no-borders"></div>
                 </div>
                 </div>`;
-                var chl_info = `<div class="challange_info">
+                    var chl_info = `<div class="challange_info">
                 <h1 class="challange_heading">${data.title}</h1>
                 <p class="challange_p">${data.description}</p>
                 <div class="recorders_wrap_desktop">
@@ -125,21 +127,22 @@ function challengeData(lang) {
                     ${buttons}
                 </div>
                 </div>`;
-                var contentDesktop = `<div class="challange_module--desktop">
+                    var contentDesktop = `<div class="challange_module--desktop">
                 <div class="challange_module_wrap ${border}">
                  ${i % 2 == 0 ? chl_info : vis_wrap}
                  ${i % 2 == 0 ? vis_wrap : chl_info}
                 </div>
               </div>`;
-                $('.firebaseDataDesktop').append(contentDesktop);
-                // $('.firebaseData').append(
-                //     `<div class="w-row mb-30">
-                //     <div class="w-col w-col-6"><img src='${data.image_url}' height="180" alt=""></div>
-                //     <div class="text-left w-col w-col-6"><a href="#" onclick="individualChallenge('${snapItem.id}')"  class="link-3">
-                //     <strong class="bold-text-7">${data.title}</strong> </a><div class="text-block-7">${data.share}</div><
-                //     div class="display-flex">${buttons}</div></div>`
-                // );
-                i += 1;
+                    $('.firebaseDataDesktop').append(contentDesktop);
+                    // $('.firebaseData').append(
+                    //     `<div class="w-row mb-30">
+                    //     <div class="w-col w-col-6"><img src='${data.image_url}' height="180" alt=""></div>
+                    //     <div class="text-left w-col w-col-6"><a href="#" onclick="individualChallenge('${snapItem.id}')"  class="link-3">
+                    //     <strong class="bold-text-7">${data.title}</strong> </a><div class="text-block-7">${data.share}</div><
+                    //     div class="display-flex">${buttons}</div></div>`
+                    // );
+                    i += 1;
+                }
             }
         });
     });
